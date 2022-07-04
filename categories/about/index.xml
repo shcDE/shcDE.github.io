@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>about on shcDE Tech-Blog</title>
+    <link>https://shcde.github.io/categories/about/</link>
+    <description>Recent content in about on shcDE Tech-Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2018, Steve Francia and the Hugo Authors; all rights reserved.</copyright>
+    <lastBuildDate>Sun, 03 Jul 2022 13:52:32 +0900</lastBuildDate><atom:link href="https://shcde.github.io/categories/about/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>About</title>
+      <link>https://shcde.github.io/post/about_me/</link>
+      <pubDate>Sun, 03 Jul 2022 13:52:32 +0900</pubDate>
+      
+      <guid>https://shcde.github.io/post/about_me/</guid>
+      <description>About Me 안녕하세요. 데이터 엔지니어 취업준비생 shcDE입니다. 늘 새로운 도전을 좋아하고 여러 분야의 경험을 쌓던 중 &amp;lsquo;데이터 엔지니어&amp;rsquo;라는 직업을 알게 되어 해당 직무 취업준비를 시작하게 되었습니다. 사실 해당 직무 취업 준비는 2개월 동안 하였지만, 취업 시작과 동시에 블로그를 운영하지 않은 이유는 단순히 코딩테스트 연습 사이트인 &amp;lsquo;백준&amp;rsquo;에서 골드 레벨을 달성한 이후에 블로그를 운영해야겠다는 생각 때문이었습니다. 단순히 골드를 찍고 블로그를 개설해야 멋있어 보일 것 같아서였다고 할 수 있겠네요&amp;hellip;&amp;hellip;ㅎㅎ 블로그를 시작하기 앞서 우선 제 소개부터 간단히 하려고 합니다.</description>
+    </item>
+    
+  </channel>
+</rss>
