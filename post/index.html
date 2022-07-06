@@ -51,12 +51,53 @@ if (!doNotTrack) {
   </div>
 </div><header class = 'nav' >
   <nav class = 'nav-menu'>
+    <input type="button" value="day" onclick="day_night_handler(this)">
     <a href='https://shcde.github.io/' class = 'nav-brand nav_item'>shcDE Tech-Blog</a>
     <div class = 'nav_bar-wrap'>
       <div class = 'nav_bar'></div>
     </div>
   </nav>
 </header>
+
+<head>
+  <meta charset="UTF-8">
+  <title>day_night</title>
+  <script>
+      
+      function LinkSetColor(color){
+          var alist = document.querySelectorAll('a');
+          for(var i = 0; i < alist.length; i++)
+              alist[i].style.color = color;
+      }
+
+      
+      function BodySetColor(color){
+          document.querySelector('body').style.color = color;
+      }
+
+      
+      function BodySetBackgroundColor(color){
+          document.querySelector('body').style.backgroundColor = color;
+      }
+
+      
+      function day_night_handler(self) {
+          var target = document.querySelector('body');
+          if (self.value == 'day') {
+              BodySetBackgroundColor('RGB(26,36,54)');
+              BodySetColor('white');
+              LinkSetColor('powderblue')
+              self.value = 'night';
+          }
+          else {
+              BodySetBackgroundColor('white');
+              BodySetColor('black');
+              LinkSetColor('blue')
+              self.value = 'day';
+          }
+      }
+  </script>
+</head>
 
 
     <main>
@@ -172,7 +213,7 @@ if (!doNotTrack) {
     <p>&copy;&nbsp;<span class="year"></span>&nbsp;shcDE Tech-Blog.
     Designed by  <a href = 'https://www.linkedin.com/in/dan-weru-profile/' title = 'Linkedin Profile'>Weru</a></p>
   </div>
-
+  
   <script src="https://utteranc.es/client.js"
         repo="shcDE/blog-comments"
         issue-term="title"
