@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>dataengineering on shcDE Tech-Blog</title>
+    <link>https://shcde.github.io/categories/dataengineering/</link>
+    <description>Recent content in dataengineering on shcDE Tech-Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2018, Steve Francia and the Hugo Authors; all rights reserved.</copyright>
+    <lastBuildDate>Mon, 04 Jul 2022 19:18:51 +0900</lastBuildDate><atom:link href="https://shcde.github.io/categories/dataengineering/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>코딩테스트 플랫폼 백준 골드 달성 후기</title>
+      <link>https://shcde.github.io/post/python-coding/</link>
+      <pubDate>Mon, 04 Jul 2022 19:18:51 +0900</pubDate>
+      
+      <guid>https://shcde.github.io/post/python-coding/</guid>
+      <description>두 달 전까지만 해도 비개발 직군 종사자였던 내가 골드? 안녕하세요. shcDE입니다!
+이번 포스팅에서는 제가 어떻게 두 달(2022.05.09 ~ 2022.07.01) 동안 자료구조도 모른 상태에서 골드5까지 레벨업을 했는지 말씀드릴 예정입니다.
+우선 저의 공부 방식은 다음과 같았습니다.
+처음 2주 동안은 박상길님의 &amp;lsquo;파이썬 알고리즘 인터뷰&amp;rsquo; 책을 무턱대로 1회독을 하였습니다. 하지만 이렇게 하니까 이해는 안 되고 코드만 따라 치는 느낌이라서 공부 방식을 바꿨습니다.
+우선 &amp;lsquo;seeseal&amp;rsquo;님의 벨로그의 도움을 상당히 많이 받았습니다. 이 블로그 방식대로 제 개인 노션에 공부 계획을 정리하였습니다.</description>
+    </item>
+    
+  </channel>
+</rss>
