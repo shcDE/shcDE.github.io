@@ -60,14 +60,14 @@ if (!doNotTrack) {
       <div class = 'nav_bar'></div>
     </div>
   </nav>
-  <input type="button" value="day" class="button" onclick="day_night_handler(this)">
+  <input type="button" value="Click to Watch in Dark Mode" class="button" onclick="dark_light_handler(this)">
 </header>
 
 <style>
   .button {
   border:2px solid #ff9900;     
   background-Color:#000000;    
-  font:20px 나눔고딕;       
+  font:16px 나눔고딕;       
   font-weight:bold;    
   color:#ff9900;     
   width:200;height:70;   
@@ -96,19 +96,19 @@ if (!doNotTrack) {
       }
 
       
-      function day_night_handler(self) {
+      function dark_light_handler(self) {
           var target = document.querySelector('body');
-          if (self.value == 'day') {
+          if (self.value == 'Click to Watch in Dark Mode') {
               BodySetBackgroundColor('RGB(26,36,54)');
               BodySetColor('white');
               LinkSetColor('powderblue')
-              self.value = 'night';
+              self.value = 'Click to Watch in Light Mode';
           }
           else {
               BodySetBackgroundColor('white');
               BodySetColor('black');
               LinkSetColor('blue')
-              self.value = 'day';
+              self.value = 'Click to Watch in Dark Mode';
           }
       }
   </script>
