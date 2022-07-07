@@ -60,11 +60,11 @@ if (!doNotTrack) {
       <div class = 'nav_bar'></div>
     </div>
   </nav>
-  <input type="button" value="Click to Watch in Dark Mode" class="button" onclick="dark_light_handler(this)">
+  <p><button id="theme-toggle">Click to Switch between Light and Dark Mode</button></p>
 </header>
 
 <style>
-  .button {
+  button {
   border:2px solid #ff9900;     
   background-Color:#000000;    
   font:16px 나눔고딕;       
@@ -72,47 +72,45 @@ if (!doNotTrack) {
   color:#ff9900;     
   width:200;height:70;   
   }
+
+  body {
+	color: rgb(12, 14, 29); 
+	background-color: white;
+}
+body.dark {
+	color: white; 
+	background-color: rgb(12, 14, 29);
+}
   </style>
 
-<head>
-  <meta charset="UTF-8">
-  <title>day_night</title>
-  <script>
-      
-      function LinkSetColor(color){
-          var alist = document.querySelectorAll('a');
-          for(var i = 0; i < alist.length; i++)
-              alist[i].style.color = color;
-      }
+<script>
+  var darkMode = false;
 
-      
-      function BodySetColor(color){
-          document.querySelector('body').style.color = color;
-      }
 
-      
-      function BodySetBackgroundColor(color){
-          document.querySelector('body').style.backgroundColor = color;
-      }
+if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+	darkMode = true;
+}
 
-      
-      function dark_light_handler(self) {
-          var target = document.querySelector('body');
-          if (self.value == 'Click to Watch in Dark Mode') {
-              BodySetBackgroundColor('RGB(26,36,54)');
-              BodySetColor('white');
-              LinkSetColor('powderblue')
-              self.value = 'Click to Watch in Light Mode';
-          }
-          else {
-              BodySetBackgroundColor('white');
-              BodySetColor('black');
-              LinkSetColor('blue')
-              self.value = 'Click to Watch in Dark Mode';
-          }
-      }
-  </script>
-</head>
+
+if (localStorage.getItem('theme') === 'dark') {
+	darkMode = true;
+} else if (localStorage.getItem('theme') === 'light') {
+	darkMode = false;
+}
+
+if (darkMode) {
+	document.body.classList.toggle('dark');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    document.getElementById('theme-toggle').addEventListener('click', () => {
+		document.body.classList.toggle('dark');
+    	localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+	});
+
+});
+</script>
 
 
     <main>
