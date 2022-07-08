@@ -6,7 +6,17 @@
     <description>Recent content in Posts on shcDE Tech-Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Copyright © 2008–2018, Steve Francia and the Hugo Authors; all rights reserved.</copyright>
-    <lastBuildDate>Thu, 07 Jul 2022 16:28:38 +0900</lastBuildDate><atom:link href="https://shcde.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 08 Jul 2022 15:31:50 +0900</lastBuildDate><atom:link href="https://shcde.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>신입을 위한 데이터 엔지니어링 로드맵</title>
+      <link>https://shcde.github.io/post/deroadmap/</link>
+      <pubDate>Fri, 08 Jul 2022 15:31:50 +0900</pubDate>
+      
+      <guid>https://shcde.github.io/post/deroadmap/</guid>
+      <description>데이터 엔지니어가 되려면 어떻게 공부해야 하는가? 안녕하세요. shcDE입니다. 오늘은 제가 취업 준비를 하고 있는 &amp;lsquo;데이터 엔지니어&amp;rsquo; 직무에 대한 이야기를 하고자 합니다. 저는 취업 시작과 동시에 개발 관련 오픈채팅 톡방을 통해서 로드맵을 추천받았고, 이를 토대로 여러 수정을 거친 끝에 저만의 신입 취업 준비용 로드맵을 완성할 수 있었습니다. 상단의 사진은 제가 노션으로 직접 제작한 로드맵입니다. 이번 포스팅에서는 해당 로드맵에 대한 상세한 설명을 하고자 합니다.
+1. Relational Databases - Design &amp;amp; Architecture 우선 시작은 관계형 데이터베이스 공부부터 진행하였습니다.</description>
+    </item>
+    
     <item>
       <title>2021 하반기 면접 후기 모음(하)</title>
       <link>https://shcde.github.io/post/interview2/</link>
