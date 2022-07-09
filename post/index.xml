@@ -6,7 +6,18 @@
     <description>Recent content in Posts on shcDE Tech-Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Copyright © 2008–2018, Steve Francia and the Hugo Authors; all rights reserved.</copyright>
-    <lastBuildDate>Fri, 08 Jul 2022 15:31:50 +0900</lastBuildDate><atom:link href="https://shcde.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 09 Jul 2022 11:03:56 +0900</lastBuildDate><atom:link href="https://shcde.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>회사에서 혼자 동떨어진 느낌이 들 때</title>
+      <link>https://shcde.github.io/post/getalone/</link>
+      <pubDate>Sat, 09 Jul 2022 11:03:56 +0900</pubDate>
+      
+      <guid>https://shcde.github.io/post/getalone/</guid>
+      <description>회사에서 무언가 참여는 하고 있는데 혼자인 느낌이 들 때가 있나요? 안녕하세요. shcDE입니다. 오늘은 비록 인턴 출신이지만 사회 생활을 해봤기에, 회사 생활에 관한 이야기를 나누고자 합니다.
+저는 두 번의 인턴 경험 모두 전환형 인턴이었고 중소기업(중견기업 계열사)에서 업무를 수행했던 만큼, 바로바로 실무에 투입되어 활동한 경험이 있습니다. 그만큼 인턴치고는 실무진들과 가깝게 지냈었기에, 회사 생활을 하면서 실무진들의 고충도 간접적으로 경험할 수 있었던 것 같습니다.
+이러한 고충 중 대표적인 사례를 말씀드리자면, 동료들과 같이 있는데 혼자 있는 것 같은 느낌을 받을 때입니다.</description>
+    </item>
+    
     <item>
       <title>신입을 위한 데이터 엔지니어링 로드맵</title>
       <link>https://shcde.github.io/post/deroadmap/</link>
