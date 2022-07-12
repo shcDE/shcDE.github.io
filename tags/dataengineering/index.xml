@@ -6,7 +6,18 @@
     <description>Recent content in dataengineering on shcDE Tech-Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Copyright © 2008–2018, Steve Francia and the Hugo Authors; all rights reserved.</copyright>
-    <lastBuildDate>Fri, 08 Jul 2022 15:31:50 +0900</lastBuildDate><atom:link href="https://shcde.github.io/tags/dataengineering/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 12 Jul 2022 21:57:05 +0900</lastBuildDate><atom:link href="https://shcde.github.io/tags/dataengineering/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>하둡 버전별 소개</title>
+      <link>https://shcde.github.io/post/hadoop_introduce/</link>
+      <pubDate>Tue, 12 Jul 2022 21:57:05 +0900</pubDate>
+      
+      <guid>https://shcde.github.io/post/hadoop_introduce/</guid>
+      <description>하둡은 어떤 버전들이 있고 각 버전별 차이는 무엇인가? 안녕하세요. shcDE입니다. 오늘부터 드디어 하둡에 대한 포스팅을 하려고 합니다.
+이번 포스팅에서 다룰 내용은 하둡의 버전별 특징에 대한 간단한 설명입니다. 설명을 드리기 전에, 우선은 하둡에 대한 간단한 소개부터 하고자 합니다. 설명은 위키피디아 백과사전의 &amp;lsquo;아파치 하둡&amp;rsquo; 문서를 바탕으로 하겠습니다.
+하둡은 대량의 자료를 처리할 수 있는 큰 컴퓨터 클러스터에서 동작하는 분산 응용 프로그램을 지원하는 프리웨어 자바 소프트웨어 프레임워크입니다. 이러한 하둡은 원래 너치의 분산 처리를 지원하기 위해 개발된 것으로, 아파치 루씬의 하부 프로젝트였습니다.</description>
+    </item>
+    
     <item>
       <title>신입을 위한 데이터 엔지니어링 로드맵</title>
       <link>https://shcde.github.io/post/deroadmap/</link>
