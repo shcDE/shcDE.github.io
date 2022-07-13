@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang='en'><head>
+  <title>HDFS는 어떻게 사용할까요?(1) | shcDE Tech-Blog</title>
+  <meta charset='utf-8'>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3031042205762577"
+     crossorigin="anonymous"></script>
+  <meta name="generator" content="Hugo 0.101.0" />
+  
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XCDRBEN300"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-XCDRBEN300', { 'anonymize_ip': false });
+}
+</script>
+
+  <meta name = 'viewport' content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'>
+  <meta http-equiv = 'X-UA-Compatible' content = 'IE=edge'>
+  <meta property="og:image" content="https://github.com/shcDE/pictures/blob/main/images_for_blog/business-gb1f55b807_1920.jpg?raw=true/elephants-g07073c915_1920.jpg">
+  <meta property="og:description" content="schDE의 개발 지식 정리용 블로그입니다." /> 
+  <meta name="description" content="안녕하세요. schDE의 개발 지식 정리용 블로그입니다.">
+<meta property = 'og:locale' content = 'en_US' />
+<meta property="og:type" content="article">
+<meta property = 'og:title' content = 'HDFS는 어떻게 사용할까요?(1)' />
+<meta name="description" content="안녕하세요. shcDE입니다. 오늘은 하둡 환경에서 분산 파일 시스템 기능을 담당하는 하둡의 주요 모듈인 HDFS에 대해 다루겠습니다. 이번 포스팅에서는 HDFS의 기능 및 특징 중, 구조, Federation, 고가용성, 세이프모드, 데이터 블록 관리, 그리고 휴지통에 대한 내용을 다 …">
+<meta property = 'og:description' content = '안녕하세요. shcDE입니다. 오늘은 하둡 환경에서 분산 파일 시스템 기능을 담당하는 하둡의 주요 모듈인 HDFS에 대해 다루겠습니다. 이번 포스팅에서는 HDFS의 기능 및 특징 중, 구조, Federation, 고가용성, 세이프모드, 데이터 블록 관리, 그리고 휴지통에 대한 내용을 다 …'>
+<meta property = 'og:url' content = 'https://shcde.github.io/post/hdfs1/' />
+<meta property = 'og:image' content = 'https://shcde.github.io/images/elephants-g07073c915_1920.jpg'/>
+<meta name = 'twitter:card' content = 'summary_large_image' />
+<meta name = 'twitter:creator' content = ''>
+<meta name = 'twitter:title' content = 'HDFS는 어떻게 사용할까요?(1)' />
+<meta property = 'twitter:description'  content = '안녕하세요. shcDE입니다. 오늘은 하둡 환경에서 분산 파일 시스템 기능을 담당하는 하둡의 주요 모듈인 HDFS에 대해 다루겠습니다. 이번 포스팅에서는 HDFS의 기능 및 특징 중, 구조, Federation, 고가용성, 세이프모드, 데이터 블록 관리, 그리고 휴지통에 대한 내용을 다 …'/>
+<meta name = 'twitter:image' content = 'https://shcde.github.io/images/elephants-g07073c915_1920.jpg' />
+<link rel='apple-touch-icon' sizes='180x180' href='https://shcde.github.io/images/icons/apple-touch-icon.png'>
+<link rel='icon' type='image/png' sizes='32x32' href='https://shcde.github.io/images/icons/favicon-32x32.png'>
+<link rel='icon' type='image/png' sizes='16x16' href='https://shcde.github.io/images/icons/favicon-16x16.png'>
+<link rel='manifest' href='https://shcde.github.io/images/icons/site.webmanifest'>
+
+  <link rel='canonical' href='https://shcde.github.io/post/hdfs1/'>
+  <link rel = 'stylesheet' href = 'https://shcde.github.io/css/styles.42db596b1300421b76166668f896d65a0e912909aa95394f74e207c69da0d0b652fe2ad414cb6b746661857c824297f791d6df38fce0872ba2a9ccaa421a6b89.css' integrity = 'sha512-QttZaxMAQht2FmZo&#43;JbWWg6RKQmqlTlPdOIHxp2g0LZS/irUFMtrdGZhhXyCQpf3kdbfOPzghyuiqcyqQhpriQ=='>
+    
+  
+  <link rel="stylesheet" href="https://shcde.github.io/css/prism.css" media="none" onload="this.media='all';">
+  
+  <script defer language="javascript" type="text/javascript"  src="https://shcde.github.io/js/prism.js"></script>
+  
+
+
+</head>
+
+  <body><div class = 'nav-drop'>
+  <div class = 'nav-body'>
+    
+      <a href = 'https://shcde.github.io/categories/about/' class = 'nav_item'>About</a>
+      <a href = 'https://shcde.github.io/categories/freetalk/' class = 'nav_item'>Free Talk</a>
+      <a href = 'https://shcde.github.io/categories/dataengineering/' class = 'nav_item'>Data Engineering</a>
+    <div class = 'nav-close'></div>
+  </div>
+</div><header class = 'nav' >
+  <nav class = 'nav-menu'>
+
+    <a href='https://shcde.github.io/' class = 'nav-brand nav_item'>shcDE Tech-Blog</a>
+    <div class = 'nav_bar-wrap'>
+      <div class = 'nav_bar'></div>
+    </div>
+  </nav>
+  <p><button id="theme-toggle">Click to Switch between Light and Dark Mode</button></p>
+</header>
+
+<style>
+  .nav_bar-wrap {
+  background-Color:orange;
+  color: orange;
+  }
+
+  button {
+  border:2px solid #ff9900;     
+  background-Color:#000000;    
+  font:16px 나눔고딕;       
+  font-weight:bold;    
+  color:#ff9900;     
+  width:200;height:70;   
+  }
+
+  body {
+	color: rgb(12, 14, 29); 
+	background-color: white;
+}
+body.dark {
+	color: rgb(255, 191, 0); 
+	background-color: rgb(12, 14, 29);
+}
+  </style>
+
+<script>
+  var darkMode = false;
+
+
+if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+	darkMode = true;
+}
+
+
+if (localStorage.getItem('theme') === 'dark') {
+	darkMode = true;
+} else if (localStorage.getItem('theme') === 'light') {
+	darkMode = false;
+}
+
+if (darkMode) {
+	document.body.classList.toggle('dark');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    document.getElementById('theme-toggle').addEventListener('click', () => {
+		document.body.classList.toggle('dark');
+    	localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+	});
+
+});
+</script>
+
+
+    <main>
+
+<section class = 'post_header' style = 'background-image:url(https://shcde.github.io/images/elephants-g07073c915_1920.jpg);'>
+  <h1 class='post_title'>HDFS는 어떻게 사용할까요?(1)</h1>
+</section>
+<div class = 'post'>
+  <div class="date">
+    
+    
+    
+    <strong aria-hidden="true"> </strong>
+    <br>
+    <strong aria-hidden="true">Created date: </strong>Wed, 13 Jul 2022 11:51 KST
+    
+      
+    
+  </div>
+  <article class='post_content'><p><img src="https://github.com/shcDE/pictures/blob/main/images_for_blog/elephants-g07073c915_1920.jpg?raw=true" alt="elephant"></p>
+<hr>
+<p>안녕하세요. shcDE입니다. 오늘은 하둡 환경에서 분산 파일 시스템 기능을 담당하는 하둡의 주요 모듈인 HDFS에 대해 다루겠습니다. 이번 포스팅에서는 HDFS의 기능 및 특징 중, 구조, Federation, 고가용성, 세이프모드, 데이터 블록 관리, 그리고 휴지통에 대한 내용을 다루고자 합니다. 해당 내용은 하둡을 설치하였다는 가정 하에 다루겠습니다. 실행 전 참고하실 사항은 Mac OS 환경인 만큼 명령어가 다르다는 점이니 확인해주시길 바랍니다.</p>
+<hr>
+<p>우선 시작하기 앞서, YARN에서 namenode  deamon, data node daemon, NodeManager daemon, ResourceManager를 실행해야 합니다. 이들을 실행시키지 않을 경우 HDFS를 다룰 수 없습니다. 실행 방법은 다음과 같습니다.</p>
+<hr>
+<p>우선 하둡 파일을 저장한 경로로 이동합니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>(base) shcDE-ui-MacBookPro:~ shc$ cd /usr/local/hadoop
+</span></span><span style="display:flex;"><span>(base) shcDE-ui-MacBookPro:hadoop shc$
+</span></span></code></pre></div><hr>
+<p>다음으로 파일 시스템을 포맷해줍니다. 맥에서 hdfs 명령어를 실행할 때는 hdfs 파일이 있는 경로를(예 : bin/hdfs) 포함하여 입력하면 실행됩니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>$ bin/hdfs namenode -format
+</span></span></code></pre></div><p>그리고 namenode  deamon과 data node daemon을 실행시켜줍니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>$ sbin/start-dfs.sh
+</span></span></code></pre></div><hr>
+<p><img src="https://github.com/shcDE/pictures/blob/main/images_for_blog/Screenshot%202022-07-12%20at%2021-43-33%20Namenode%20information.png?raw=true" alt="daemon"></p>
+<hr>
+<p>정상적으로 실행된다면 &lsquo;http://localhost:9870/&rsquo; 접속 시 위와 같이 나타납니다.</p>
+<hr>
+<p>다음으로 ResourceManager와 NodeManager daemon을 다음 명령어를 통해 실행합니다.</p>
+<hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>$ sbin/start-yarn.sh
+</span></span></code></pre></div><hr>
+<p>정상적으로 실행된다면 &lsquo;http://localhost:8088/&rsquo; 입력 시 다음과 같이 나타납니다.</p>
+<hr>
+<p><img src="https://github.com/shcDE/pictures/blob/main/images_for_blog/Screenshot%202022-07-12%20at%2021-43-49%20All%20Applications.png?raw=true" alt="Manager"></p>
+<hr>
+<p>이제 본격적으로 HDFS를 다루어 보겠습니다. 우선 HDFS는 마스터 슬레이브 구조로 구성되어 있으며, 이 중에서 블록과 세컨더리 네임노드에 대해 설명드리겠습니다.</p>
+<hr>
+<p>블록 캐싱을 하는 방법은 다음과 같습니다.</p>
+<hr>
+<p>캐시 어드민을 확인하는 방법은 다음과 같습니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>$ bin/hdfs cacheadmin
+</span></span><span style="display:flex;"><span>Usage: bin/hdfs cacheadmin [COMMAND]
+</span></span><span style="display:flex;"><span>          [-addDirective -path &lt;path&gt; -pool &lt;pool-name&gt; [-force] [-replication &lt;replication&gt;] [-ttl &lt;time-to-live&gt;]]
+</span></span><span style="display:flex;"><span>          [-modifyDirective -id &lt;id&gt; [-path &lt;path&gt;] [-force] [-replication &lt;replication&gt;] [-pool &lt;pool-name&gt;] [-ttl &lt;time-to-live&gt;]]
+</span></span><span style="display:flex;"><span>          [-listDirectives [-stats] [-path &lt;path&gt;] [-pool &lt;pool&gt;] [-id &lt;id&gt;]]
+</span></span><span style="display:flex;"><span>          [-removeDirective &lt;id&gt;]
+</span></span><span style="display:flex;"><span>          [-removeDirectives -path &lt;path&gt;]
+</span></span><span style="display:flex;"><span>          [-addPool &lt;name&gt; [-owner &lt;owner&gt;] [-group &lt;group&gt;] [-mode &lt;mode&gt;] [-limit &lt;limit&gt;] [-defaultReplication &lt;defaultReplication&gt;] [-maxTtl &lt;maxTtl&gt;]]
+</span></span><span style="display:flex;"><span>          [-modifyPool &lt;name&gt; [-owner &lt;owner&gt;] [-group &lt;group&gt;] [-mode &lt;mode&gt;] [-limit &lt;limit&gt;] [-defaultReplication &lt;defaultReplication&gt;] [-maxTtl &lt;maxTtl&gt;]]
+</span></span><span style="display:flex;"><span>          [-removePool &lt;name&gt;]
+</span></span><span style="display:flex;"><span>          [-listPools [-stats] [&lt;name&gt;]]
+</span></span><span style="display:flex;"><span>          [-help &lt;command-name&gt;]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Generic options supported are:
+</span></span><span style="display:flex;"><span>-conf &lt;configuration file&gt;        specify an application configuration file
+</span></span><span style="display:flex;"><span>-D &lt;property=value&gt;               define a value for a given property
+</span></span><span style="display:flex;"><span>-fs &lt;file:///|hdfs://namenode:port&gt; specify default filesystem URL to use, overrides &#39;fs.defaultFS&#39; property from configurations.
+</span></span><span style="display:flex;"><span>-jt &lt;local|resourcemanager:port&gt;  specify a ResourceManager
+</span></span><span style="display:flex;"><span>-files &lt;file1,...&gt;                specify a comma-separated list of files to be copied to the map reduce cluster
+</span></span><span style="display:flex;"><span>-libjars &lt;jar1,...&gt;               specify a comma-separated list of jar files to be included in the classpath
+</span></span><span style="display:flex;"><span>-archives &lt;archive1,...&gt;          specify a comma-separated list of archives to be unarchived on the compute machines
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>The general command line syntax is:
+</span></span><span style="display:flex;"><span>command [genericOptions] [commandOptions]
+</span></span></code></pre></div><hr>
+<p>다음과 같이 정상적으로 확인되면 pool을 등록합니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>$ bin/hdfs cacheadmin -addPool pool1
+</span></span><span style="display:flex;"><span>2022-07-12 21:00:30,724 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+</span></span><span style="display:flex;"><span>Successfully added cache pool pool1.
+</span></span></code></pre></div><p>여기에서 &lsquo;2022-07-12 21:00:30,724 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform&hellip; using builtin-java classes where applicable&rsquo; 오류가 나올텐데, 이는 맥 OS의 경우 신경쓰지 않으셔도 됩니다. 아래에 &lsquo;Successfully added cache pool pool1.&lsquo;와 같이 결과가 출력되면 이상 없이 실행된 것으로 보시면 됩니다.</p>
+<hr>
+<p>이제 pool이 등록되었으면 path를 등록합니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>$ bin/hdfs cacheadmin -addDirective -path /user/hadoop/shs -pool pool1
+</span></span><span style="display:flex;"><span>2022-07-12 21:01:23,073 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+</span></span><span style="display:flex;"><span>Added cache directive 1
+</span></span></code></pre></div><hr>
+<p>캐시를 확인하면 정상적으로 pool이 있음을 확인할 수 있습니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>$ bin/hdfs cacheadmin -listDirectives
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>2022-07-12 21:01:56,554 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Found 1 entry
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> ID POOL    REPL EXPIRY  PATH             
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  1 pool1      1 never   /user/hadoop/shs 
+</span></span></code></pre></div><hr>
+<p>세컨더리 네임노드, Federation, 고가용성은 문서의 설명을 가져와서 설명드리겠습니다. 우선 <a href="https://wikidocs.net/37810">세컨더리 네임노드</a>는 다음과 같이 설명되어 있습니다.</p>
+<hr>
+<h6 id="네임노드가-구동되고-나면-edits-파일이-주기적으로-생성됩니다-네임노드의-트랜잭션이-빈번하면-빠른-속도로-edits-파일이-생성됩니다-이는-네임노드의-디스크-부족-문제를-생성할-수도-있고-네임노드가-재구동-되는-시간을-느려지게-할-수도-있습니다">&lsquo;네임노드가 구동되고 나면 Edits 파일이 주기적으로 생성됩니다. 네임노드의 트랜잭션이 빈번하면 빠른 속도로 Edits 파일이 생성됩니다. 이는 네임노드의 디스크 부족 문제를 생성할 수도 있고, 네임노드가 재구동 되는 시간을 느려지게 할 수도 있습니다.</h6>
+<hr>
+<h6 id="세컨더리-네임노드는-fsimage와-edits-파일을-주기적으로-머지하여-최신-블록의-상태로-파일을-생성합니다-파일을-머지하면서-edits-파일을-삭제하기-때문에-디스크-부족-문제도-해결-할-수-있습니다-작동-방식은-다음과-같습니다">세컨더리 네임노드는 Fsimage와 Edits 파일을 주기적으로 머지하여 최신 블록의 상태로 파일을 생성합니다. 파일을 머지하면서 Edits 파일을 삭제하기 때문에 디스크 부족 문제도 해결 할 수 있습니다. 작동 방식은 다음과 같습니다.&rsquo;</h6>
+<hr>
+<p><img src="https://charsyam.files.wordpress.com/2011/04/fsimage.png" alt="세컨더리 네임노드"></p>
+<hr>
+<p><a href="https://wikidocs.net/23624">Federation</a>에 대한 설명은 다음과 같습니다.</p>
+<hr>
+<h6 id="네임노드는-파일-정보-메타데이터를-메모리에서-관리합니다-파일이-많아지면-메모리-사용량이-늘어나게-되고-메모리-관리가-문제가-됩니다-이를-해결하기-위해-하둡-v2-부터-hdfs-페더레이션을-지원합니다">&lsquo;네임노드는 파일 정보 메타데이터를 메모리에서 관리합니다. 파일이 많아지면 메모리 사용량이 늘어나게 되고, 메모리 관리가 문제가 됩니다. 이를 해결하기 위해 하둡 v2 부터 HDFS 페더레이션을 지원합니다.</h6>
+<hr>
+<h6 id="hdfs-페더레이션은-디렉토리네임스페이스-단위로-네임노드를-등록하여-사용하는-것입니다-예를-들어-user-hadoop-tmp-세개의-디렉토리가-존재할-때-user-hadoop-tmp-디렉토리-단위로-총-3개의-네임노드를-실행하여-파일을-관리하게-하는-것입니다">HDFS 페더레이션은 디렉토리(네임스페이스) 단위로 네임노드를 등록하여 사용하는 것입니다. 예를 들어 user, hadoop, tmp 세개의 디렉토리가 존재할 때, /user, /hadoop, /tmp 디렉토리 단위로 총 3개의 네임노드를 실행하여 파일을 관리하게 하는 것입니다.</h6>
+<hr>
+<h6 id="hdfs-페더레이션을-사용하면-파일-디렉토리의-정보를-가지는-네임스페이스와-블록의-정보를-가지는-블록-풀을-각-네임노드가-독립적으로-관리합니다-네임스페이스와-블록풀을-네임스페이스-볼륨이라하고-네임스페이스-볼륨은-독립적으로-관리되기-때문에-하나의-네임노드에-문제가-생겨도-다른-네임노드에-영향을-주지-않습니다">HDFS 페더레이션을 사용하면 파일, 디렉토리의 정보를 가지는 네임스페이스와 블록의 정보를 가지는 블록 풀을 각 네임노드가 독립적으로 관리합니다. 네임스페이스와 블록풀을 네임스페이스 볼륨이라하고 네임스페이스 볼륨은 독립적으로 관리되기 때문에 하나의 네임노드에 문제가 생겨도 다른 네임노드에 영향을 주지 않습니다.&rsquo;</h6>
+<hr>
+<p><img src="https://hadoop.apache.org/docs/r2.7.2/hadoop-project-dist/hadoop-hdfs/images/federation.gif" alt="Federation"></p>
+<hr>
+<p><a href="https://wikidocs.net/23628">고가용성</a>에 대한 설명은 다음과 같습니다.</p>
+<hr>
+<h6 id="hdfs는-네임노드가-단일-실패-지점입니다-네임노드에-문제가-발생하면-모든-작업이-중지되고-파일을-읽거나-쓸수-없게-됩니다-하둡-v2에서-이-문제를-해결하기-위해서-hdfs-고가용성high-availability을-제공합니다">&lsquo;HDFS는 네임노드가 단일 실패 지점입니다. 네임노드에 문제가 발생하면 모든 작업이 중지되고, 파일을 읽거나 쓸수 없게 됩니다. 하둡 v2에서 이 문제를 해결하기 위해서 HDFS 고가용성(High Availability)을 제공합니다.</h6>
+<hr>
+<h6 id="hdfs-고가용성은-이중화된-두대의-서버인-액티브active-네임노드와-스탠바이standby-네임노드를-이용하여-지원합니다-액티브-네임노드와-스탠바이-네임노드는-데이터-노드로부터-블록-리포트와-하트비트를-모두-받아서-동일한-메타데이터를-유지하고-공유-스토리지를-이용하여-에디트파일을-공유합니다">HDFS 고가용성은 이중화된 두대의 서버인 액티브(active) 네임노드와 스탠바이(standby) 네임노드를 이용하여 지원합니다. 액티브 네임노드와 스탠바이 네임노드는 데이터 노드로부터 블록 리포트와 하트비트를 모두 받아서 동일한 메타데이터를 유지하고, 공유 스토리지를 이용하여 에디트파일을 공유합니다.</h6>
+<hr>
+<h6 id="액티브-네임노드는-네임노드의-역활을-수행하고-스탠바이-네임노드는-액티브-네임노드와-동일한-메타데이터-정보를-유지하다가-액티브-네임노드에-문제가-발생하면-스탠바이-네임노드가-액티브-네임노드로-동작하게-됩니다-액티브-네임노드에-문제가-발생하는-것을-자동으로-확인하는-것이-어렵기-때문에-보통-주키퍼를-이용하여-장애-발생시-자동으로-변경될-수-있도록-합니다">액티브 네임노드는 네임노드의 역활을 수행하고, 스탠바이 네임노드는 액티브 네임노드와 동일한 메타데이터 정보를 유지하다가, 액티브 네임노드에 문제가 발생하면 스탠바이 네임노드가 액티브 네임노드로 동작하게 됩니다. 액티브 네임노드에 문제가 발생하는 것을 자동으로 확인하는 것이 어렵기 때문에 보통 주키퍼를 이용하여 장애 발생시 자동으로 변경될 수 있도록 합니다.</h6>
+<hr>
+<h6 id="스탠바이-네임노드는-세컨더리-네임노드의-역할을-동일하게-수행합니다-따라서-hdfs를-고가용성-모드로-설정하였을-때는-세컨더리-네임노드를-실행하지-않아도-됩니다-고가용성-모드에서-세컨더리-네임노드를-실행하면-오류가-발생합니다">스탠바이 네임노드는 세컨더리 네임노드의 역할을 동일하게 수행합니다. 따라서 HDFS를 고가용성 모드로 설정하였을 때는 세컨더리 네임노드를 실행하지 않아도 됩니다. 고가용성 모드에서 세컨더리 네임노드를 실행하면 오류가 발생합니다.&rsquo;</h6>
+<hr>
+<p>&lsquo;QJM(Quorum Journal Manager)&lsquo;과 &lsquo;NFS(Network File System)&rsquo; 개념까지 추가로 공부하고 싶으신 분들은 <a href="https://wikidocs.net/23628">이 링크</a>를 클릭해주시면 감사하겠습니다.</p>
+<hr>
+<p>다음으로 세이프모드 작동 방법은 아래와 같습니다.</p>
+<hr>
+<p>우선 세이프모드 상태를 확인하겠습니다.</p>
+<hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>$ bin/hdfs dfsadmin -safemode get
+</span></span><span style="display:flex;"><span>2022-07-12 21:18:33,865 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+</span></span><span style="display:flex;"><span>Safe mode is OFF
+</span></span></code></pre></div><p>위와 같이 OFF임을 확인할 수 있습니다.</p>
+<hr>
+<p>세이프모드 진입은 다음 명령어를 통해서 할 수 있습니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>$ bin/hdfs dfsadmin -safemode enter
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>2022-07-12 21:19:31,044 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Safe mode is ON
+</span></span></code></pre></div><hr>
+<p>세이프모드 해제는 다음 명령어를 통해서 할 수 있습니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>$ bin/hdfs dfsadmin -safemode leave
+</span></span><span style="display:flex;"><span>2022-07-12 21:20:03,159 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+</span></span><span style="display:flex;"><span>Safe mode is OFF
+</span></span></code></pre></div><hr>
+<p>이제 다음으로 데이터 블록 관리 방법에 대해 말씀드리겠습니다. 명령어를 실행했을 때 &ldquo;The filesystem under path &lsquo;패스&rsquo; is HEALTHY&quot;가 나오면 정상이라는 의미입니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>$ bin/hdfs fsck /
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>2022-07-12 21:30:51,049 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Connecting to namenode via http://localhost:9870/fsck?ugi=shc&amp;path=%2F
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>FSCK started by shc (auth:SIMPLE) from /127.0.0.1 for path / at Tue Jul 12 21:30:51 KST 2022
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Status: HEALTHY
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> Number of data-nodes:	0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> Number of racks:	0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> Total dirs:	1
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> Total symlinks:	0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Replicated Blocks:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> Total size:	0 B
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> Total files:	0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> Total blocks (validated):	0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> Minimally replicated blocks:	0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> Over-replicated blocks:	0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> Under-replicated blocks:	0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> Mis-replicated blocks:	0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> Default replication factor:	1
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> Average block replication:	0.0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> Missing blocks:	0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> Corrupt blocks:	0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> Missing replicas:	0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> Blocks queued for replication:	0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Erasure Coded Block Groups:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> Total size:	0 B
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> Total files:	0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> Total block groups (validated):	0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> Minimally erasure-coded block groups:	0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> Over-erasure-coded block groups:	0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> Under-erasure-coded block groups:	0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> Unsatisfactory placement block groups:	0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> Average block group size:	0.0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> Missing block groups:	0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> Corrupt block groups:	0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> Missing internal blocks:	0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> Blocks queued for replication:	0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>FSCK ended at Tue Jul 12 21:30:51 KST 2022 in 0 milliseconds
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>The filesystem under path &#39;/&#39; is HEALTHY
+</span></span></code></pre></div><hr>
+<p>마지막으로 휴지통 사용법에 대해 말씀드리겠습니다.</p>
+<hr>
+<p>휴지통을 비우는 명령어는 다음과 같습니다. 경고 메세지 외에 아무것도 표시되지 않고 다시 명령어 입력 상태로 돌아오면 정상적으로 실행된 것으로 보시면 됩니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>(base) shcDE-ui-MacBookPro:hadoop shc$ bin/hadoop fs -expunge
+</span></span><span style="display:flex;"><span>2022-07-12 21:36:14,551 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+</span></span><span style="display:flex;"><span>(base) shcDE-ui-MacBookPro:hadoop shc$
+</span></span></code></pre></div><hr>
+<p>휴지통을 이용하지 않고 경로 직접 입력을 통해 삭제도 가능합니다. 이는 샘플 파일을 만들고 테스트를 하시길 추천드립니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>$ bin/hadoop fs -rm -skipTrash (경로)
+</span></span></code></pre></div><hr>
+<p>이상으로 HDFS 휴지통까지 다루는 방법에 대해 배워봤습니다. 다음 포스팅에서는 HDFS 명령어 사용법에 대해 다루겠습니다.</p>
+<hr>
+<p>오늘도 긴 글 읽어주셔서 감사합니다. 해당 글은 위키독스의 <a href="https://wikidocs.net/book/2203">&lsquo;빅데이터 - 하둡, 하이브로 시작하기&rsquo;</a> 문서를 바탕으로 작성되었습니다.</p>
+<hr>
+<p>[레퍼런스]</p>
+<ol>
+<li>빅데이터 - 하둡, 하이브로 시작하기(위키독스) : <a href="https://wikidocs.net/book/2203">https://wikidocs.net/book/2203</a></li>
+</ol>
+
+    
+
+    
+  </article>
+  
+  <aside><h3>More from shcDE Tech-Blog</h3>
+<ul class='posts aside'>
+<li class = 'post_item fp'>
+  <a class = 'post_card' href='https://shcde.github.io/post/hadoop_introduce/' title = '하둡 버전별 소개' style = 'background-image: url(https://shcde.github.io/images/elephants-g07073c915_1920.jpg);'>
+  </a>
+  <div class = 'excerpt'>
+    <div class = 'excerpt_meta'>
+      <a href = 'https://shcde.github.io/tags/dataengineering' class = 'post_tag'>dataengineering
+      </a><div id=inline class="out">
+  2022-07-12
+</div>
+<div class = 'copy' data-share = 'Copy' data-copied = 'Copied'><svg>
+  <use xlink:href="#copy"></use>
+</svg>
+</div>
+
+<style>
+  .out {
+  border: 2px solid rgb(255, 132, 0);
+  background-color: rgb(255, 132, 0);
+  width: 100px;
+  height: 25px;
+  border-radius: 5px;
+  font:14px 나눔고딕;
+  font-weight:bold;
+}
+
+#inline {
+  text-align: center;
+  line-height: 20px;
+  color : white;
+}
+</style>
+    </div>
+    <h3 class = 'post_link'>
+      <a href='https://shcde.github.io/post/hadoop_introduce/'>하둡 버전별 소개</a>
+    </h3>
+    <p class = 'pale'>하둡은 어떤 버전들이 있고 각 버전별 차이는 무엇인가? 안녕하세요. shcDE입니다. 오늘부터 드디어 하둡에 대한 포스팅을 하려고 합니다.
+이번 포스팅에서 다룰  …</p>
+  </div>
+</li>
+
+<li class = 'post_item fp'>
+  <a class = 'post_card' href='https://shcde.github.io/post/deroadmap/' title = '신입을 위한 데이터 엔지니어링 로드맵' style = 'background-image: url(https://shcde.github.io/images/deroadmap.png);'>
+  </a>
+  <div class = 'excerpt'>
+    <div class = 'excerpt_meta'>
+      <a href = 'https://shcde.github.io/tags/dataengineering' class = 'post_tag'>dataengineering
+      </a><div id=inline class="out">
+  2022-07-08
+</div>
+<div class = 'copy' data-share = 'Copy' data-copied = 'Copied'><svg>
+  <use xlink:href="#copy"></use>
+</svg>
+</div>
+
+<style>
+  .out {
+  border: 2px solid rgb(255, 132, 0);
+  background-color: rgb(255, 132, 0);
+  width: 100px;
+  height: 25px;
+  border-radius: 5px;
+  font:14px 나눔고딕;
+  font-weight:bold;
+}
+
+#inline {
+  text-align: center;
+  line-height: 20px;
+  color : white;
+}
+</style>
+    </div>
+    <h3 class = 'post_link'>
+      <a href='https://shcde.github.io/post/deroadmap/'>신입을 위한 데이터 엔지니어링 로드맵</a>
+    </h3>
+    <p class = 'pale'>데이터 엔지니어가 되려면 어떻게 공부해야 하는가? 안녕하세요. shcDE입니다. 오늘은 제가 취업 준비를 하고 있는 &lsquo;데이터 엔지니어&rsquo; 직무 …</p>
+  </div>
+</li>
+
+</ul>
+
+  </aside>
+  
+</div>
+<script src = 'https://shcde.github.io/js/autosize.min.js'></script>
+<script src = 'https://shcde.github.io/js/timeago.js'></script>
+    </main><svg width="0" height="0" class="hidden">
+  <symbol viewBox="0 0 699.428 699.428" xmlns="http://www.w3.org/2000/svg" id="copy">
+    <path d="M502.714 0H240.428C194.178 0 153 42.425 153 87.429l-25.267.59c-46.228 0-84.019 41.834-84.019 86.838V612c0 45.004 41.179 87.428 87.429 87.428H459c46.249 0 87.428-42.424 87.428-87.428h21.857c46.25 0 87.429-42.424 87.429-87.428v-349.19zM459 655.715H131.143c-22.95 0-43.714-21.441-43.714-43.715V174.857c0-22.272 18.688-42.993 41.638-42.993l23.933-.721v393.429C153 569.576 194.178 612 240.428 612h262.286c0 22.273-20.765 43.715-43.714 43.715zm153-131.143c0 22.271-20.765 43.713-43.715 43.713H240.428c-22.95 0-43.714-21.441-43.714-43.713V87.429c0-22.272 20.764-43.714 43.714-43.714H459c-.351 50.337 0 87.975 0 87.975 0 45.419 40.872 86.882 87.428 86.882H612zm-65.572-349.715c-23.277 0-43.714-42.293-43.714-64.981V44.348L612 174.857zm-43.714 131.537H306c-12.065 0-21.857 9.77-21.857 21.835s9.792 21.835 21.857 21.835h196.714c12.065 0 21.857-9.771 21.857-21.835 0-12.065-9.792-21.835-21.857-21.835zm0 109.176H306c-12.065 0-21.857 9.77-21.857 21.834 0 12.066 9.792 21.836 21.857 21.836h196.714c12.065 0 21.857-9.77 21.857-21.836 0-12.064-9.792-21.834-21.857-21.834z"
+    ></path>
+  </symbol>
+  <symbol viewBox="0 0 60.015 60.015" xmlns="http://www.w3.org/2000/svg" id="reply">
+    <path d="M42.007 0h-24c-9.925 0-18 8.075-18 18v14c0 9.59 7.538 17.452 17 17.973v8.344a1.694 1.694 0 0 0 1.699 1.698c.44 0 .873-.173 1.198-.498l1.876-1.876C26.708 52.713 33.259 50 40.227 50h1.78c9.925 0 18-8.075 18-18V18c0-9.925-8.075-18-18-18zm16 32c0 8.822-7.178 16-16 16h-1.78c-7.502 0-14.556 2.921-19.86 8.226l-1.359 1.359V44a1 1 0 1 0-2 0v3.949c-8.356-.52-15-7.465-15-15.949V18c0-8.822 7.178-16 16-16h24c8.822 0 16 7.178 16 16v14z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="scan">
+    <path d="M456.66 0H385c-8.284 0-15 6.716-15 15s6.716 15 15 15h71.66C470.632 30 482 41.368 482 55.341V127c0 8.284 6.716 15 15 15s15-6.716 15-15V55.341C512 24.826 487.174 0 456.66 0zM15 142c8.284 0 15-6.716 15-15V55.341C30 41.368 41.368 30 55.34 30H127c8.284 0 15-6.716 15-15s-6.716-15-15-15H55.34C24.826 0 0 24.826 0 55.341V127c0 8.284 6.716 15 15 15zm112 340H55.34C41.368 482 30 470.632 30 456.659V385c0-8.284-6.716-15-15-15s-15 6.716-15 15v71.659C0 487.174 24.826 512 55.34 512H127c8.284 0 15-6.716 15-15s-6.716-15-15-15zm370-112c-8.284 0-15 6.716-15 15v71.659C482 470.632 470.632 482 456.66 482H385c-8.284 0-15 6.716-15 15s6.716 15 15 15h71.66c30.515 0 55.34-24.826 55.34-55.341V385c0-8.284-6.716-15-15-15zM341.643 110h47.575c6.497 0 11.782 5.285 11.782 11.782v47.574c0 8.284 6.716 15 15 15s15-6.716 15-15v-47.574C431 98.743 412.256 80 389.218 80h-47.575c-8.284 0-15 6.716-15 15s6.716 15 15 15zM81 121.782v47.574c0 8.284 6.716 15 15 15s15-6.716 15-15v-47.574c0-6.497 5.286-11.782 11.782-11.782h47.575c8.284 0 15-6.716 15-15s-6.716-15-15-15h-47.575C99.744 80 81 98.743 81 121.782zM170.357 400h-47.575c-6.497 0-11.782-5.285-11.782-11.782v-47.574c0-8.284-6.716-15-15-15s-15 6.716-15 15v47.574C81 411.257 99.744 430 122.782 430h47.575c8.284 0 15-6.716 15-15s-6.716-15-15-15zM431 388.218v-47.574c0-8.284-6.716-15-15-15s-15 6.716-15 15v47.574c0 6.497-5.286 11.782-11.782 11.782h-47.575c-8.284 0-15 6.716-15 15s6.716 15 15 15h47.575C412.256 430 431 411.257 431 388.218zM1 256c0 8.284 6.716 15 15 15h480c8.284 0 15-6.716 15-15s-6.716-15-15-15H16c-8.284 0-15 6.716-15 15z"></path>
+  </symbol>
+</svg>
+<footer class="footer">
+  <div class="footer_inner wrap pale">
+    <p>&copy;&nbsp;<span class="year"></span>&nbsp;shcDE Tech-Blog.
+    Designed by  <a href = 'https://www.linkedin.com/in/dan-weru-profile/' title = 'Linkedin Profile'>Weru</a></p>
+  </div>
+  
+  <script src="https://utteranc.es/client.js"
+        repo="shcDE/blog-comments"
+        issue-term="title"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+  </script>
+</footer><script type="text/javascript" src="https://shcde.github.io/js/bundle.444d59fb57116584f9d07a6aff51bf335fe9975644550a0d68e213d2d51db57326d29ea67a57b44b1b381cf4ca7d866d3e69f5ad5f3d1e49b2fc4edc508cbd03.js" integrity="sha512-RE1Z&#43;1cRZYT50Hpq/1G/M1/pl1ZEVQoNaOIT0tUdtXMm0p6mele0Sxs4HPTKfYZtPmn1rV89Hkmy/E7cUIy9Aw==" crossorigin="anonymous"></script>
+
+  </body>
+</html>
