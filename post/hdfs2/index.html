@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang='en'><head>
+  <title>HDFS는 어떻게 사용할까요?(2) [HDFS 명령어(상)] | shcDE Tech-Blog</title>
+  <meta charset='utf-8'>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3031042205762577"
+     crossorigin="anonymous"></script>
+  <meta name="generator" content="Hugo 0.101.0" />
+  
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XCDRBEN300"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-XCDRBEN300', { 'anonymize_ip': false });
+}
+</script>
+
+  <meta name = 'viewport' content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'>
+  <meta http-equiv = 'X-UA-Compatible' content = 'IE=edge'>
+  <meta property="og:image" content="https://github.com/shcDE/pictures/blob/main/images_for_blog/business-gb1f55b807_1920.jpg?raw=true/elephants-g07073c915_1920.jpg">
+  <meta property="og:description" content="schDE의 개발 지식 정리용 블로그입니다." /> 
+  <meta name="description" content="안녕하세요. schDE의 개발 지식 정리용 블로그입니다.">
+<meta property = 'og:locale' content = 'en_US' />
+<meta property="og:type" content="article">
+<meta property = 'og:title' content = 'HDFS는 어떻게 사용할까요?(2) [HDFS 명령어(상)]' />
+<meta name="description" content="HDFS 명령어는 무엇이 있을까요? 안녕하세요. shcDE입니다. 이번 포스팅에서는 HDFS 사용 시 주로 쓰이는 명령어들에 대해 설명드리고자 합니다. 원래는 한 포스팅에 모든 명령어에 대한 정보를 담고자 시도하였으나, 명령어가 제 예상보다 많아서 상, 하에 나누어 포스팅을 진행하겠습니 …">
+<meta property = 'og:description' content = 'HDFS 명령어는 무엇이 있을까요? 안녕하세요. shcDE입니다. 이번 포스팅에서는 HDFS 사용 시 주로 쓰이는 명령어들에 대해 설명드리고자 합니다. 원래는 한 포스팅에 모든 명령어에 대한 정보를 담고자 시도하였으나, 명령어가 제 예상보다 많아서 상, 하에 나누어 포스팅을 진행하겠습니 …'>
+<meta property = 'og:url' content = 'https://shcde.github.io/post/hdfs2/' />
+<meta property = 'og:image' content = 'https://shcde.github.io/images/elephants-g07073c915_1920.jpg'/>
+<meta name = 'twitter:card' content = 'summary_large_image' />
+<meta name = 'twitter:creator' content = ''>
+<meta name = 'twitter:title' content = 'HDFS는 어떻게 사용할까요?(2) [HDFS 명령어(상)]' />
+<meta property = 'twitter:description'  content = 'HDFS 명령어는 무엇이 있을까요? 안녕하세요. shcDE입니다. 이번 포스팅에서는 HDFS 사용 시 주로 쓰이는 명령어들에 대해 설명드리고자 합니다. 원래는 한 포스팅에 모든 명령어에 대한 정보를 담고자 시도하였으나, 명령어가 제 예상보다 많아서 상, 하에 나누어 포스팅을 진행하겠습니 …'/>
+<meta name = 'twitter:image' content = 'https://shcde.github.io/images/elephants-g07073c915_1920.jpg' />
+<link rel='apple-touch-icon' sizes='180x180' href='https://shcde.github.io/images/icons/apple-touch-icon.png'>
+<link rel='icon' type='image/png' sizes='32x32' href='https://shcde.github.io/images/icons/favicon-32x32.png'>
+<link rel='icon' type='image/png' sizes='16x16' href='https://shcde.github.io/images/icons/favicon-16x16.png'>
+<link rel='manifest' href='https://shcde.github.io/images/icons/site.webmanifest'>
+
+  <link rel='canonical' href='https://shcde.github.io/post/hdfs2/'>
+  <link rel = 'stylesheet' href = 'https://shcde.github.io/css/styles.42db596b1300421b76166668f896d65a0e912909aa95394f74e207c69da0d0b652fe2ad414cb6b746661857c824297f791d6df38fce0872ba2a9ccaa421a6b89.css' integrity = 'sha512-QttZaxMAQht2FmZo&#43;JbWWg6RKQmqlTlPdOIHxp2g0LZS/irUFMtrdGZhhXyCQpf3kdbfOPzghyuiqcyqQhpriQ=='>
+    
+  
+  <link rel="stylesheet" href="https://shcde.github.io/css/prism.css" media="none" onload="this.media='all';">
+  
+  <script defer language="javascript" type="text/javascript"  src="https://shcde.github.io/js/prism.js"></script>
+  
+
+
+</head>
+
+  <body><div class = 'nav-drop'>
+  <div class = 'nav-body'>
+    
+      <a href = 'https://shcde.github.io/categories/about/' class = 'nav_item'>About</a>
+      <a href = 'https://shcde.github.io/categories/freetalk/' class = 'nav_item'>Free Talk</a>
+      <a href = 'https://shcde.github.io/categories/dataengineering/' class = 'nav_item'>Data Engineering</a>
+    <div class = 'nav-close'></div>
+  </div>
+</div><header class = 'nav' >
+  <nav class = 'nav-menu'>
+
+    <a href='https://shcde.github.io/' class = 'nav-brand nav_item'>shcDE Tech-Blog</a>
+    <div class = 'nav_bar-wrap'>
+      <div class = 'nav_bar'></div>
+    </div>
+  </nav>
+  <p><button id="theme-toggle">Click to Switch between Light and Dark Mode</button></p>
+</header>
+
+<style>
+  .nav_bar-wrap {
+  background-Color:orange;
+  color: orange;
+  }
+
+  button {
+  border:2px solid #ff9900;     
+  background-Color:#000000;    
+  font:16px 나눔고딕;       
+  font-weight:bold;    
+  color:#ff9900;     
+  width:200;height:70;   
+  }
+
+  body {
+	color: rgb(12, 14, 29); 
+	background-color: white;
+}
+body.dark {
+	color: rgb(255, 191, 0); 
+	background-color: rgb(12, 14, 29);
+}
+  </style>
+
+<script>
+  var darkMode = false;
+
+
+if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+	darkMode = true;
+}
+
+
+if (localStorage.getItem('theme') === 'dark') {
+	darkMode = true;
+} else if (localStorage.getItem('theme') === 'light') {
+	darkMode = false;
+}
+
+if (darkMode) {
+	document.body.classList.toggle('dark');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    document.getElementById('theme-toggle').addEventListener('click', () => {
+		document.body.classList.toggle('dark');
+    	localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+	});
+
+});
+</script>
+
+
+    <main>
+
+<section class = 'post_header' style = 'background-image:url(https://shcde.github.io/images/elephants-g07073c915_1920.jpg);'>
+  <h1 class='post_title'>HDFS는 어떻게 사용할까요?(2) [HDFS 명령어(상)]</h1>
+</section>
+<div class = 'post'>
+  <div class="date">
+    
+    
+    
+    <strong aria-hidden="true"> </strong>
+    <br>
+    <strong aria-hidden="true">Created date: </strong>Thu, 14 Jul 2022 15:19 KST
+    
+      
+    
+  </div>
+  <article class='post_content'><p><img src="https://github.com/shcDE/pictures/blob/main/images_for_blog/elephants-g07073c915_1920.jpg?raw=true" alt="elephant"></p>
+<hr>
+<h1 id="hdfs-명령어는-무엇이-있을까요">HDFS 명령어는 무엇이 있을까요?</h1>
+<hr>
+<p>안녕하세요. shcDE입니다. 이번 포스팅에서는 HDFS 사용 시 주로 쓰이는 명령어들에 대해 설명드리고자 합니다. 원래는 한 포스팅에 모든 명령어에 대한 정보를 담고자 시도하였으나, 명령어가 제 예상보다 많아서 상, 하에 나누어 포스팅을 진행하겠습니다. 우선 시작 전에 해당 포스팅은 <a href="https://wikidocs.net/book/2203">&lsquo;빅데이터 - 하둡, 하이브로 시작하기&rsquo;(위키독스)</a>를 바탕으로 작성하였음을 알립니다.</p>
+<hr>
+<p>우선 사용자 커맨드에 대해 설명드리겠습니다. 사용자 커맨드는 hdfs, hadoop 쉘을 이용할 수 있습니다. 일부 커맨드는 hdfs 쉘을 이용해야 합니다. 둘 다 이용할 수 있는 경우 각 쉘의 결과는 동일하며, 사용법은 다음과 같습니다.</p>
+<hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span># dfs 커맨드는 둘 다 동일한 결과를 출력
+</span></span><span style="display:flex;"><span>(base) shcDE-ui-MacBookPro:hadoop shc$ bin/hdfs dfs -ls
+</span></span><span style="display:flex;"><span>(base) shcDE-ui-MacBookPro:hadoop shc$
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>(base) shcDE-ui-MacBookPro:hadoop shc$ bin/hadoop fs -ls
+</span></span><span style="display:flex;"><span>(base) shcDE-ui-MacBookPro:hadoop shc$ 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span># fsck 커맨드도 동일한 결과 출력
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>$ bin/hdfs fsck /
+</span></span><span style="display:flex;"><span>Connecting to namenode via http://localhost:9870/fsck?ugi=shc&amp;path=%2F
+</span></span><span style="display:flex;"><span>FSCK started by shc (auth:SIMPLE) from /127.0.0.1 for path / at Thu Jul 14 15:59:31 KST 2022
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Status: HEALTHY
+</span></span><span style="display:flex;"><span> Number of data-nodes:	1
+</span></span><span style="display:flex;"><span> Number of racks:		1
+</span></span><span style="display:flex;"><span> Total dirs:			3
+</span></span><span style="display:flex;"><span> Total symlinks:		0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Replicated Blocks:
+</span></span><span style="display:flex;"><span> Total size:	0 B
+</span></span><span style="display:flex;"><span> Total files:	0
+</span></span><span style="display:flex;"><span> Total blocks (validated):	0
+</span></span><span style="display:flex;"><span> Minimally replicated blocks:	0
+</span></span><span style="display:flex;"><span> Over-replicated blocks:	0
+</span></span><span style="display:flex;"><span> Under-replicated blocks:	0
+</span></span><span style="display:flex;"><span> Mis-replicated blocks:		0
+</span></span><span style="display:flex;"><span> Default replication factor:	1
+</span></span><span style="display:flex;"><span> Average block replication:	0.0
+</span></span><span style="display:flex;"><span> Missing blocks:		0
+</span></span><span style="display:flex;"><span> Corrupt blocks:		0
+</span></span><span style="display:flex;"><span> Missing replicas:		0
+</span></span><span style="display:flex;"><span> Blocks queued for replication:	0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Erasure Coded Block Groups:
+</span></span><span style="display:flex;"><span> Total size:	0 B
+</span></span><span style="display:flex;"><span> Total files:	0
+</span></span><span style="display:flex;"><span> Total block groups (validated):	0
+</span></span><span style="display:flex;"><span> Minimally erasure-coded block groups:	0
+</span></span><span style="display:flex;"><span> Over-erasure-coded block groups:	0
+</span></span><span style="display:flex;"><span> Under-erasure-coded block groups:	0
+</span></span><span style="display:flex;"><span> Unsatisfactory placement block groups:	0
+</span></span><span style="display:flex;"><span> Average block group size:	0.0
+</span></span><span style="display:flex;"><span> Missing block groups:		0
+</span></span><span style="display:flex;"><span> Corrupt block groups:		0
+</span></span><span style="display:flex;"><span> Missing internal blocks:	0
+</span></span><span style="display:flex;"><span> Blocks queued for replication:	0
+</span></span><span style="display:flex;"><span>FSCK ended at Thu Jul 14 15:59:31 KST 2022 in 1 milliseconds
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>The filesystem under path &#39;/&#39; is HEALTHY
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>$ bin/hadoop fsck /
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>WARNING: Use of this script to execute fsck is deprecated.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>WARNING: Attempting to execute replacement &#34;hdfs fsck&#34; instead.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Connecting to namenode via http://localhost:9870/fsck?ugi=shc&amp;path=%2F
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>FSCK started by shc (auth:SIMPLE) from /127.0.0.1 for path / at Thu Jul 14 16:00:24 KST 2022
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Status: HEALTHY
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> Number of data-nodes:	1
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> Number of racks:	1
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> Total dirs:	3
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> Total symlinks:	0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Replicated Blocks:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> Total size:	0 B
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> Total files:	0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> Total blocks (validated):	0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> Minimally replicated blocks:	0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> Over-replicated blocks:	0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> Under-replicated blocks:	0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> Mis-replicated blocks:	0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> Default replication factor:	1
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> Average block replication:	0.0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> Missing blocks:	0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> Corrupt blocks:	0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> Missing replicas:	0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> Blocks queued for replication:	0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Erasure Coded Block Groups:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> Total size:	0 B
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> Total files:	0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> Total block groups (validated):	0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> Minimally erasure-coded block groups:	0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> Over-erasure-coded block groups:	0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> Under-erasure-coded block groups:	0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> Unsatisfactory placement block groups:	0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> Average block group size:	0.0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> Missing block groups:	0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> Corrupt block groups:	0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> Missing internal blocks:	0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> Blocks queued for replication:	0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>FSCK ended at Thu Jul 14 16:00:24 KST 2022 in 0 milliseconds
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>The filesystem under path &#39;/&#39; is HEALTHY
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span># fs.defaultFS 설정값 확인
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>$ bin/hdfs getconf -confKey fs.defaultFS
+</span></span><span style="display:flex;"><span>hdfs://localhost:9000
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span># 명령어를 인식하지 못함(문서와 내용 다르나 인식 못하는 사실 동일)
+</span></span><span style="display:flex;"><span>$ bin/hadoop getconf
+</span></span><span style="display:flex;"><span>ERROR: getconf is not COMMAND nor fully qualified CLASSNAME.
+</span></span></code></pre></div><hr>
+<p>다음으로 커맨드 명령어 중 대표적인 파일시스템 쉘을 실행하는 명령어인 dfs에 대해 설명해드리겠습니다. dfs는 hdfs dfs, hadoop fs, hadoop dfs 세가지 형태로 실행이 가능합니다. 사용 방법은 다음과 같습니다. 맥 OS의 경우 명령어가 정상적으로 실행되면 다음과 같이 통과됨을 확인할 수 있습니다.</p>
+<hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>(base) shcDE-ui-MacBookPro:hadoop shc$ bin/hdfs dfs -ls
+</span></span><span style="display:flex;"><span>(base) shcDE-ui-MacBookPro:hadoop shc$
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>(base) shcDE-ui-MacBookPro:hadoop shc$ bin/hadoop fs -ls
+</span></span><span style="display:flex;"><span>(base) shcDE-ui-MacBookPro:hadoop shc$
+</span></span></code></pre></div><hr>
+<p>cat 명령어는 지정한 파일을 기본 입력으로 읽어서 출력하는 역할을 합니다. 사용 예시는 다음과 같습니다.</p>
+<hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>$ bin/hadoop fs -cat /user/testfile01.txt
+</span></span><span style="display:flex;"><span>this is test file 01
+</span></span></code></pre></div><hr>
+<p>text 명령어는 지정한 파일을 텍스트 형식으로 읽어줍니다. 이 명령어를 통해 gzip, snappy 등의 형식으로 압축된 파일도 자동으로 텍스트 형식으로 출력해 줄 수 있습니다.</p>
+<hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>$ bin/hadoop fs -text /user/testfile01.txt
+</span></span><span style="display:flex;"><span>this is test file 01
+</span></span></code></pre></div><hr>
+<p>ls 명령어는 주어진 경로의 파일 목록을 조회하는 역할을 합니다.</p>
+<hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>$ bin/hadoop fs -ls /user/
+</span></span><span style="display:flex;"><span>Found 2 items
+</span></span><span style="display:flex;"><span>drwxr-xr-x   - shc supergroup          0 2022-07-14 15:44 /user/shc
+</span></span><span style="display:flex;"><span>-rw-r--r--   1 shc supergroup         21 2022-07-14 16:17 /user/testfile01.txt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span># 사람이 읽을 수 있는 형태로 파일사이즈를 메가, 기가로 변경하여 출력
+</span></span><span style="display:flex;"><span>$ bin/hadoop fs -ls -h /user/
+</span></span><span style="display:flex;"><span>Found 2 items
+</span></span><span style="display:flex;"><span>drwxr-xr-x   - shc supergroup          0 2022-07-14 15:44 /user/shc
+</span></span><span style="display:flex;"><span>-rw-r--r--   1 shc supergroup         21 2022-07-14 16:17 /user/testfile01.txt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span># 하위 폴더까지 조회
+</span></span><span style="display:flex;"><span>$ bin/hadoop fs -ls -R /user/
+</span></span><span style="display:flex;"><span>drwxr-xr-x   - shc supergroup          0 2022-07-14 15:44 /user/shc
+</span></span><span style="display:flex;"><span>-rw-r--r--   1 shc supergroup         21 2022-07-14 16:17 /user/testfile01.txt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span># 액세스 시간을 조회, 기본설정은 생성 시간, 마지막 접근 시간을 확인하여 파일 정리 가능
+</span></span><span style="display:flex;"><span>$ bin/hadoop fs -ls -u /user/
+</span></span><span style="display:flex;"><span>Found 2 items
+</span></span><span style="display:flex;"><span>drwxr-xr-x   - shc supergroup          0 1970-01-01 09:00 /user/shc
+</span></span><span style="display:flex;"><span>-rw-r--r--   1 shc supergroup         21 2022-07-14 16:17 /user/testfile01.txt
+</span></span></code></pre></div><hr>
+<p>mkdir 명령어는 디렉토리를 확인하고 생성하는 역할을 합니다.</p>
+<hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span># 폴더 확인
+</span></span><span style="display:flex;"><span>$ bin/hadoop fs -mkdir /user/folder
+</span></span><span style="display:flex;"><span>mkdir: `hdfs://localhost:9000/user&#39;: No such file or directory
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>#/user/folder1/folder2를 생성, 상위 폴더가 없으면 자동으로 생성
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>(base) shcDE-ui-MacBookPro:hadoop shc$ bin/hadoop fs -mkdir -p /user/folder1/folder2
+</span></span><span style="display:flex;"><span>(base) shcDE-ui-MacBookPro:hadoop shc$
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span># 해당 폴더 존재하는지 확인(folder1 존재 확인)
+</span></span><span style="display:flex;"><span>$ bin/hadoop fs -mkdir /user/folder1
+</span></span><span style="display:flex;"><span>mkdir: `/user/folder1&#39;: File exists
+</span></span></code></pre></div><hr>
+<p>cp 명령어는 HDFS 상의 파일을 복사하는 역할을 합니다.</p>
+<hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>(base) shcDE-ui-MacBookPro:hadoop shc$ bin/hadoop fs -cp /user/testfile01.txt /user/testfile02.txt 
+</span></span><span style="display:flex;"><span>(base) shcDE-ui-MacBookPro:hadoop shc$
+</span></span></code></pre></div><hr>
+<p>mv 명령어는 HDFS 상의 파일을 이동하거나, 파일 이름을 변경할 때 사용합니다.</p>
+<hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>(base) shcDE-ui-MacBookPro:hadoop shc$ bin/hadoop fs -mv /user/testfile01.txt /user/testfile03.txt
+</span></span><span style="display:flex;"><span>(base) shcDE-ui-MacBookPro:hadoop shc$
+</span></span></code></pre></div><hr>
+<p>get 명령어는 HDFS의 파일을 로컬에 복사할 때 사용합니다.</p>
+<hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>(base) shcDE-ui-MacBookPro:hadoop shc$ bin/hadoop fs -get /user/testfile03.txt ./
+</span></span><span style="display:flex;"><span>(base) shcDE-ui-MacBookPro:hadoop shc$
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span># 동일한 이름의 파일이 존재하면 덮어씀
+</span></span><span style="display:flex;"><span>(base) shcDE-ui-MacBookPro:hadoop shc$ bin/hadoop fs -get -f /user/testfile03.txt ./
+</span></span><span style="display:flex;"><span>(base) shcDE-ui-MacBookPro:hadoop shc$
+</span></span></code></pre></div><hr>
+<p>put 명령어는 로컬의 파일을 HDFS에 복사할 때 사용합니다.</p>
+<hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span># 해당 파일이 존재할 때는 다음 결과가 나옴
+</span></span><span style="display:flex;"><span>$ bin/hadoop fs -put ./testfile03.txt /user/
+</span></span><span style="display:flex;"><span>put: `/user/testfile03.txt&#39;: File exists
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span># 동일한 이름의 파일이 존재하면 덮어씀
+</span></span><span style="display:flex;"><span>(base) shcDE-ui-MacBookPro:hadoop shc$ bin/hadoop fs -put -f ./testfile03.txt /user/
+</span></span><span style="display:flex;"><span>(base) shcDE-ui-MacBookPro:hadoop shc$
+</span></span></code></pre></div><hr>
+<p>rm 명령어는 HDFS의 파일을 삭제할 때 사용합니다.</p>
+<hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>$ bin/hadoop fs -rm /user/testfile03.txt
+</span></span><span style="display:flex;"><span>2022-07-14 22:37:56,102 INFO fs.TrashPolicyDefault: Moved: &#39;hdfs://localhost:9000/user/testfile03.txt&#39; to trash at: hdfs://localhost:9000/user/shc/.Trash/Current/user/testfile03.txt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span># 디렉토리를 포함하여 하위의 모든 파일을 삭제, 디렉토리 삭제시 필요함(쓰레기통을 사용하므로 작동 안됨)
+</span></span><span style="display:flex;"><span>$ bin/hadoop fs -rm -r /user/
+</span></span><span style="display:flex;"><span>rm: Cannot move &#34;hdfs://localhost:9000/user&#34; to the trash, as it contains the trash. Consider using -skipTrash option
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span># 쓰레기통을 사용하지 않고 파일 삭제
+</span></span><span style="display:flex;"><span>$ bin/hadoop fs -rm -skipTrash /user/
+</span></span><span style="display:flex;"><span>rm: `/user&#39;: Is a directory
+</span></span></code></pre></div><hr>
+<p>setrep 명령어는 디렉토리, 파일의 레플리케이션 팩터를 수정합니다.</p>
+<hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span># 디렉토리의 복제개수를 5로 설정
+</span></span><span style="display:flex;"><span>$ bin/hadoop fs -setrep 5 /user/
+</span></span><span style="display:flex;"><span>Replication 5 set: /user/shc/.Trash/Current/user/testfile03.txt
+</span></span><span style="display:flex;"><span>Replication 5 set: /user/testfile02.txt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span># bin/hadoop fs -setrep 5 -R /user/ 명령어는 유효하지 않아서 기재하지 않음
+</span></span></code></pre></div><hr>
+<p>test 명령어는 파일, 디렉토리의 존재 여부를 확인합니다.</p>
+<hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span># -d: 경로가 디렉토리이면 0을 반환합니다.
+</span></span><span style="display:flex;"><span># -e: 경로가 있으면 0을 반환합니다.
+</span></span><span style="display:flex;"><span># -f: 경로가 파일이면 0을 반환합니다.
+</span></span><span style="display:flex;"><span># -s: 경로가 비어 있지 않으면 0을 반환합니다.
+</span></span><span style="display:flex;"><span># -w: 경로가 존재하고 쓰기 권한이 부여 된 경우 0을 반환합니다.
+</span></span><span style="display:flex;"><span># -r: 경로가 존재하고 읽기 권한이 부여 된 경우 0을 반환합니다.
+</span></span><span style="display:flex;"><span># -z: 파일 길이가 0이면 0을 반환합니다.
+</span></span><span style="display:flex;"><span># /user/test.txt 파일이 존재하면 0을 반환(맥은 그냥 통과)
+</span></span><span style="display:flex;"><span>(base) shcDE-ui-MacBookPro:hadoop shc$ bin/hadoop fs -test -e /user/testfile02.txt
+</span></span><span style="display:flex;"><span>(base) shcDE-ui-MacBookPro:hadoop shc$
+</span></span></code></pre></div><hr>
+<p>touchz 명령어는 0byte 파일을 생성합니다.</p>
+<hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>(base) shcDE-ui-MacBookPro:hadoop shc$ bin/hadoop fs -touchz /user/test.txt
+</span></span><span style="display:flex;"><span>(base)shcDE-ui-MacBookPro:hadoop shc$
+</span></span></code></pre></div><hr>
+<p>stat 명령어는 주어진 포맷에 따른 파일의 정보를 확인합니다.</p>
+<hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span># 주요 포맷
+</span></span><span style="display:flex;"><span># %y : 마지막 수정 시간 
+</span></span><span style="display:flex;"><span># %x : 마지막 접근 시간 
+</span></span><span style="display:flex;"><span># %n : 파일 이름 
+</span></span><span style="display:flex;"><span># %b : 파일 사이즈 (byte)
+</span></span><span style="display:flex;"><span>$ bin/hadoop fs -stat &#34;%y %n&#34; hdfs://127.0.0.1:9870/*
+</span></span><span style="display:flex;"><span>stat: RPC response exceeds maximum data length
+</span></span></code></pre></div><hr>
+<p>setfacl 명령어는 파일의 ACL을 설정합니다. ls명령으로 확인할 수 있는 파일의 권한과 별도로 권한을 설정할 수있습니다.</p>
+<hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span># user a에게 /user/file의 읽기(r), 쓰기(w) 권한을 줌
+</span></span><span style="display:flex;"><span>(base) shcDE-ui-MacBookPro:hadoop shc$ bin/hadoop fs -setfacl -m user:a:rw- /user/file
+</span></span><span style="display:flex;"><span>(base) shcDE-ui-MacBookPro:hadoop shc$
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span># /user/file에서 신규로 생성되는 파일, 디렉토리에 대하여 user a에게 의 읽기(r), 쓰기(w) 권한을 줌
+</span></span><span style="display:flex;"><span>(base) shcDE-ui-MacBookPro:hadoop shc$ bin/hadoop fs -setfacl -m default:user:a:rw- /user/file
+</span></span><span style="display:flex;"><span>(base)shcDE-ui-MacBookPro:hadoop shc$
+</span></span></code></pre></div><hr>
+<p>getfacl 명령어는 파일의 ACL을 확인합니다.</p>
+<hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>$ bin/hadoop fs -getfacl /user/file
+</span></span><span style="display:flex;"><span># file: /user/file
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span># owner: shc
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span># group: supergroup
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>user::rwx
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>user:a:rw-
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>group::r-x
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>mask::rwx
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>other::r-x
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>default:user::rwx
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>default:user:a:rw-
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>default:group::r-x
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>default:mask::rwx
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>default:other::r-x
+</span></span></code></pre></div><hr>
+<p>count 명령어는 지정한 경로의 디렉토리 개수, 파일개수, 파일 사이즈 확인합니다. -q, -v 옵션과 함께 사용하여 더 많은 정보를 확인할 수 있습니다.</p>
+<hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span># /user 디렉토리 확인
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>$ bin/hadoop fs -count /user
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>           8            3                 42 /user
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span># 헤더 함께 출력
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>$ bin/hadoop fs -count -q -v hdfs:///user/file
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>       QUOTA       REM_QUOTA     SPACE_QUOTA REM_SPACE_QUOTA    DIR_COUNT   FILE_COUNT       CONTENT_SIZE PATHNAME
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        none             inf            none             inf            1            0                  0 hdfs:///user/file
+</span></span></code></pre></div><hr>
+<p>이번 포스팅에서는 명령어를 여기까지 다루겠습니다. 다음 포스팅에서 추가적으로 주요 명령어를 살펴보겠습니다.</p>
+<hr>
+<p>오늘도 긴 글 읽어주시느라 고생하셨습니다.</p>
+<hr>
+<h4 id="감사합니다">감사합니다.</h4>
+<hr>
+<p>[레퍼런스]</p>
+<ol>
+<li>빅데이터 - 하둡, 하이브로 시작하기(위키독스) : <a href="https://wikidocs.net/book/2203">https://wikidocs.net/book/2203</a></li>
+<li>07-HDFS 명령어(빅데이터 - 하둡, 하이브로 시작하기(위키독스)) : <a href="https://wikidocs.net/26496">https://wikidocs.net/26496</a></li>
+</ol>
+
+    
+
+    
+  </article>
+  
+  <aside><h3>More from shcDE Tech-Blog</h3>
+<ul class='posts aside'>
+<li class = 'post_item fp'>
+  <a class = 'post_card' href='https://shcde.github.io/post/hdfs1/' title = 'HDFS는 어떻게 사용할까요?(1)' style = 'background-image: url(https://shcde.github.io/images/elephants-g07073c915_1920.jpg);'>
+  </a>
+  <div class = 'excerpt'>
+    <div class = 'excerpt_meta'>
+      <a href = 'https://shcde.github.io/tags/dataengineering' class = 'post_tag'>dataengineering
+      </a><div id=inline class="out">
+  2022-07-13
+</div>
+<div class = 'copy' data-share = 'Copy' data-copied = 'Copied'><svg>
+  <use xlink:href="#copy"></use>
+</svg>
+</div>
+
+<style>
+  .out {
+  border: 2px solid rgb(255, 132, 0);
+  background-color: rgb(255, 132, 0);
+  width: 100px;
+  height: 25px;
+  border-radius: 5px;
+  font:14px 나눔고딕;
+  font-weight:bold;
+}
+
+#inline {
+  text-align: center;
+  line-height: 20px;
+  color : white;
+}
+</style>
+    </div>
+    <h3 class = 'post_link'>
+      <a href='https://shcde.github.io/post/hdfs1/'>HDFS는 어떻게 사용할까요?(1)</a>
+    </h3>
+    <p class = 'pale'>안녕하세요. shcDE입니다. 오늘은 하둡 환경에서 분산 파일 시스템 기능을 담당하는 하둡의 주요 모듈인 HDFS에 대해 다루겠습니다. 이번 포스팅에서는 HDFS …</p>
+  </div>
+</li>
+
+<li class = 'post_item fp'>
+  <a class = 'post_card' href='https://shcde.github.io/post/hadoop_introduce/' title = '하둡 버전별 소개' style = 'background-image: url(https://shcde.github.io/images/elephants-g07073c915_1920.jpg);'>
+  </a>
+  <div class = 'excerpt'>
+    <div class = 'excerpt_meta'>
+      <a href = 'https://shcde.github.io/tags/dataengineering' class = 'post_tag'>dataengineering
+      </a><div id=inline class="out">
+  2022-07-12
+</div>
+<div class = 'copy' data-share = 'Copy' data-copied = 'Copied'><svg>
+  <use xlink:href="#copy"></use>
+</svg>
+</div>
+
+<style>
+  .out {
+  border: 2px solid rgb(255, 132, 0);
+  background-color: rgb(255, 132, 0);
+  width: 100px;
+  height: 25px;
+  border-radius: 5px;
+  font:14px 나눔고딕;
+  font-weight:bold;
+}
+
+#inline {
+  text-align: center;
+  line-height: 20px;
+  color : white;
+}
+</style>
+    </div>
+    <h3 class = 'post_link'>
+      <a href='https://shcde.github.io/post/hadoop_introduce/'>하둡 버전별 소개</a>
+    </h3>
+    <p class = 'pale'>하둡은 어떤 버전들이 있고 각 버전별 차이는 무엇인가? 안녕하세요. shcDE입니다. 오늘부터 드디어 하둡에 대한 포스팅을 하려고 합니다.
+이번 포스팅에서 다룰  …</p>
+  </div>
+</li>
+
+</ul>
+
+  </aside>
+  
+</div>
+<script src = 'https://shcde.github.io/js/autosize.min.js'></script>
+<script src = 'https://shcde.github.io/js/timeago.js'></script>
+    </main><svg width="0" height="0" class="hidden">
+  <symbol viewBox="0 0 699.428 699.428" xmlns="http://www.w3.org/2000/svg" id="copy">
+    <path d="M502.714 0H240.428C194.178 0 153 42.425 153 87.429l-25.267.59c-46.228 0-84.019 41.834-84.019 86.838V612c0 45.004 41.179 87.428 87.429 87.428H459c46.249 0 87.428-42.424 87.428-87.428h21.857c46.25 0 87.429-42.424 87.429-87.428v-349.19zM459 655.715H131.143c-22.95 0-43.714-21.441-43.714-43.715V174.857c0-22.272 18.688-42.993 41.638-42.993l23.933-.721v393.429C153 569.576 194.178 612 240.428 612h262.286c0 22.273-20.765 43.715-43.714 43.715zm153-131.143c0 22.271-20.765 43.713-43.715 43.713H240.428c-22.95 0-43.714-21.441-43.714-43.713V87.429c0-22.272 20.764-43.714 43.714-43.714H459c-.351 50.337 0 87.975 0 87.975 0 45.419 40.872 86.882 87.428 86.882H612zm-65.572-349.715c-23.277 0-43.714-42.293-43.714-64.981V44.348L612 174.857zm-43.714 131.537H306c-12.065 0-21.857 9.77-21.857 21.835s9.792 21.835 21.857 21.835h196.714c12.065 0 21.857-9.771 21.857-21.835 0-12.065-9.792-21.835-21.857-21.835zm0 109.176H306c-12.065 0-21.857 9.77-21.857 21.834 0 12.066 9.792 21.836 21.857 21.836h196.714c12.065 0 21.857-9.77 21.857-21.836 0-12.064-9.792-21.834-21.857-21.834z"
+    ></path>
+  </symbol>
+  <symbol viewBox="0 0 60.015 60.015" xmlns="http://www.w3.org/2000/svg" id="reply">
+    <path d="M42.007 0h-24c-9.925 0-18 8.075-18 18v14c0 9.59 7.538 17.452 17 17.973v8.344a1.694 1.694 0 0 0 1.699 1.698c.44 0 .873-.173 1.198-.498l1.876-1.876C26.708 52.713 33.259 50 40.227 50h1.78c9.925 0 18-8.075 18-18V18c0-9.925-8.075-18-18-18zm16 32c0 8.822-7.178 16-16 16h-1.78c-7.502 0-14.556 2.921-19.86 8.226l-1.359 1.359V44a1 1 0 1 0-2 0v3.949c-8.356-.52-15-7.465-15-15.949V18c0-8.822 7.178-16 16-16h24c8.822 0 16 7.178 16 16v14z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="scan">
+    <path d="M456.66 0H385c-8.284 0-15 6.716-15 15s6.716 15 15 15h71.66C470.632 30 482 41.368 482 55.341V127c0 8.284 6.716 15 15 15s15-6.716 15-15V55.341C512 24.826 487.174 0 456.66 0zM15 142c8.284 0 15-6.716 15-15V55.341C30 41.368 41.368 30 55.34 30H127c8.284 0 15-6.716 15-15s-6.716-15-15-15H55.34C24.826 0 0 24.826 0 55.341V127c0 8.284 6.716 15 15 15zm112 340H55.34C41.368 482 30 470.632 30 456.659V385c0-8.284-6.716-15-15-15s-15 6.716-15 15v71.659C0 487.174 24.826 512 55.34 512H127c8.284 0 15-6.716 15-15s-6.716-15-15-15zm370-112c-8.284 0-15 6.716-15 15v71.659C482 470.632 470.632 482 456.66 482H385c-8.284 0-15 6.716-15 15s6.716 15 15 15h71.66c30.515 0 55.34-24.826 55.34-55.341V385c0-8.284-6.716-15-15-15zM341.643 110h47.575c6.497 0 11.782 5.285 11.782 11.782v47.574c0 8.284 6.716 15 15 15s15-6.716 15-15v-47.574C431 98.743 412.256 80 389.218 80h-47.575c-8.284 0-15 6.716-15 15s6.716 15 15 15zM81 121.782v47.574c0 8.284 6.716 15 15 15s15-6.716 15-15v-47.574c0-6.497 5.286-11.782 11.782-11.782h47.575c8.284 0 15-6.716 15-15s-6.716-15-15-15h-47.575C99.744 80 81 98.743 81 121.782zM170.357 400h-47.575c-6.497 0-11.782-5.285-11.782-11.782v-47.574c0-8.284-6.716-15-15-15s-15 6.716-15 15v47.574C81 411.257 99.744 430 122.782 430h47.575c8.284 0 15-6.716 15-15s-6.716-15-15-15zM431 388.218v-47.574c0-8.284-6.716-15-15-15s-15 6.716-15 15v47.574c0 6.497-5.286 11.782-11.782 11.782h-47.575c-8.284 0-15 6.716-15 15s6.716 15 15 15h47.575C412.256 430 431 411.257 431 388.218zM1 256c0 8.284 6.716 15 15 15h480c8.284 0 15-6.716 15-15s-6.716-15-15-15H16c-8.284 0-15 6.716-15 15z"></path>
+  </symbol>
+</svg>
+<footer class="footer">
+  <div class="footer_inner wrap pale">
+    <p>&copy;&nbsp;<span class="year"></span>&nbsp;shcDE Tech-Blog.
+    Designed by  <a href = 'https://www.linkedin.com/in/dan-weru-profile/' title = 'Linkedin Profile'>Weru</a></p>
+  </div>
+  
+  <script src="https://utteranc.es/client.js"
+        repo="shcDE/blog-comments"
+        issue-term="title"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+  </script>
+</footer><script type="text/javascript" src="https://shcde.github.io/js/bundle.444d59fb57116584f9d07a6aff51bf335fe9975644550a0d68e213d2d51db57326d29ea67a57b44b1b381cf4ca7d866d3e69f5ad5f3d1e49b2fc4edc508cbd03.js" integrity="sha512-RE1Z&#43;1cRZYT50Hpq/1G/M1/pl1ZEVQoNaOIT0tUdtXMm0p6mele0Sxs4HPTKfYZtPmn1rV89Hkmy/E7cUIy9Aw==" crossorigin="anonymous"></script>
+
+  </body>
+</html>

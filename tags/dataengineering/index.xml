@@ -6,7 +6,17 @@
     <description>Recent content in dataengineering on shcDE Tech-Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Copyright © 2008–2018, Steve Francia and the Hugo Authors; all rights reserved.</copyright>
-    <lastBuildDate>Wed, 13 Jul 2022 11:51:42 +0900</lastBuildDate><atom:link href="https://shcde.github.io/tags/dataengineering/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 14 Jul 2022 15:19:08 +0900</lastBuildDate><atom:link href="https://shcde.github.io/tags/dataengineering/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>HDFS는 어떻게 사용할까요?(2) [HDFS 명령어(상)]</title>
+      <link>https://shcde.github.io/post/hdfs2/</link>
+      <pubDate>Thu, 14 Jul 2022 15:19:08 +0900</pubDate>
+      
+      <guid>https://shcde.github.io/post/hdfs2/</guid>
+      <description>HDFS 명령어는 무엇이 있을까요? 안녕하세요. shcDE입니다. 이번 포스팅에서는 HDFS 사용 시 주로 쓰이는 명령어들에 대해 설명드리고자 합니다. 원래는 한 포스팅에 모든 명령어에 대한 정보를 담고자 시도하였으나, 명령어가 제 예상보다 많아서 상, 하에 나누어 포스팅을 진행하겠습니다. 우선 시작 전에 해당 포스팅은 &amp;lsquo;빅데이터 - 하둡, 하이브로 시작하기&amp;rsquo;(위키독스)를 바탕으로 작성하였음을 알립니다.
+우선 사용자 커맨드에 대해 설명드리겠습니다. 사용자 커맨드는 hdfs, hadoop 쉘을 이용할 수 있습니다. 일부 커맨드는 hdfs 쉘을 이용해야 합니다. 둘 다 이용할 수 있는 경우 각 쉘의 결과는 동일하며, 사용법은 다음과 같습니다.</description>
+    </item>
+    
     <item>
       <title>HDFS는 어떻게 사용할까요?(1)</title>
       <link>https://shcde.github.io/post/hdfs1/</link>
