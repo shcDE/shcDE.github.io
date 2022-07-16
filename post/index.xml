@@ -6,7 +6,17 @@
     <description>Recent content in Posts on shcDE Tech-Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Copyright © 2008–2018, Steve Francia and the Hugo Authors; all rights reserved.</copyright>
-    <lastBuildDate>Fri, 15 Jul 2022 13:24:52 +0900</lastBuildDate><atom:link href="https://shcde.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 16 Jul 2022 14:45:34 +0900</lastBuildDate><atom:link href="https://shcde.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>HDFS는 어떻게 사용할까요?(4)</title>
+      <link>https://shcde.github.io/post/hdfs4/</link>
+      <pubDate>Sat, 16 Jul 2022 14:45:34 +0900</pubDate>
+      
+      <guid>https://shcde.github.io/post/hdfs4/</guid>
+      <description>추가로 알아볼 HDFS 기능은 무엇이 있을까요? 안녕하세요. shcDE입니다. 이번 포스팅에서는 REST API 사용법, 사용량 제한 설정, RPC, 이레이져 코딩, 밸런서에 대해 알아보겠습니다. 포스팅 시작 전에, 해당 게시물은 &amp;lsquo;빅데이터 - 하둡, 하이브로 시작하기&amp;rsquo;(위키독스)를 바탕으로 작성하였음을 알려드리며, HDFS의 기본 기능에 대한 내용은 이번 포스팅을 기점으로 마무리를 할 예정입니다. 지금부터 HDFS 기초에 대한 마지막 포스팅 시작하겠습니다.
+우선 WebHDFS REST API 사용법부터 알아보겠습니다. REST API(RESTful API, 레스트풀 API)란 REST 아키텍처의 제약 조건을 준수하는 애플리케이션 프로그래밍 인터페이스를 의미합니다.</description>
+    </item>
+    
     <item>
       <title>HDFS는 어떻게 사용할까요?(3) [HDFS 명령어(하)]</title>
       <link>https://shcde.github.io/post/hdfs3/</link>
