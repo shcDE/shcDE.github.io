@@ -6,7 +6,16 @@
     <description>Recent content in Posts on shcDE Tech-Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Copyright © 2008–2018, Steve Francia and the Hugo Authors; all rights reserved.</copyright>
-    <lastBuildDate>Sat, 16 Jul 2022 14:45:34 +0900</lastBuildDate><atom:link href="https://shcde.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 17 Jul 2022 17:54:03 +0900</lastBuildDate><atom:link href="https://shcde.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>파이썬을 활용하여 맵리듀스 구현하기</title>
+      <link>https://shcde.github.io/post/mapreduce/</link>
+      <pubDate>Sun, 17 Jul 2022 17:54:03 +0900</pubDate>
+      
+      <guid>https://shcde.github.io/post/mapreduce/</guid>
+      <description>맵리듀스란 무엇이고, 어떻게 파이썬으로 구현할까요? 안녕하세요. shcDE입니다. 이번 포스팅에서는 맵리듀스에 대하여 알아보겠습니다. 맵리듀스는 하둡과 파이썬에서 주로 구현할 수 있는데, 저는 이번 포스팅에서는 빠르고 간편하게 구현하기 위해 파이썬을 선택하였습니다. 여기에서 맵리듀스는 프로그래밍 모델의 역할과 동시에 구현체를 역할을 수행하는 프레임워크로, 그 구현체는 &amp;lsquo;분산처리엔진&amp;rsquo; 역할을 하는 하둡의 중심 모듈 중 하나에 해당합니다. 맵리듀스의 맵은 흩어져 잇는 데이터를 Key, Value의 형태로 연관성 있는 데이터 분류로 묶는 작업을 의미하며, 리듀스는 맵화한 작업 중 중복 데이터를 제거하고 원하는 데이터를 추출하는 작업을 뜻합니다.</description>
+    </item>
+    
     <item>
       <title>HDFS는 어떻게 사용할까요?(4)</title>
       <link>https://shcde.github.io/post/hdfs4/</link>

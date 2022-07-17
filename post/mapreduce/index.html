@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang='en'><head>
+  <title>파이썬을 활용하여 맵리듀스 구현하기 | shcDE Tech-Blog</title>
+  <meta charset='utf-8'>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3031042205762577"
+     crossorigin="anonymous"></script>
+  <meta name="generator" content="Hugo 0.101.0" />
+  
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XCDRBEN300"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-XCDRBEN300', { 'anonymize_ip': false });
+}
+</script>
+
+  <meta name = 'viewport' content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'>
+  <meta http-equiv = 'X-UA-Compatible' content = 'IE=edge'>
+  <meta property="og:image" content="https://github.com/shcDE/pictures/blob/main/images_for_blog/business-gb1f55b807_1920.jpg?raw=true/wordcloud-gdaa80a00f_1280.png">
+  <meta property="og:description" content="schDE의 개발 지식 정리용 블로그입니다." /> 
+  <meta name="description" content="안녕하세요. schDE의 개발 지식 정리용 블로그입니다.">
+<meta property = 'og:locale' content = 'en_US' />
+<meta property="og:type" content="article">
+<meta property = 'og:title' content = '파이썬을 활용하여 맵리듀스 구현하기' />
+<meta name="description" content="맵리듀스란 무엇이고, 어떻게 파이썬으로 구현할까요? 안녕하세요. shcDE입니다. 이번 포스팅에서는 맵리듀스에 대하여 알아보겠습니다. 맵리듀스는 하둡과 파이썬에서 주로 구현할 수 있는데, 저는 이번 포스팅에서는 빠르고 간편하게 구현하기 위해 파이썬을 선택하였습니다. 여기에서 맵리듀스는  …">
+<meta property = 'og:description' content = '맵리듀스란 무엇이고, 어떻게 파이썬으로 구현할까요? 안녕하세요. shcDE입니다. 이번 포스팅에서는 맵리듀스에 대하여 알아보겠습니다. 맵리듀스는 하둡과 파이썬에서 주로 구현할 수 있는데, 저는 이번 포스팅에서는 빠르고 간편하게 구현하기 위해 파이썬을 선택하였습니다. 여기에서 맵리듀스는  …'>
+<meta property = 'og:url' content = 'https://shcde.github.io/post/mapreduce/' />
+<meta property = 'og:image' content = 'https://shcde.github.io/images/wordcloud-gdaa80a00f_1280.png'/>
+<meta name = 'twitter:card' content = 'summary_large_image' />
+<meta name = 'twitter:creator' content = ''>
+<meta name = 'twitter:title' content = '파이썬을 활용하여 맵리듀스 구현하기' />
+<meta property = 'twitter:description'  content = '맵리듀스란 무엇이고, 어떻게 파이썬으로 구현할까요? 안녕하세요. shcDE입니다. 이번 포스팅에서는 맵리듀스에 대하여 알아보겠습니다. 맵리듀스는 하둡과 파이썬에서 주로 구현할 수 있는데, 저는 이번 포스팅에서는 빠르고 간편하게 구현하기 위해 파이썬을 선택하였습니다. 여기에서 맵리듀스는  …'/>
+<meta name = 'twitter:image' content = 'https://shcde.github.io/images/wordcloud-gdaa80a00f_1280.png' />
+<link rel='apple-touch-icon' sizes='180x180' href='https://shcde.github.io/images/icons/apple-touch-icon.png'>
+<link rel='icon' type='image/png' sizes='32x32' href='https://shcde.github.io/images/icons/favicon-32x32.png'>
+<link rel='icon' type='image/png' sizes='16x16' href='https://shcde.github.io/images/icons/favicon-16x16.png'>
+<link rel='manifest' href='https://shcde.github.io/images/icons/site.webmanifest'>
+
+  <link rel='canonical' href='https://shcde.github.io/post/mapreduce/'>
+  <link rel = 'stylesheet' href = 'https://shcde.github.io/css/styles.42db596b1300421b76166668f896d65a0e912909aa95394f74e207c69da0d0b652fe2ad414cb6b746661857c824297f791d6df38fce0872ba2a9ccaa421a6b89.css' integrity = 'sha512-QttZaxMAQht2FmZo&#43;JbWWg6RKQmqlTlPdOIHxp2g0LZS/irUFMtrdGZhhXyCQpf3kdbfOPzghyuiqcyqQhpriQ=='>
+    
+  
+  <link rel="stylesheet" href="https://shcde.github.io/css/prism.css" media="none" onload="this.media='all';">
+  
+  <script defer language="javascript" type="text/javascript"  src="https://shcde.github.io/js/prism.js"></script>
+  
+
+
+</head>
+
+  <body><div class = 'nav-drop'>
+  <div class = 'nav-body'>
+    
+      <a href = 'https://shcde.github.io/categories/about/' class = 'nav_item'>About</a>
+      <a href = 'https://shcde.github.io/categories/freetalk/' class = 'nav_item'>Free Talk</a>
+      <a href = 'https://shcde.github.io/categories/dataengineering/' class = 'nav_item'>Data Engineering</a>
+    <div class = 'nav-close'></div>
+  </div>
+</div><header class = 'nav' >
+  <nav class = 'nav-menu'>
+
+    <a href='https://shcde.github.io/' class = 'nav-brand nav_item'>shcDE Tech-Blog</a>
+    <div class = 'nav_bar-wrap'>
+      <div class = 'nav_bar'></div>
+    </div>
+  </nav>
+  <p><button id="theme-toggle">Click to Switch between Light and Dark Mode</button></p>
+</header>
+
+<style>
+  .nav_bar-wrap {
+  background-Color:orange;
+  color: orange;
+  }
+
+  button {
+  border:2px solid #ff9900;     
+  background-Color:#000000;    
+  font:16px 나눔고딕;       
+  font-weight:bold;    
+  color:#ff9900;     
+  width:200;height:70;   
+  }
+
+  body {
+	color: rgb(12, 14, 29); 
+	background-color: white;
+}
+body.dark {
+	color: rgb(255, 191, 0); 
+	background-color: rgb(12, 14, 29);
+}
+  </style>
+
+<script>
+  var darkMode = false;
+
+
+if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+	darkMode = true;
+}
+
+
+if (localStorage.getItem('theme') === 'dark') {
+	darkMode = true;
+} else if (localStorage.getItem('theme') === 'light') {
+	darkMode = false;
+}
+
+if (darkMode) {
+	document.body.classList.toggle('dark');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    document.getElementById('theme-toggle').addEventListener('click', () => {
+		document.body.classList.toggle('dark');
+    	localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+	});
+
+});
+</script>
+
+
+    <main>
+
+<section class = 'post_header' style = 'background-image:url(https://shcde.github.io/images/wordcloud-gdaa80a00f_1280.png);'>
+  <h1 class='post_title'>파이썬을 활용하여 맵리듀스 구현하기</h1>
+</section>
+<div class = 'post'>
+  <div class="date">
+    
+    
+    
+    <strong aria-hidden="true"> </strong>
+    <br>
+    <strong aria-hidden="true">Created date: </strong>Sun, 17 Jul 2022 17:54 KST
+    
+      
+    
+  </div>
+  <article class='post_content'><p><img src="https://github.com/shcDE/pictures/blob/main/images_for_blog/wordcloud-gdaa80a00f_1280.png?raw=true" alt="워드클라우드"></p>
+<hr>
+<h1 id="맵리듀스란-무엇이고-어떻게-파이썬으로-구현할까요">맵리듀스란 무엇이고, 어떻게 파이썬으로 구현할까요?</h1>
+<hr>
+<p>안녕하세요. shcDE입니다. 이번 포스팅에서는 맵리듀스에 대하여 알아보겠습니다. 맵리듀스는 하둡과 파이썬에서 주로 구현할 수 있는데, 저는 이번 포스팅에서는 빠르고 간편하게 구현하기 위해 파이썬을 선택하였습니다. 여기에서 맵리듀스는 프로그래밍 모델의 역할과 동시에 구현체를 역할을 수행하는 프레임워크로, 그 구현체는 &lsquo;분산처리엔진&rsquo; 역할을 하는 하둡의 중심 모듈 중 하나에 해당합니다. 맵리듀스의 맵은 흩어져 잇는 데이터를 Key, Value의 형태로 연관성 있는 데이터 분류로 묶는 작업을 의미하며, 리듀스는 맵화한 작업 중 중복 데이터를 제거하고 원하는 데이터를 추출하는 작업을 뜻합니다. 사실 하둡에서 해당 프레임워크를 사용하는 것이 정석이지만, 아직 제가 자바보다는 파이썬에 익숙하여, 우선 이번 포스팅에서는 파이썬으로 구현할 예정입니다. 나중에 자바도 잘 다루게 되면 그 때 하둡 내에서 맵리듀스를 실행하는 방법에 대해 포스팅하겠습니다.</p>
+<hr>
+<p>우선 파이썬에서 맵리듀스를 구현하기 위해 map, filter, reduce 함수를 사용할 예정입니다. 시작 전에 세 함수에 대해 간단히 설명드리겠습니다.</p>
+<hr>
+<ol>
+<li>Map : 함수와 리스트를 인자로 받아 그 리스트로부터 원소를 하나씩 꺼내서 함수를 적용시킨 다음, 그 결과를 새로운 리스트에 담아주는 역할을 하는 함수</li>
+<li>Filter : 리스트에 있는 원소들을 함수에 적용시켜 결과가 참인 값들로 새로운 리스트를 만들어주는 함수</li>
+<li>Reduce : 순서형 자료인 문자열, 리스트, 튜플의 원소를 누적하여 적용시키는 함수</li>
+</ol>
+<hr>
+<p>우선 첫번째로 Map 함수를 활용한 예시는 다음과 같습니다.</p>
+<hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># 매핑 예시</span>
+</span></span><span style="display:flex;"><span>mynum <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#39;1&#39;</span>, <span style="color:#e6db74">&#39;2&#39;</span>, <span style="color:#e6db74">&#39;3&#39;</span>, <span style="color:#e6db74">&#39;4&#39;</span>]
+</span></span><span style="display:flex;"><span>mynum_int <span style="color:#f92672">=</span> list(map(int, mynum))
+</span></span><span style="display:flex;"><span>print(mynum_int)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>mynum_square <span style="color:#f92672">=</span> list(map(<span style="color:#66d9ef">lambda</span> x: x<span style="color:#f92672">*</span>x, mynum_int))
+</span></span><span style="display:flex;"><span>print(mynum_square)
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>[1, 2, 3, 4]
+</span></span><span style="display:flex;"><span>[1, 4, 9, 16]
+</span></span></code></pre></div><hr>
+<p>Filter 함수를 사용한 예시는 다음과 같습니다.</p>
+<hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># 필터링 예시</span>
+</span></span><span style="display:flex;"><span>mynum <span style="color:#f92672">=</span> range(<span style="color:#f92672">-</span><span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">5</span>)
+</span></span><span style="display:flex;"><span>mynum_plus <span style="color:#f92672">=</span> list(filter(<span style="color:#66d9ef">lambda</span> x: x <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>, mynum))
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># mynum의 각 원소 x에 대해 lambda x: x &gt; 0인지 체크하는 필터를 적용</span>
+</span></span><span style="display:flex;"><span>print(mynum_plus)
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>[1, 2, 3, 4]
+</span></span></code></pre></div><hr>
+<p>Reduce 함수를 사용한 예시는 다음과 같습니다.</p>
+<hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># 리듀싱 함수 예시</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> functools <span style="color:#f92672">import</span> reduce
+</span></span><span style="display:flex;"><span>mynum <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>]
+</span></span><span style="display:flex;"><span>add <span style="color:#f92672">=</span> reduce((<span style="color:#66d9ef">lambda</span> x, y: x <span style="color:#f92672">+</span> y), mynum)
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># reduce는 내부에 관리하는 x 변수에 mynum의 각 원소 y를 차례차례 더하여 x에 반영</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(add)
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>15
+</span></span></code></pre></div><hr>
+<p>위와 같이 map, filter, reduce 함수를 사용하면 간편하게 맵리듀스를 구현할 수 있습니다. 하지만 작동 원리를 이해하기 위해 매핑 함수와 리듀스 함수를 따로 구현해보도록 하겠습니다.</p>
+<hr>
+<p>매핑 함수는 다음과 같이 구현하였습니다.</p>
+<hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e">#테스트 데이터</span>
+</span></span><span style="display:flex;"><span>text <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;hello python&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 텍스트 단어를 스플릿 내서 list에 저장</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">mapper</span>(text):
+</span></span><span style="display:flex;"><span>    split <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> text:
+</span></span><span style="display:flex;"><span>        split<span style="color:#f92672">.</span>append((i, <span style="color:#ae81ff">1</span>))
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> split
+</span></span></code></pre></div><hr>
+<p>리듀스 함수는 다음과 같이 구현하였습니다.</p>
+<hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># mapper에서 받은 값 중 같은 값은 더하고 알파벳 모두 나눔</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">reducer</span>(split):
+</span></span><span style="display:flex;"><span>    out <span style="color:#f92672">=</span> {}
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> split:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> i[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">not</span> <span style="color:#f92672">in</span> out<span style="color:#f92672">.</span>keys():
+</span></span><span style="display:flex;"><span>            out[i[<span style="color:#ae81ff">0</span>]] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>            out[i[<span style="color:#ae81ff">0</span>]] <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> out
+</span></span></code></pre></div><hr>
+<p>나눈 알파벳을 출력한 결과는 다음과 같습니다.</p>
+<hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># 나눈 알파벳 출력</span>
+</span></span><span style="display:flex;"><span>reducer(mapper(text))
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>{&#39;h&#39;: 2, &#39;e&#39;: 1, &#39;l&#39;: 2, &#39;o&#39;: 2, &#39; &#39;: 1, &#39;p&#39;: 1, &#39;y&#39;: 1, &#39;t&#39;: 1, &#39;n&#39;: 1}
+</span></span></code></pre></div><hr>
+<p>이렇게 간단한 단어를 알파벳으로 나누어 출력하는 실습을 진행하였습니다. 이제 본격적으로 한 문단의 아티클을 들고 와서 실습을 진행하겠습니다. 가져온 아티클의 출처는 <a href="https://www.devlane.com/blog/data-engineering-trends-in-2022">링크</a> 클릭 시 확인할 수 있습니다.</p>
+<hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># 파이썬에서 맵리듀스를 구현하기 위해 자체 내장 라이브러리 collections 호출</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> collections
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> collections <span style="color:#f92672">import</span> defaultdict
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> string
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 텍스트 출처 : https://www.devlane.com/blog/data-engineering-trends-in-2022</span>
+</span></span><span style="display:flex;"><span>text <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[DataOps and MLOps]
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">As it happened with DevOps (Development + Operations), QAops (Quality Assurance + Operations), 2022 will increase the adoption of DataOps and MLOps, for Data Engineering and Machine Learning teams.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">The DataOps approach implements the same benefits of DevOps and QAOps for Data professionals. It helps build and maintain streamlined, agile data analytics pipelines iteratively and incrementally. 
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Data in businesses is ingested, prepared, and orchestrated in different ways. This creates an increasing demand for automation and pipeline integration tools that help data teams visualize their workflows in unified tools. 
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">This year, businesses will start implementing DataOps processes, which, combined with the already adopted Agile methodologies, will help companies reach next-level data analytics and decision making.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">The DataOps approach will enable organizations to implement automated data pipelines in their private, multi-cloud, or hybrid environments.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">The main objective of DataOps and MLOps is to accelerate the development and maintenance cycle of analytics and data models.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Traditionally reserved for big companies, mid-sized companies will start implementing Data and MLOps processes in 2022. Even start-ups with their typical urgency for reliable data will begin implementing some aspects of these new data-driven engineering approaches.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 특수문자 제거</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> character <span style="color:#f92672">in</span> string<span style="color:#f92672">.</span>punctuation:
+</span></span><span style="display:flex;"><span>    text <span style="color:#f92672">=</span> text<span style="color:#f92672">.</span>replace(character, <span style="color:#e6db74">&#39;&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 결과 초기값 설정 및 단어 공백으로 분리</span>
+</span></span><span style="display:flex;"><span>result <span style="color:#f92672">=</span> defaultdict(int)
+</span></span><span style="display:flex;"><span>word <span style="color:#f92672">=</span> text<span style="color:#f92672">.</span>split()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 단어개수 카운팅</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> word:
+</span></span><span style="display:flex;"><span>    result[i] <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 카운팅한 단어 개수 출력</span>
+</span></span><span style="display:flex;"><span>print(result)
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>defaultdict(&lt;class &#39;int&#39;&gt;, {&#39;DataOps&#39;: 6, &#39;and&#39;: 13, &#39;MLOps&#39;: 4, &#39;As&#39;: 1, &#39;it&#39;: 1, &#39;happened&#39;: 1, &#39;with&#39;: 3, &#39;DevOps&#39;: 2, &#39;Development&#39;: 1, &#39;Operations&#39;: 2, &#39;QAops&#39;: 1, &#39;Quality&#39;: 1, &#39;Assurance&#39;: 1, &#39;2022&#39;: 2, &#39;will&#39;: 6, &#39;increase&#39;: 1, &#39;the&#39;: 4, &#39;adoption&#39;: 1, &#39;of&#39;: 5, &#39;for&#39;: 5, &#39;Data&#39;: 4, &#39;Engineering&#39;: 1, &#39;Machine&#39;: 1, &#39;Learning&#39;: 1, &#39;teams&#39;: 2, &#39;The&#39;: 3, &#39;approach&#39;: 2, &#39;implements&#39;: 1, &#39;same&#39;: 1, &#39;benefits&#39;: 1, &#39;QAOps&#39;: 1, &#39;professionals&#39;: 1, &#39;It&#39;: 1, &#39;helps&#39;: 1, &#39;build&#39;: 1, &#39;maintain&#39;: 1, &#39;streamlined&#39;: 1, &#39;agile&#39;: 1, &#39;data&#39;: 6, &#39;analytics&#39;: 3, &#39;pipelines&#39;: 2, &#39;iteratively&#39;: 1, &#39;incrementally&#39;: 1, &#39;in&#39;: 5, &#39;businesses&#39;: 2, &#39;is&#39;: 2, &#39;ingested&#39;: 1, &#39;prepared&#39;: 1, &#39;orchestrated&#39;: 1, &#39;different&#39;: 1, &#39;ways&#39;: 1, &#39;This&#39;: 2, &#39;creates&#39;: 1, &#39;an&#39;: 1, &#39;increasing&#39;: 1, &#39;demand&#39;: 1, &#39;automation&#39;: 1, &#39;pipeline&#39;: 1, &#39;integration&#39;: 1, &#39;tools&#39;: 2, &#39;that&#39;: 1, &#39;help&#39;: 2, &#39;visualize&#39;: 1, &#39;their&#39;: 3, &#39;workflows&#39;: 1, &#39;unified&#39;: 1, &#39;year&#39;: 1, &#39;start&#39;: 2, &#39;implementing&#39;: 3, &#39;processes&#39;: 2, &#39;which&#39;: 1, &#39;combined&#39;: 1, &#39;already&#39;: 1, &#39;adopted&#39;: 1, &#39;Agile&#39;: 1, &#39;methodologies&#39;: 1, &#39;companies&#39;: 3, &#39;reach&#39;: 1, &#39;nextlevel&#39;: 1, &#39;decision&#39;: 1, &#39;making&#39;: 1, &#39;enable&#39;: 1, &#39;organizations&#39;: 1, &#39;to&#39;: 2, &#39;implement&#39;: 1, &#39;automated&#39;: 1, &#39;private&#39;: 1, &#39;multicloud&#39;: 1, &#39;or&#39;: 1, &#39;hybrid&#39;: 1, &#39;environments&#39;: 1, &#39;main&#39;: 1, &#39;objective&#39;: 1, &#39;accelerate&#39;: 1, &#39;development&#39;: 1, &#39;maintenance&#39;: 1, &#39;cycle&#39;: 1, &#39;models&#39;: 1, &#39;Traditionally&#39;: 1, &#39;reserved&#39;: 1, &#39;big&#39;: 1, &#39;midsized&#39;: 1, &#39;Even&#39;: 1, &#39;startups&#39;: 1, &#39;typical&#39;: 1, &#39;urgency&#39;: 1, &#39;reliable&#39;: 1, &#39;begin&#39;: 1, &#39;some&#39;: 1, &#39;aspects&#39;: 1, &#39;these&#39;: 1, &#39;new&#39;: 1, &#39;datadriven&#39;: 1, &#39;engineering&#39;: 1, &#39;approaches&#39;: 1})
+</span></span></code></pre></div><hr>
+<p>해당 방식을 통해 장문의 글에서도 맵리듀스를 적용할 수 있음을 확인할 수 있었습니다. 하지만 이렇게 구현하면 매번 같은 코드를 작성해야 하는 불편함이 있기에 함수를 생성하여 다시 한 번 호출하겠습니다.</p>
+<hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># 아까 가져온 장문의 텍스트 다시 가져옴</span>
+</span></span><span style="display:flex;"><span>text <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[DataOps and MLOps]
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">As it happened with DevOps (Development + Operations), QAops (Quality Assurance + Operations), 2022 will increase the adoption of DataOps and MLOps, for Data Engineering and Machine Learning teams.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">The DataOps approach implements the same benefits of DevOps and QAOps for Data professionals. It helps build and maintain streamlined, agile data analytics pipelines iteratively and incrementally. 
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Data in businesses is ingested, prepared, and orchestrated in different ways. This creates an increasing demand for automation and pipeline integration tools that help data teams visualize their workflows in unified tools. 
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">This year, businesses will start implementing DataOps processes, which, combined with the already adopted Agile methodologies, will help companies reach next-level data analytics and decision making.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">The DataOps approach will enable organizations to implement automated data pipelines in their private, multi-cloud, or hybrid environments.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">The main objective of DataOps and MLOps is to accelerate the development and maintenance cycle of analytics and data models.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Traditionally reserved for big companies, mid-sized companies will start implementing Data and MLOps processes in 2022. Even start-ups with their typical urgency for reliable data will begin implementing some aspects of these new data-driven engineering approaches.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 특수문자 제거</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> character <span style="color:#f92672">in</span> string<span style="color:#f92672">.</span>punctuation:
+</span></span><span style="display:flex;"><span>    text <span style="color:#f92672">=</span> text<span style="color:#f92672">.</span>replace(character, <span style="color:#e6db74">&#39;&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># word_count 함수 생성해서 맵리듀싱 진행</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">word_count</span>(text):
+</span></span><span style="display:flex;"><span>    result <span style="color:#f92672">=</span> defaultdict(int)
+</span></span><span style="display:flex;"><span>    word <span style="color:#f92672">=</span> text<span style="color:#f92672">.</span>split()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> word:
+</span></span><span style="display:flex;"><span>        result[i] <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> result
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 맵리듀스 단어 개수 카운팅 결과 출력</span>
+</span></span><span style="display:flex;"><span>word_count(text)
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>defaultdict(int,
+</span></span><span style="display:flex;"><span>            {&#39;DataOps&#39;: 6,
+</span></span><span style="display:flex;"><span>             &#39;and&#39;: 13,
+</span></span><span style="display:flex;"><span>             &#39;MLOps&#39;: 4,
+</span></span><span style="display:flex;"><span>             &#39;As&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;it&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;happened&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;with&#39;: 3,
+</span></span><span style="display:flex;"><span>             &#39;DevOps&#39;: 2,
+</span></span><span style="display:flex;"><span>             &#39;Development&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;Operations&#39;: 2,
+</span></span><span style="display:flex;"><span>             &#39;QAops&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;Quality&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;Assurance&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;2022&#39;: 2,
+</span></span><span style="display:flex;"><span>             &#39;will&#39;: 6,
+</span></span><span style="display:flex;"><span>             &#39;increase&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;the&#39;: 4,
+</span></span><span style="display:flex;"><span>             &#39;adoption&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;of&#39;: 5,
+</span></span><span style="display:flex;"><span>             &#39;for&#39;: 5,
+</span></span><span style="display:flex;"><span>             &#39;Data&#39;: 4,
+</span></span><span style="display:flex;"><span>             &#39;Engineering&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;Machine&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;Learning&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;teams&#39;: 2,
+</span></span><span style="display:flex;"><span>             &#39;The&#39;: 3,
+</span></span><span style="display:flex;"><span>             &#39;approach&#39;: 2,
+</span></span><span style="display:flex;"><span>             &#39;implements&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;same&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;benefits&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;QAOps&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;professionals&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;It&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;helps&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;build&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;maintain&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;streamlined&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;agile&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;data&#39;: 6,
+</span></span><span style="display:flex;"><span>             &#39;analytics&#39;: 3,
+</span></span><span style="display:flex;"><span>             &#39;pipelines&#39;: 2,
+</span></span><span style="display:flex;"><span>             &#39;iteratively&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;incrementally&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;in&#39;: 5,
+</span></span><span style="display:flex;"><span>             &#39;businesses&#39;: 2,
+</span></span><span style="display:flex;"><span>             &#39;is&#39;: 2,
+</span></span><span style="display:flex;"><span>             &#39;ingested&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;prepared&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;orchestrated&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;different&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;ways&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;This&#39;: 2,
+</span></span><span style="display:flex;"><span>             &#39;creates&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;an&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;increasing&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;demand&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;automation&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;pipeline&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;integration&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;tools&#39;: 2,
+</span></span><span style="display:flex;"><span>             &#39;that&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;help&#39;: 2,
+</span></span><span style="display:flex;"><span>             &#39;visualize&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;their&#39;: 3,
+</span></span><span style="display:flex;"><span>             &#39;workflows&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;unified&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;year&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;start&#39;: 2,
+</span></span><span style="display:flex;"><span>             &#39;implementing&#39;: 3,
+</span></span><span style="display:flex;"><span>             &#39;processes&#39;: 2,
+</span></span><span style="display:flex;"><span>             &#39;which&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;combined&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;already&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;adopted&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;Agile&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;methodologies&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;companies&#39;: 3,
+</span></span><span style="display:flex;"><span>             &#39;reach&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;nextlevel&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;decision&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;making&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;enable&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;organizations&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;to&#39;: 2,
+</span></span><span style="display:flex;"><span>             &#39;implement&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;automated&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;private&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;multicloud&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;or&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;hybrid&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;environments&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;main&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;objective&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;accelerate&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;development&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;maintenance&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;cycle&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;models&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;Traditionally&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;reserved&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;big&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;midsized&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;Even&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;startups&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;typical&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;urgency&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;reliable&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;begin&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;some&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;aspects&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;these&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;new&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;datadriven&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;engineering&#39;: 1,
+</span></span><span style="display:flex;"><span>             &#39;approaches&#39;: 1})
+</span></span></code></pre></div><hr>
+<p>확실히 함수를 생성하여 맵리듀스를 실행한 결과, 코드를 반복적으로 작성할 일도 줄어들 뿐만 아니라, 결과 출력도 깔끔하게 나온 것을 확인할 수 있었습니다. 이렇게 다양한 방식으로 파이썬에서 맵리듀스를 구현해봤습니다. 다음에 다시 맵리듀스에 대해 공부할 계기가 생긴다면, 꼭 하둡을 직접 사용하여 구현할 수 있도록 실력을 쌓겠습니다.</p>
+<hr>
+<p>이상으로 파이썬을 활용한 맵리듀스 구현에 대한 포스팅을 마치겠습니다. 모두 긴 글 읽어주시느라 고생 많으셨고, 다음 한 주도 화이팅입니다.</p>
+<hr>
+<h4 id="감사합니다">감사합니다.</h4>
+<hr>
+<p>[레퍼런스]</p>
+<ol>
+<li>Data Engineering Trends in 2022 : <a href="https://www.devlane.com/blog/data-engineering-trends-in-2022">https://www.devlane.com/blog/data-engineering-trends-in-2022</a></li>
+</ol>
+
+    
+
+    
+  </article>
+  
+  <aside><h3>More from shcDE Tech-Blog</h3>
+<ul class='posts aside'>
+<li class = 'post_item fp'>
+  <a class = 'post_card' href='https://shcde.github.io/post/hdfs4/' title = 'HDFS는 어떻게 사용할까요?(4)' style = 'background-image: url(https://shcde.github.io/images/elephants-g07073c915_1920.jpg);'>
+  </a>
+  <div class = 'excerpt'>
+    <div class = 'excerpt_meta'>
+      <a href = 'https://shcde.github.io/tags/dataengineering' class = 'post_tag'>dataengineering
+      </a><div id=inline class="out">
+  2022-07-16
+</div>
+<div class = 'copy' data-share = 'Copy' data-copied = 'Copied'><svg>
+  <use xlink:href="#copy"></use>
+</svg>
+</div>
+
+<style>
+  .out {
+  border: 2px solid rgb(255, 132, 0);
+  background-color: rgb(255, 132, 0);
+  width: 100px;
+  height: 25px;
+  border-radius: 5px;
+  font:14px 나눔고딕;
+  font-weight:bold;
+}
+
+#inline {
+  text-align: center;
+  line-height: 20px;
+  color : white;
+}
+</style>
+    </div>
+    <h3 class = 'post_link'>
+      <a href='https://shcde.github.io/post/hdfs4/'>HDFS는 어떻게 사용할까요?(4)</a>
+    </h3>
+    <p class = 'pale'>추가로 알아볼 HDFS 기능은 무엇이 있을까요? 안녕하세요. shcDE입니다. 이번 포스팅에서는 REST API 사용법, 사용량 제한 설정, RPC, 이레이져 코 …</p>
+  </div>
+</li>
+
+<li class = 'post_item fp'>
+  <a class = 'post_card' href='https://shcde.github.io/post/hdfs3/' title = 'HDFS는 어떻게 사용할까요?(3) [HDFS 명령어(하)]' style = 'background-image: url(https://shcde.github.io/images/elephants-g07073c915_1920.jpg);'>
+  </a>
+  <div class = 'excerpt'>
+    <div class = 'excerpt_meta'>
+      <a href = 'https://shcde.github.io/tags/dataengineering' class = 'post_tag'>dataengineering
+      </a><div id=inline class="out">
+  2022-07-15
+</div>
+<div class = 'copy' data-share = 'Copy' data-copied = 'Copied'><svg>
+  <use xlink:href="#copy"></use>
+</svg>
+</div>
+
+<style>
+  .out {
+  border: 2px solid rgb(255, 132, 0);
+  background-color: rgb(255, 132, 0);
+  width: 100px;
+  height: 25px;
+  border-radius: 5px;
+  font:14px 나눔고딕;
+  font-weight:bold;
+}
+
+#inline {
+  text-align: center;
+  line-height: 20px;
+  color : white;
+}
+</style>
+    </div>
+    <h3 class = 'post_link'>
+      <a href='https://shcde.github.io/post/hdfs3/'>HDFS는 어떻게 사용할까요?(3) [HDFS 명령어(하)]</a>
+    </h3>
+    <p class = 'pale'>이번에 배울 HDFS 명령어는 무엇이 있을까요? 안녕하세요. shcDE입니다. 이번 포스팅에서는 이전 포스팅에서 다루지 못했던 명령어를 다루겠습니다. …</p>
+  </div>
+</li>
+
+</ul>
+
+  </aside>
+  
+</div>
+<script src = 'https://shcde.github.io/js/autosize.min.js'></script>
+<script src = 'https://shcde.github.io/js/timeago.js'></script>
+    </main><svg width="0" height="0" class="hidden">
+  <symbol viewBox="0 0 699.428 699.428" xmlns="http://www.w3.org/2000/svg" id="copy">
+    <path d="M502.714 0H240.428C194.178 0 153 42.425 153 87.429l-25.267.59c-46.228 0-84.019 41.834-84.019 86.838V612c0 45.004 41.179 87.428 87.429 87.428H459c46.249 0 87.428-42.424 87.428-87.428h21.857c46.25 0 87.429-42.424 87.429-87.428v-349.19zM459 655.715H131.143c-22.95 0-43.714-21.441-43.714-43.715V174.857c0-22.272 18.688-42.993 41.638-42.993l23.933-.721v393.429C153 569.576 194.178 612 240.428 612h262.286c0 22.273-20.765 43.715-43.714 43.715zm153-131.143c0 22.271-20.765 43.713-43.715 43.713H240.428c-22.95 0-43.714-21.441-43.714-43.713V87.429c0-22.272 20.764-43.714 43.714-43.714H459c-.351 50.337 0 87.975 0 87.975 0 45.419 40.872 86.882 87.428 86.882H612zm-65.572-349.715c-23.277 0-43.714-42.293-43.714-64.981V44.348L612 174.857zm-43.714 131.537H306c-12.065 0-21.857 9.77-21.857 21.835s9.792 21.835 21.857 21.835h196.714c12.065 0 21.857-9.771 21.857-21.835 0-12.065-9.792-21.835-21.857-21.835zm0 109.176H306c-12.065 0-21.857 9.77-21.857 21.834 0 12.066 9.792 21.836 21.857 21.836h196.714c12.065 0 21.857-9.77 21.857-21.836 0-12.064-9.792-21.834-21.857-21.834z"
+    ></path>
+  </symbol>
+  <symbol viewBox="0 0 60.015 60.015" xmlns="http://www.w3.org/2000/svg" id="reply">
+    <path d="M42.007 0h-24c-9.925 0-18 8.075-18 18v14c0 9.59 7.538 17.452 17 17.973v8.344a1.694 1.694 0 0 0 1.699 1.698c.44 0 .873-.173 1.198-.498l1.876-1.876C26.708 52.713 33.259 50 40.227 50h1.78c9.925 0 18-8.075 18-18V18c0-9.925-8.075-18-18-18zm16 32c0 8.822-7.178 16-16 16h-1.78c-7.502 0-14.556 2.921-19.86 8.226l-1.359 1.359V44a1 1 0 1 0-2 0v3.949c-8.356-.52-15-7.465-15-15.949V18c0-8.822 7.178-16 16-16h24c8.822 0 16 7.178 16 16v14z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="scan">
+    <path d="M456.66 0H385c-8.284 0-15 6.716-15 15s6.716 15 15 15h71.66C470.632 30 482 41.368 482 55.341V127c0 8.284 6.716 15 15 15s15-6.716 15-15V55.341C512 24.826 487.174 0 456.66 0zM15 142c8.284 0 15-6.716 15-15V55.341C30 41.368 41.368 30 55.34 30H127c8.284 0 15-6.716 15-15s-6.716-15-15-15H55.34C24.826 0 0 24.826 0 55.341V127c0 8.284 6.716 15 15 15zm112 340H55.34C41.368 482 30 470.632 30 456.659V385c0-8.284-6.716-15-15-15s-15 6.716-15 15v71.659C0 487.174 24.826 512 55.34 512H127c8.284 0 15-6.716 15-15s-6.716-15-15-15zm370-112c-8.284 0-15 6.716-15 15v71.659C482 470.632 470.632 482 456.66 482H385c-8.284 0-15 6.716-15 15s6.716 15 15 15h71.66c30.515 0 55.34-24.826 55.34-55.341V385c0-8.284-6.716-15-15-15zM341.643 110h47.575c6.497 0 11.782 5.285 11.782 11.782v47.574c0 8.284 6.716 15 15 15s15-6.716 15-15v-47.574C431 98.743 412.256 80 389.218 80h-47.575c-8.284 0-15 6.716-15 15s6.716 15 15 15zM81 121.782v47.574c0 8.284 6.716 15 15 15s15-6.716 15-15v-47.574c0-6.497 5.286-11.782 11.782-11.782h47.575c8.284 0 15-6.716 15-15s-6.716-15-15-15h-47.575C99.744 80 81 98.743 81 121.782zM170.357 400h-47.575c-6.497 0-11.782-5.285-11.782-11.782v-47.574c0-8.284-6.716-15-15-15s-15 6.716-15 15v47.574C81 411.257 99.744 430 122.782 430h47.575c8.284 0 15-6.716 15-15s-6.716-15-15-15zM431 388.218v-47.574c0-8.284-6.716-15-15-15s-15 6.716-15 15v47.574c0 6.497-5.286 11.782-11.782 11.782h-47.575c-8.284 0-15 6.716-15 15s6.716 15 15 15h47.575C412.256 430 431 411.257 431 388.218zM1 256c0 8.284 6.716 15 15 15h480c8.284 0 15-6.716 15-15s-6.716-15-15-15H16c-8.284 0-15 6.716-15 15z"></path>
+  </symbol>
+</svg>
+<footer class="footer">
+  <div class="footer_inner wrap pale">
+    <p>&copy;&nbsp;<span class="year"></span>&nbsp;shcDE Tech-Blog.
+    Designed by  <a href = 'https://www.linkedin.com/in/dan-weru-profile/' title = 'Linkedin Profile'>Weru</a></p>
+  </div>
+  
+  <script src="https://utteranc.es/client.js"
+        repo="shcDE/blog-comments"
+        issue-term="title"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+  </script>
+</footer><script type="text/javascript" src="https://shcde.github.io/js/bundle.444d59fb57116584f9d07a6aff51bf335fe9975644550a0d68e213d2d51db57326d29ea67a57b44b1b381cf4ca7d866d3e69f5ad5f3d1e49b2fc4edc508cbd03.js" integrity="sha512-RE1Z&#43;1cRZYT50Hpq/1G/M1/pl1ZEVQoNaOIT0tUdtXMm0p6mele0Sxs4HPTKfYZtPmn1rV89Hkmy/E7cUIy9Aw==" crossorigin="anonymous"></script>
+
+  </body>
+</html>
