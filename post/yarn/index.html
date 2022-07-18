@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang='en'><head>
+  <title>하둡에서 YARN 명령어 실행하기 | shcDE Tech-Blog</title>
+  <meta charset='utf-8'>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3031042205762577"
+     crossorigin="anonymous"></script>
+  <meta name="generator" content="Hugo 0.101.0" />
+  
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XCDRBEN300"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-XCDRBEN300', { 'anonymize_ip': false });
+}
+</script>
+
+  <meta name = 'viewport' content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'>
+  <meta http-equiv = 'X-UA-Compatible' content = 'IE=edge'>
+  <meta property="og:image" content="https://github.com/shcDE/pictures/blob/main/images_for_blog/business-gb1f55b807_1920.jpg?raw=true/knit-g8e2df2961_1920.jpg">
+  <meta property="og:description" content="schDE의 개발 지식 정리용 블로그입니다." /> 
+  <meta name="description" content="안녕하세요. schDE의 개발 지식 정리용 블로그입니다.">
+<meta property = 'og:locale' content = 'en_US' />
+<meta property="og:type" content="article">
+<meta property = 'og:title' content = '하둡에서 YARN 명령어 실행하기' />
+<meta name="description" content="YARN 명령어는 어떻게 사용할까요? 안녕하세요. shcDE입니다. 오늘은 하둡 v2부터 적용된 YARN에 대해 알아보겠습니다. YARN(Yet Another Resource Negotiator)은 하둡에서 도입한 클러스터 리소스 관리 및 애플리케이션 라이프 사이클 관리를 위한 아키텍처 …">
+<meta property = 'og:description' content = 'YARN 명령어는 어떻게 사용할까요? 안녕하세요. shcDE입니다. 오늘은 하둡 v2부터 적용된 YARN에 대해 알아보겠습니다. YARN(Yet Another Resource Negotiator)은 하둡에서 도입한 클러스터 리소스 관리 및 애플리케이션 라이프 사이클 관리를 위한 아키텍처 …'>
+<meta property = 'og:url' content = 'https://shcde.github.io/post/yarn/' />
+<meta property = 'og:image' content = 'https://shcde.github.io/images/knit-g8e2df2961_1920.jpg'/>
+<meta name = 'twitter:card' content = 'summary_large_image' />
+<meta name = 'twitter:creator' content = ''>
+<meta name = 'twitter:title' content = '하둡에서 YARN 명령어 실행하기' />
+<meta property = 'twitter:description'  content = 'YARN 명령어는 어떻게 사용할까요? 안녕하세요. shcDE입니다. 오늘은 하둡 v2부터 적용된 YARN에 대해 알아보겠습니다. YARN(Yet Another Resource Negotiator)은 하둡에서 도입한 클러스터 리소스 관리 및 애플리케이션 라이프 사이클 관리를 위한 아키텍처 …'/>
+<meta name = 'twitter:image' content = 'https://shcde.github.io/images/knit-g8e2df2961_1920.jpg' />
+<link rel='apple-touch-icon' sizes='180x180' href='https://shcde.github.io/images/icons/apple-touch-icon.png'>
+<link rel='icon' type='image/png' sizes='32x32' href='https://shcde.github.io/images/icons/favicon-32x32.png'>
+<link rel='icon' type='image/png' sizes='16x16' href='https://shcde.github.io/images/icons/favicon-16x16.png'>
+<link rel='manifest' href='https://shcde.github.io/images/icons/site.webmanifest'>
+
+  <link rel='canonical' href='https://shcde.github.io/post/yarn/'>
+  <link rel = 'stylesheet' href = 'https://shcde.github.io/css/styles.42db596b1300421b76166668f896d65a0e912909aa95394f74e207c69da0d0b652fe2ad414cb6b746661857c824297f791d6df38fce0872ba2a9ccaa421a6b89.css' integrity = 'sha512-QttZaxMAQht2FmZo&#43;JbWWg6RKQmqlTlPdOIHxp2g0LZS/irUFMtrdGZhhXyCQpf3kdbfOPzghyuiqcyqQhpriQ=='>
+    
+  
+  <link rel="stylesheet" href="https://shcde.github.io/css/prism.css" media="none" onload="this.media='all';">
+  
+  <script defer language="javascript" type="text/javascript"  src="https://shcde.github.io/js/prism.js"></script>
+  
+
+
+</head>
+
+  <body><div class = 'nav-drop'>
+  <div class = 'nav-body'>
+    
+      <a href = 'https://shcde.github.io/categories/about/' class = 'nav_item'>About</a>
+      <a href = 'https://shcde.github.io/categories/freetalk/' class = 'nav_item'>Free Talk</a>
+      <a href = 'https://shcde.github.io/categories/dataengineering/' class = 'nav_item'>Data Engineering</a>
+    <div class = 'nav-close'></div>
+  </div>
+</div><header class = 'nav' >
+  <nav class = 'nav-menu'>
+
+    <a href='https://shcde.github.io/' class = 'nav-brand nav_item'>shcDE Tech-Blog</a>
+    <div class = 'nav_bar-wrap'>
+      <div class = 'nav_bar'></div>
+    </div>
+  </nav>
+  <p><button id="theme-toggle">Click to Switch between Light and Dark Mode</button></p>
+</header>
+
+<style>
+  .nav_bar-wrap {
+  background-Color:orange;
+  color: orange;
+  }
+
+  button {
+  border:2px solid #ff9900;     
+  background-Color:#000000;    
+  font:16px 나눔고딕;       
+  font-weight:bold;    
+  color:#ff9900;     
+  width:200;height:70;   
+  }
+
+  body {
+	color: rgb(12, 14, 29); 
+	background-color: white;
+}
+body.dark {
+	color: rgb(255, 191, 0); 
+	background-color: rgb(12, 14, 29);
+}
+  </style>
+
+<script>
+  var darkMode = false;
+
+
+if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+	darkMode = true;
+}
+
+
+if (localStorage.getItem('theme') === 'dark') {
+	darkMode = true;
+} else if (localStorage.getItem('theme') === 'light') {
+	darkMode = false;
+}
+
+if (darkMode) {
+	document.body.classList.toggle('dark');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    document.getElementById('theme-toggle').addEventListener('click', () => {
+		document.body.classList.toggle('dark');
+    	localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+	});
+
+});
+</script>
+
+
+    <main>
+
+<section class = 'post_header' style = 'background-image:url(https://shcde.github.io/images/knit-g8e2df2961_1920.jpg);'>
+  <h1 class='post_title'>하둡에서 YARN 명령어 실행하기</h1>
+</section>
+<div class = 'post'>
+  <div class="date">
+    
+    
+    
+    <strong aria-hidden="true"> </strong>
+    <br>
+    <strong aria-hidden="true">Created date: </strong>Mon, 18 Jul 2022 16:03 KST
+    
+      
+    
+  </div>
+  <article class='post_content'><p><img src="https://github.com/shcDE/pictures/blob/main/images_for_blog/knit-g8e2df2961_1920.jpg?raw=true" alt="yarn"></p>
+<hr>
+<h1 id="yarn-명령어는-어떻게-사용할까요">YARN 명령어는 어떻게 사용할까요?</h1>
+<hr>
+<p>안녕하세요. shcDE입니다. 오늘은 하둡 v2부터 적용된 YARN에 대해 알아보겠습니다. YARN(Yet Another Resource Negotiator)은 하둡에서 도입한 클러스터 리소스 관리 및 애플리케이션 라이프 사이클 관리를 위한 아키텍처를 의미하며, 이번 포스팅에서는 스케줄러, 메모리 설정, 명령어, 노드 레이블, 타임라인 서비스 v2에 대해 알아보겠습니다. 시작 전에, 해당 포스팅은 <a href="https://wikidocs.net/book/2203">&lsquo;빅데이터 - 하둡, 하이브로 시작하기&rsquo;(위키독스)</a>를 바탕으로 작성하였음을 알려드립니다.</p>
+<hr>
+<p>우선 YARN 스케줄러에 대해 알려드리겠습니다. 스케줄러는 자원 할당을 위한 정책을 의미하며, 하둡에서 제공하는 기본 스케줄러는 다음과 같습니다.</p>
+<table>
+<thead>
+<tr>
+<th>스케줄러</th>
+<th>클래스명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FIFO 스케줄러</td>
+<td>org.apache.hadoop.yarn.server.resourcemanager.scheduler.fifo.FifoScheduler</td>
+</tr>
+<tr>
+<td>Fair 스케줄러</td>
+<td>org.apache.hadoop.yarn.server.resourcemanager.scheduler.fair.FairScheduler</td>
+</tr>
+<tr>
+<td>Capacity 스케줄러</td>
+<td>org.apache.hadoop.yarn.server.resourcemanager.scheduler.capacity.CapacityScheduler</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<p>스케줄러 설정 방법은 다음과 같습니다.</p>
+<hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>&lt;property&gt;
+</span></span><span style="display:flex;"><span> &lt;name&gt;yarn.resourcemanager.scheduler.class&lt;/name&gt;
+</span></span><span style="display:flex;"><span> &lt;value&gt;org.apache.hadoop.yarn.server.resourcemanager.scheduler.capacity.CapacityScheduler&lt;/value&gt;
+</span></span><span style="display:flex;"><span>&lt;/property&gt;
+</span></span></code></pre></div><hr>
+<p>각 스케줄러에 대한 문서의 설명은 다음과 같으며, 추가적인 예시는 문서를 참고해서 확인할 수 있습니다.</p>
+<hr>
+<ol>
+<li>FIFO Scheduler : FIFO 스케줄러는 이름과 같이 먼저 들어온 작업이 먼저 처리됩니다. 작업의 제출 순서대로 처리되고, 먼저 들어온 작업이 종료될 때까지 다음작업은 대기합니다. 이로 인해 자원을 효율적으로 사용할 수 없기 때문에 FIFO 스케줄러는 테스트 목적으로만 사용하는 것이 좋습니다.</li>
+<li>Fair Scheduler : Fair 스케줄러는 제출 된 작업이 동등하게 리소스를 점유합니다. 작업 큐에 작업이 제출되면 클러스터는 자원을 조절하여 작업에 균등하게 자원을 할당 하여 줍니다.</li>
+<li>Capacity Scheduler : 하둡2의 기본 스케줄러 입니다. 트리 형태로 큐를 선언하고 각 큐 별로 이용할 수 있는 자원의 용량을 정하여 주면 그 용량에 맞게 자원을 할당 하여 줍니다.</li>
+</ol>
+<hr>
+<p>다음으로 메모리 설정에 대해 설명드리겠습니다. YARN의 메모리 설정은 yarn-site.xml 파일을 수정하여 변경할 수 있으며, 노드매니저의 메모리, CPU 개수와 컨테이너에 할당 할 수 있는 최대, 최소 메모리등을 설정할 수 있습니다. 사용 예시는 다음과 같습니다.</p>
+<hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>  &lt;property&gt;
+</span></span><span style="display:flex;"><span>    &lt;name&gt;yarn.nodemanager.resource.memory-mb&lt;/name&gt;
+</span></span><span style="display:flex;"><span>    &lt;value&gt;28672&lt;/value&gt;
+</span></span><span style="display:flex;"><span>  &lt;/property&gt;
+</span></span><span style="display:flex;"><span>  &lt;property&gt;
+</span></span><span style="display:flex;"><span>    &lt;name&gt;yarn.nodemanager.resource.cpu-vcores&lt;/name&gt;
+</span></span><span style="display:flex;"><span>    &lt;value&gt;8&lt;/value&gt;
+</span></span><span style="display:flex;"><span>  &lt;/property&gt;
+</span></span><span style="display:flex;"><span>  &lt;property&gt;
+</span></span><span style="display:flex;"><span>    &lt;name&gt;yarn.scheduler.maximum-allocation-mb&lt;/name&gt;
+</span></span><span style="display:flex;"><span>    &lt;value&gt;8192&lt;/value&gt;
+</span></span><span style="display:flex;"><span>  &lt;/property&gt;
+</span></span><span style="display:flex;"><span>  &lt;property&gt;
+</span></span><span style="display:flex;"><span>    &lt;name&gt;yarn.scheduler.minimum-allocation-mb&lt;/name&gt;
+</span></span><span style="display:flex;"><span>    &lt;value&gt;1024&lt;/value&gt;
+</span></span><span style="display:flex;"><span>  &lt;/property&gt;
+</span></span><span style="display:flex;"><span>  &lt;property&gt;
+</span></span><span style="display:flex;"><span>    &lt;name&gt;yarn.nodemanager.vmem-pmem-ratio&lt;/name&gt;
+</span></span><span style="display:flex;"><span>    &lt;value&gt;2.1&lt;/value&gt;
+</span></span><span style="display:flex;"><span>  &lt;/property&gt;
+</span></span><span style="display:flex;"><span>  &lt;property&gt;
+</span></span><span style="display:flex;"><span>    &lt;name&gt;yarn.nodemanager.pmem-check-enabled&lt;/name&gt;
+</span></span><span style="display:flex;"><span>    &lt;value&gt;true&lt;/value&gt;
+</span></span><span style="display:flex;"><span>  &lt;/property&gt;
+</span></span><span style="display:flex;"><span>  &lt;property&gt;
+</span></span><span style="display:flex;"><span>    &lt;name&gt;yarn.nodemanager.vmem-check-enabled&lt;/name&gt;
+</span></span><span style="display:flex;"><span>    &lt;value&gt;false&lt;/value&gt;
+</span></span><span style="display:flex;"><span>  &lt;/property&gt;
+</span></span></code></pre></div><hr>
+<p>문서에 따른 리소스 매니저 설정 커맨드는 다음과 같습니다.</p>
+<pre><code>● yarn.nodemanager.resource.memory-mb
+    ○ 클러스터의 각 노드에서 컨테이너 운영에 설정할 수 있는 메모리의 총량
+    ○ 노드의 OS를 운영할 메모리를 제외하고 설정
+    ○ 기본값은 장비에 설정된 메모리의 80% 정도를 설정
+        ■ 노드의 메모리가 32G인경우 운영체제를 위한 4G를 제외하고 28G를 설정
+● yarn.nodemanager.resource.cpu-vcores
+    ○ 클러스터의 각 노드에서 컨테이너 운영에 설정할 수 있는 CPU의 개수
+    ○ 기본값은 장비에 설치된 CPU의 80% 정도를 설정
+        ■ 노드에 설치된 CPU가 40개일 경우 32를 설정
+● yarn.scheduler.maximum-allocation-mb
+    ○ 하나의 컨테이너에 할당할 수 있는 메모리의 최대값
+    ○ 8G가 기본 값
+● yarn.scheduler.minimum-allocation-mb
+    ○ 하나의 컨테이너에 할당할 수 있는 메모리의 최소값
+    ○ 1G가 기본값
+● yarn.nodemanager.vmem-pmem-ratio
+    ○ 실제 메모리 대비 가상 메모리 사용 비율
+    ○ mapreduce.map.memory.mb * 설정값의 비율로 사용 가능
+    ○ 메모리를 1G로 설정하고, 이 값을 10으로 설정하면 가상메모리를 10G 사용
+● yarn.nodemanager.vmem-check-enabled
+    ○ 가상 메모리에 대한 제한이 있는지 확인하여, true 일 경우 메모리 사용량을 넘어서면 컨테이너를 종료
+    ○ false 로 설정하여 가상메모리는
+● yarn.nodemanager.pmem-check-enabled
+    ○ 물리 메모리에 대한 제한이 있는지 확인하여, true 일 경우 메모리 사용량을 넘어서면 컨테이너를 종료
+</code></pre>
+<hr>
+<p>다음으로 사용자 커맨드에 대해 말씀드리겠습니다. 커맨드 리스트는 다음과 같습니다.</p>
+<hr>
+<table>
+<thead>
+<tr>
+<th>명령어</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>application</td>
+<td>애플리케이션 정보 확인, 작업 종료</td>
+</tr>
+<tr>
+<td>applicationattempt</td>
+<td>애플리케이션 Attempt 정보</td>
+</tr>
+<tr>
+<td>classpath</td>
+<td>필요한 클래스 정보</td>
+</tr>
+<tr>
+<td>container</td>
+<td>컨테이너 정보</td>
+</tr>
+<tr>
+<td>jar</td>
+<td>jar 파일 실행</td>
+</tr>
+<tr>
+<td>logs</td>
+<td>애플리케이션 로그 확인</td>
+</tr>
+<tr>
+<td>node</td>
+<td>노드 정보</td>
+</tr>
+<tr>
+<td>queue</td>
+<td>큐 정보</td>
+</tr>
+<tr>
+<td>version</td>
+<td>버전 정보</td>
+</tr>
+<tr>
+<td>envvars</td>
+<td>환경 변수 정보</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<p>application 커맨드는 애플리케이션의 정보를 확인하고, 작업을 종료할 수 있습니다. 주요 커맨드는 다음과 같습니다.</p>
+<hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span># 작업목록 확인
+</span></span><span style="display:flex;"><span>$ bin/yarn application -list(아무것도 없어서 이렇게 나옴)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>2022-07-18 15:13:27,903 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>2022-07-18 15:13:27,973 INFO client.DefaultNoHARMFailoverProxyProvider: Connecting to ResourceManager at /0.0.0.0:8032
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Total number of applications (application-types: [], states: [SUBMITTED, ACCEPTED, RUNNING] and tags: []):0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                Application-Id	    Application-Name	    Application-Type	      User	    Queue	            State	      Final-State	      Progress	                      Tracking-URL
+</span></span></code></pre></div><hr>
+<p>작업상태 확인 명령어는 다음과 같습니다.</p>
+<hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span># 작업 상태 확인(해당 애플리케이션 없으므로 다음과 같이 나옴)
+</span></span><span style="display:flex;"><span>$ bin/yarn application -status application_1234_1
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>2022-07-18 15:15:30,513 INFO client.DefaultNoHARMFailoverProxyProvider: Connecting to ResourceManager at /0.0.0.0:8032
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Application with id &#39;application_1234_1&#39; doesn&#39;t exist in RM or Timeline Server.
+</span></span></code></pre></div><hr>
+<p>작업 종료 커맨드는 다음과 같습니다.</p>
+<hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span># 작업 종료
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>$ bin/yarn application -kill application_id
+</span></span></code></pre></div><hr>
+<p>어템트, 컨테이너, logs 커맨드는 다음과 같습니다.</p>
+<hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span># 애플리케이션 어템트 커맨드
+</span></span><span style="display:flex;"><span>$ bin/yarn applicationattempt -list application_1234_1
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span># 컨테이너 커맨드
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>$ bin/yarn container -list appattempt_1234_1_000001
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span># logs 커맨드
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>$ bin/yarn logs -applicationId &lt;application_id&gt;
+</span></span></code></pre></div><hr>
+<p>운영자 커맨드 리스트는 다음과 같습니다. 이 중에서 리소스매니저에 동록된 큐와 노드 정보를 갱신할 수 있는 rmadmin 커맨드에 대해 알아보겠습니다.</p>
+<hr>
+<table>
+<thead>
+<tr>
+<th>명령어</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>daemonlog</td>
+<td>로그 레벨 설정</td>
+</tr>
+<tr>
+<td>nodemanager</td>
+<td>노드매니저 실행</td>
+</tr>
+<tr>
+<td>proxyserver</td>
+<td>프록시 서버 실행</td>
+</tr>
+<tr>
+<td>resourcemanager</td>
+<td>리소스매니저 실행</td>
+</tr>
+<tr>
+<td>rmadmin</td>
+<td>리소스매니저 어드민 클라이언트 명령</td>
+</tr>
+<tr>
+<td>schedulerconf</td>
+<td>스케쥴러 설정 업데이트</td>
+</tr>
+<tr>
+<td>scmadmin</td>
+<td>공유 캐쉬 매니저 어드민 클라이언트 명령</td>
+</tr>
+<tr>
+<td>sharedcachemanager</td>
+<td>공유 캐쉬 매니저 실행</td>
+</tr>
+<tr>
+<td>timelineserver</td>
+<td>타임라인 서버 실행</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<p>사용 예시는 다음과 같습니다.</p>
+<hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span># 큐정보갱신
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>$ bin/yarn rmadmin -refreshQueues
+</span></span></code></pre></div><hr>
+<p>문서에는 REST API에 대한 내용도 있지만 파이썬3 내에서 urllib2 미지원으로 인하여 해당 파트는 스킵하겠습니다.</p>
+<hr>
+<p>다음으로 서버를 특성에 맞게 구분하여 작업을 처리하게 하는 기능을 제공하는 노드 레이블에 대해 알아보겠습니다. 설정은 다음과 같이 &lsquo;yarn-site.xml&rsquo;에서 하면 됩니다.</p>
+<hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>  &lt;property&gt;
+</span></span><span style="display:flex;"><span>    &lt;name&gt;yarn.node-labels.enabled&lt;/name&gt;
+</span></span><span style="display:flex;"><span>    &lt;value&gt;true&lt;/value&gt;
+</span></span><span style="display:flex;"><span>  &lt;/property&gt;
+</span></span><span style="display:flex;"><span>  &lt;property&gt;
+</span></span><span style="display:flex;"><span>    &lt;name&gt;yarn.node-labels.fs-store.root-dir&lt;/name&gt;
+</span></span><span style="display:flex;"><span>    &lt;value&gt;hdfs://namenode:port/path/to/store/node-labels/&lt;/value&gt;
+</span></span><span style="display:flex;"><span>  &lt;/property&gt;
+</span></span></code></pre></div><hr>
+<p>노드 레이블 관련 명령어는 다음과 같습니다.</p>
+<hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span># 클러스터의 레이블 정보 확인(여기엔 없으므로 빈 칸으로 나옴)
+</span></span><span style="display:flex;"><span>$ bin/yarn cluster --list-node-labels
+</span></span><span style="display:flex;"><span>2022-07-18 15:39:23,323 INFO client.DefaultNoHARMFailoverProxyProvider: Connecting to ResourceManager at /0.0.0.0:8032
+</span></span><span style="display:flex;"><span>Node Labels: 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span># 클러스터 노드 레이블 추가, exclusive 기본값은 true
+</span></span><span style="display:flex;"><span>$ bin/yarn rmadmin -addToClusterNodeLabels &#34;label_1(exclusive=true),label_2(exclusive=false)&#34;
+</span></span><span style="display:flex;"><span>2022-07-18 15:40:45,333 INFO client.DefaultNoHARMFailoverProxyProvider: Connecting to ResourceManager at /0.0.0.0:8033
+</span></span><span style="display:flex;"><span>addToClusterNodeLabels: java.io.IOException: Node-label-based scheduling is disabled. Please check yarn.node-labels.enabled
+</span></span><span style="display:flex;"><span>	at org.apache.hadoop.yarn.ipc.RPCUtil.getRemoteException(RPCUtil.java:38)
+</span></span><span style="display:flex;"><span>	at org.apache.hadoop.yarn.server.resourcemanager.AdminService.logAndWrapException(AdminService.java:936)
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>	at org.apache.hadoop.yarn.server.resourcemanager.AdminService.addToClusterNodeLabels(AdminService.java:816)
+</span></span><span style="display:flex;"><span>	... 12 more
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span># 클러스터 노드 레이블 삭제 
+</span></span><span style="display:flex;"><span>$ bin/yarn rmadmin -removeFromClusterNodeLabels &#34;label_1&#34;
+</span></span><span style="display:flex;"><span>2022-07-18 15:42:54,828 INFO client.DefaultNoHARMFailoverProxyProvider: Connecting to ResourceManager at /0.0.0.0:8033
+</span></span><span style="display:flex;"><span>removeFromClusterNodeLabels: java.io.IOException: Node-label-based scheduling is disabled. Please check yarn.node-labels.enabled
+</span></span><span style="display:flex;"><span>	at org.apache.hadoop.yarn.ipc.RPCUtil.getRemoteException(RPCUtil.java:38)
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>	at org.apache.hadoop.yarn.server.resourcemanager.AdminService.logAndWrapException(AdminService.java:936)
+</span></span><span style="display:flex;"><span>	at org.apache.hadoop.yarn.server.resourcemanager.AdminService.removeFromClusterNodeLabels(AdminService.java:839)
+</span></span><span style="display:flex;"><span>	... 12 more
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span># 노드 레이블 추가(명령어 입력 방식 아래와 같이 바뀜)
+</span></span><span style="display:flex;"><span>$ bin/yarn rmadmin -replaceLabelsOnNode “node1[:port]=label1 node2=label2”
+</span></span><span style="display:flex;"><span>replaceLabelsOnNode: Invalid port: port]
+</span></span><span style="display:flex;"><span>Usage: yarn rmadmin [-replaceLabelsOnNode &lt;&#34;node1[:port]=label1,label2 node2[:port]=label1,label2&#34;&gt; [-failOnUnknownNodes] ]
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><hr>
+<p>문서에서 다루는 고가용성은 주키퍼 범위를 다루고, 타임라인 서비스 v2는 HBase의 범위를 다루므로 마찬가지로 스킵하겠습니다.</p>
+<hr>
+<p>이상으로 YARN에 대해 가볍게 알아봤습니다. 모두 오늘도 긴 글 읽어주셔서 감사드리고 이번 한 주도 화이팅입니다.</p>
+<hr>
+<h4 id="감사합니다">감사합니다.</h4>
+<hr>
+<p>[레퍼런스]</p>
+<ol>
+<li>빅데이터 - 하둡, 하이브로 시작하기(위키독스) : <a href="https://wikidocs.net/book/2203">https://wikidocs.net/book/2203</a></li>
+</ol>
+
+    
+
+    
+  </article>
+  
+  <aside><h3>More from shcDE Tech-Blog</h3>
+<ul class='posts aside'>
+<li class = 'post_item fp'>
+  <a class = 'post_card' href='https://shcde.github.io/post/mapreduce/' title = '파이썬을 활용하여 맵리듀스 구현하기' style = 'background-image: url(https://shcde.github.io/images/wordcloud-gdaa80a00f_1280.png);'>
+  </a>
+  <div class = 'excerpt'>
+    <div class = 'excerpt_meta'>
+      <a href = 'https://shcde.github.io/tags/dataengineering' class = 'post_tag'>dataengineering
+      </a><div id=inline class="out">
+  2022-07-17
+</div>
+<div class = 'copy' data-share = 'Copy' data-copied = 'Copied'><svg>
+  <use xlink:href="#copy"></use>
+</svg>
+</div>
+
+<style>
+  .out {
+  border: 2px solid rgb(255, 132, 0);
+  background-color: rgb(255, 132, 0);
+  width: 100px;
+  height: 25px;
+  border-radius: 5px;
+  font:14px 나눔고딕;
+  font-weight:bold;
+}
+
+#inline {
+  text-align: center;
+  line-height: 20px;
+  color : white;
+}
+</style>
+    </div>
+    <h3 class = 'post_link'>
+      <a href='https://shcde.github.io/post/mapreduce/'>파이썬을 활용하여 맵리듀스 구현하기</a>
+    </h3>
+    <p class = 'pale'>맵리듀스란 무엇이고, 어떻게 파이썬으로 구현할까요? 안녕하세요. shcDE입니다. 이번 포스팅에서는 맵리듀스에 대하여 알아보겠습니다. …</p>
+  </div>
+</li>
+
+<li class = 'post_item fp'>
+  <a class = 'post_card' href='https://shcde.github.io/post/hdfs4/' title = 'HDFS는 어떻게 사용할까요?(4)' style = 'background-image: url(https://shcde.github.io/images/elephants-g07073c915_1920.jpg);'>
+  </a>
+  <div class = 'excerpt'>
+    <div class = 'excerpt_meta'>
+      <a href = 'https://shcde.github.io/tags/dataengineering' class = 'post_tag'>dataengineering
+      </a><div id=inline class="out">
+  2022-07-16
+</div>
+<div class = 'copy' data-share = 'Copy' data-copied = 'Copied'><svg>
+  <use xlink:href="#copy"></use>
+</svg>
+</div>
+
+<style>
+  .out {
+  border: 2px solid rgb(255, 132, 0);
+  background-color: rgb(255, 132, 0);
+  width: 100px;
+  height: 25px;
+  border-radius: 5px;
+  font:14px 나눔고딕;
+  font-weight:bold;
+}
+
+#inline {
+  text-align: center;
+  line-height: 20px;
+  color : white;
+}
+</style>
+    </div>
+    <h3 class = 'post_link'>
+      <a href='https://shcde.github.io/post/hdfs4/'>HDFS는 어떻게 사용할까요?(4)</a>
+    </h3>
+    <p class = 'pale'>추가로 알아볼 HDFS 기능은 무엇이 있을까요? 안녕하세요. shcDE입니다. 이번 포스팅에서는 REST API 사용법, 사용량 제한 설정, RPC, 이레이져 코 …</p>
+  </div>
+</li>
+
+</ul>
+
+  </aside>
+  
+</div>
+<script src = 'https://shcde.github.io/js/autosize.min.js'></script>
+<script src = 'https://shcde.github.io/js/timeago.js'></script>
+    </main><svg width="0" height="0" class="hidden">
+  <symbol viewBox="0 0 699.428 699.428" xmlns="http://www.w3.org/2000/svg" id="copy">
+    <path d="M502.714 0H240.428C194.178 0 153 42.425 153 87.429l-25.267.59c-46.228 0-84.019 41.834-84.019 86.838V612c0 45.004 41.179 87.428 87.429 87.428H459c46.249 0 87.428-42.424 87.428-87.428h21.857c46.25 0 87.429-42.424 87.429-87.428v-349.19zM459 655.715H131.143c-22.95 0-43.714-21.441-43.714-43.715V174.857c0-22.272 18.688-42.993 41.638-42.993l23.933-.721v393.429C153 569.576 194.178 612 240.428 612h262.286c0 22.273-20.765 43.715-43.714 43.715zm153-131.143c0 22.271-20.765 43.713-43.715 43.713H240.428c-22.95 0-43.714-21.441-43.714-43.713V87.429c0-22.272 20.764-43.714 43.714-43.714H459c-.351 50.337 0 87.975 0 87.975 0 45.419 40.872 86.882 87.428 86.882H612zm-65.572-349.715c-23.277 0-43.714-42.293-43.714-64.981V44.348L612 174.857zm-43.714 131.537H306c-12.065 0-21.857 9.77-21.857 21.835s9.792 21.835 21.857 21.835h196.714c12.065 0 21.857-9.771 21.857-21.835 0-12.065-9.792-21.835-21.857-21.835zm0 109.176H306c-12.065 0-21.857 9.77-21.857 21.834 0 12.066 9.792 21.836 21.857 21.836h196.714c12.065 0 21.857-9.77 21.857-21.836 0-12.064-9.792-21.834-21.857-21.834z"
+    ></path>
+  </symbol>
+  <symbol viewBox="0 0 60.015 60.015" xmlns="http://www.w3.org/2000/svg" id="reply">
+    <path d="M42.007 0h-24c-9.925 0-18 8.075-18 18v14c0 9.59 7.538 17.452 17 17.973v8.344a1.694 1.694 0 0 0 1.699 1.698c.44 0 .873-.173 1.198-.498l1.876-1.876C26.708 52.713 33.259 50 40.227 50h1.78c9.925 0 18-8.075 18-18V18c0-9.925-8.075-18-18-18zm16 32c0 8.822-7.178 16-16 16h-1.78c-7.502 0-14.556 2.921-19.86 8.226l-1.359 1.359V44a1 1 0 1 0-2 0v3.949c-8.356-.52-15-7.465-15-15.949V18c0-8.822 7.178-16 16-16h24c8.822 0 16 7.178 16 16v14z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="scan">
+    <path d="M456.66 0H385c-8.284 0-15 6.716-15 15s6.716 15 15 15h71.66C470.632 30 482 41.368 482 55.341V127c0 8.284 6.716 15 15 15s15-6.716 15-15V55.341C512 24.826 487.174 0 456.66 0zM15 142c8.284 0 15-6.716 15-15V55.341C30 41.368 41.368 30 55.34 30H127c8.284 0 15-6.716 15-15s-6.716-15-15-15H55.34C24.826 0 0 24.826 0 55.341V127c0 8.284 6.716 15 15 15zm112 340H55.34C41.368 482 30 470.632 30 456.659V385c0-8.284-6.716-15-15-15s-15 6.716-15 15v71.659C0 487.174 24.826 512 55.34 512H127c8.284 0 15-6.716 15-15s-6.716-15-15-15zm370-112c-8.284 0-15 6.716-15 15v71.659C482 470.632 470.632 482 456.66 482H385c-8.284 0-15 6.716-15 15s6.716 15 15 15h71.66c30.515 0 55.34-24.826 55.34-55.341V385c0-8.284-6.716-15-15-15zM341.643 110h47.575c6.497 0 11.782 5.285 11.782 11.782v47.574c0 8.284 6.716 15 15 15s15-6.716 15-15v-47.574C431 98.743 412.256 80 389.218 80h-47.575c-8.284 0-15 6.716-15 15s6.716 15 15 15zM81 121.782v47.574c0 8.284 6.716 15 15 15s15-6.716 15-15v-47.574c0-6.497 5.286-11.782 11.782-11.782h47.575c8.284 0 15-6.716 15-15s-6.716-15-15-15h-47.575C99.744 80 81 98.743 81 121.782zM170.357 400h-47.575c-6.497 0-11.782-5.285-11.782-11.782v-47.574c0-8.284-6.716-15-15-15s-15 6.716-15 15v47.574C81 411.257 99.744 430 122.782 430h47.575c8.284 0 15-6.716 15-15s-6.716-15-15-15zM431 388.218v-47.574c0-8.284-6.716-15-15-15s-15 6.716-15 15v47.574c0 6.497-5.286 11.782-11.782 11.782h-47.575c-8.284 0-15 6.716-15 15s6.716 15 15 15h47.575C412.256 430 431 411.257 431 388.218zM1 256c0 8.284 6.716 15 15 15h480c8.284 0 15-6.716 15-15s-6.716-15-15-15H16c-8.284 0-15 6.716-15 15z"></path>
+  </symbol>
+</svg>
+<footer class="footer">
+  <div class="footer_inner wrap pale">
+    <p>&copy;&nbsp;<span class="year"></span>&nbsp;shcDE Tech-Blog.
+    Designed by  <a href = 'https://www.linkedin.com/in/dan-weru-profile/' title = 'Linkedin Profile'>Weru</a></p>
+  </div>
+  
+  <script src="https://utteranc.es/client.js"
+        repo="shcDE/blog-comments"
+        issue-term="title"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+  </script>
+</footer><script type="text/javascript" src="https://shcde.github.io/js/bundle.444d59fb57116584f9d07a6aff51bf335fe9975644550a0d68e213d2d51db57326d29ea67a57b44b1b381cf4ca7d866d3e69f5ad5f3d1e49b2fc4edc508cbd03.js" integrity="sha512-RE1Z&#43;1cRZYT50Hpq/1G/M1/pl1ZEVQoNaOIT0tUdtXMm0p6mele0Sxs4HPTKfYZtPmn1rV89Hkmy/E7cUIy9Aw==" crossorigin="anonymous"></script>
+
+  </body>
+</html>

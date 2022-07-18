@@ -6,7 +6,17 @@
     <description>Recent content on shcDE Tech-Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Copyright © 2008–2018, Steve Francia and the Hugo Authors; all rights reserved.</copyright>
-    <lastBuildDate>Sun, 17 Jul 2022 17:54:03 +0900</lastBuildDate><atom:link href="https://shcde.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 18 Jul 2022 16:03:22 +0900</lastBuildDate><atom:link href="https://shcde.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>하둡에서 YARN 명령어 실행하기</title>
+      <link>https://shcde.github.io/post/yarn/</link>
+      <pubDate>Mon, 18 Jul 2022 16:03:22 +0900</pubDate>
+      
+      <guid>https://shcde.github.io/post/yarn/</guid>
+      <description>YARN 명령어는 어떻게 사용할까요? 안녕하세요. shcDE입니다. 오늘은 하둡 v2부터 적용된 YARN에 대해 알아보겠습니다. YARN(Yet Another Resource Negotiator)은 하둡에서 도입한 클러스터 리소스 관리 및 애플리케이션 라이프 사이클 관리를 위한 아키텍처를 의미하며, 이번 포스팅에서는 스케줄러, 메모리 설정, 명령어, 노드 레이블, 타임라인 서비스 v2에 대해 알아보겠습니다. 시작 전에, 해당 포스팅은 &amp;lsquo;빅데이터 - 하둡, 하이브로 시작하기&amp;rsquo;(위키독스)를 바탕으로 작성하였음을 알려드립니다.
+우선 YARN 스케줄러에 대해 알려드리겠습니다. 스케줄러는 자원 할당을 위한 정책을 의미하며, 하둡에서 제공하는 기본 스케줄러는 다음과 같습니다.</description>
+    </item>
+    
     <item>
       <title>파이썬을 활용하여 맵리듀스 구현하기</title>
       <link>https://shcde.github.io/post/mapreduce/</link>
