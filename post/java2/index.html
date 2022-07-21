@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang='en'><head>
+  <title>자바 공부 기록(2) - 연산자에 대해 알아볼까요? | shcDE Tech-Blog</title>
+  <meta charset='utf-8'>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3031042205762577"
+     crossorigin="anonymous"></script>
+  <meta name="generator" content="Hugo 0.101.0" />
+  
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XCDRBEN300"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-XCDRBEN300', { 'anonymize_ip': false });
+}
+</script>
+
+  <meta name = 'viewport' content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'>
+  <meta http-equiv = 'X-UA-Compatible' content = 'IE=edge'>
+  <meta property="og:image" content="https://github.com/shcDE/pictures/blob/main/images_for_blog/business-gb1f55b807_1920.jpg?raw=true/coffee-gab9b09d77_1920.jpg">
+  <meta property="og:description" content="schDE의 개발 지식 정리용 블로그입니다." /> 
+  <meta name="description" content="안녕하세요. schDE의 개발 지식 정리용 블로그입니다.">
+<meta property = 'og:locale' content = 'en_US' />
+<meta property="og:type" content="article">
+<meta property = 'og:title' content = '자바 공부 기록(2) - 연산자에 대해 알아볼까요?' />
+<meta name="description" content="자바에서 연산자는 어떻게 활용할까요? 안녕하세요. shcDE입니다. 이번 포스팅에서는 자바에서 어떻게 연산자를 활용하는지 알아보겠습니다. 프로그래밍을 할 때 쓰이는 연산자란 &lsquo;연산을 수행하는 기호&rsquo;를 말합니다. 예를 들어 &lsquo;&#43;&rsquo; 기호는 덧셈 연 …">
+<meta property = 'og:description' content = '자바에서 연산자는 어떻게 활용할까요? 안녕하세요. shcDE입니다. 이번 포스팅에서는 자바에서 어떻게 연산자를 활용하는지 알아보겠습니다. 프로그래밍을 할 때 쓰이는 연산자란 &lsquo;연산을 수행하는 기호&rsquo;를 말합니다. 예를 들어 &lsquo;&#43;&rsquo; 기호는 덧셈 연 …'>
+<meta property = 'og:url' content = 'https://shcde.github.io/post/java2/' />
+<meta property = 'og:image' content = 'https://shcde.github.io/images/coffee-gab9b09d77_1920.jpg'/>
+<meta name = 'twitter:card' content = 'summary_large_image' />
+<meta name = 'twitter:creator' content = ''>
+<meta name = 'twitter:title' content = '자바 공부 기록(2) - 연산자에 대해 알아볼까요?' />
+<meta property = 'twitter:description'  content = '자바에서 연산자는 어떻게 활용할까요? 안녕하세요. shcDE입니다. 이번 포스팅에서는 자바에서 어떻게 연산자를 활용하는지 알아보겠습니다. 프로그래밍을 할 때 쓰이는 연산자란 &lsquo;연산을 수행하는 기호&rsquo;를 말합니다. 예를 들어 &lsquo;&#43;&rsquo; 기호는 덧셈 연 …'/>
+<meta name = 'twitter:image' content = 'https://shcde.github.io/images/coffee-gab9b09d77_1920.jpg' />
+<link rel='apple-touch-icon' sizes='180x180' href='https://shcde.github.io/images/icons/apple-touch-icon.png'>
+<link rel='icon' type='image/png' sizes='32x32' href='https://shcde.github.io/images/icons/favicon-32x32.png'>
+<link rel='icon' type='image/png' sizes='16x16' href='https://shcde.github.io/images/icons/favicon-16x16.png'>
+<link rel='manifest' href='https://shcde.github.io/images/icons/site.webmanifest'>
+
+  <link rel='canonical' href='https://shcde.github.io/post/java2/'>
+  <link rel = 'stylesheet' href = 'https://shcde.github.io/css/styles.42db596b1300421b76166668f896d65a0e912909aa95394f74e207c69da0d0b652fe2ad414cb6b746661857c824297f791d6df38fce0872ba2a9ccaa421a6b89.css' integrity = 'sha512-QttZaxMAQht2FmZo&#43;JbWWg6RKQmqlTlPdOIHxp2g0LZS/irUFMtrdGZhhXyCQpf3kdbfOPzghyuiqcyqQhpriQ=='>
+    
+  
+  <link rel="stylesheet" href="https://shcde.github.io/css/prism.css" media="none" onload="this.media='all';">
+  
+  <script defer language="javascript" type="text/javascript"  src="https://shcde.github.io/js/prism.js"></script>
+  
+
+
+</head>
+
+  <body><div class = 'nav-drop'>
+  <div class = 'nav-body'>
+    
+      <a href = 'https://shcde.github.io/categories/about/' class = 'nav_item'>About</a>
+      <a href = 'https://shcde.github.io/categories/freetalk/' class = 'nav_item'>Free Talk</a>
+      <a href = 'https://shcde.github.io/categories/development/' class = 'nav_item'>Development</a>
+    <div class = 'nav-close'></div>
+  </div>
+</div><header class = 'nav' >
+  <nav class = 'nav-menu'>
+
+    <a href='https://shcde.github.io/' class = 'nav-brand nav_item'>shcDE Tech-Blog</a>
+    <div class = 'nav_bar-wrap'>
+      <div class = 'nav_bar'></div>
+    </div>
+  </nav>
+  <p><button id="theme-toggle">Click to Switch between Light and Dark Mode</button></p>
+</header>
+
+<style>
+  .nav_bar-wrap {
+  background-Color:orange;
+  color: orange;
+  }
+
+  button {
+  border:2px solid #ff9900;     
+  background-Color:#000000;    
+  font:16px 나눔고딕;       
+  font-weight:bold;    
+  color:#ff9900;     
+  width:200;height:70;   
+  }
+
+  body {
+	color: rgb(12, 14, 29); 
+	background-color: white;
+}
+body.dark {
+	color: rgb(255, 191, 0); 
+	background-color: rgb(12, 14, 29);
+}
+  </style>
+
+<script>
+  var darkMode = false;
+
+
+if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+	darkMode = true;
+}
+
+
+if (localStorage.getItem('theme') === 'dark') {
+	darkMode = true;
+} else if (localStorage.getItem('theme') === 'light') {
+	darkMode = false;
+}
+
+if (darkMode) {
+	document.body.classList.toggle('dark');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    document.getElementById('theme-toggle').addEventListener('click', () => {
+		document.body.classList.toggle('dark');
+    	localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+	});
+
+});
+</script>
+
+
+    <main>
+
+<section class = 'post_header' style = 'background-image:url(https://shcde.github.io/images/coffee-gab9b09d77_1920.jpg);'>
+  <h1 class='post_title'>자바 공부 기록(2) - 연산자에 대해 알아볼까요?</h1>
+</section>
+<div class = 'post'>
+  <div class="date">
+    
+    
+    
+    <strong aria-hidden="true"> </strong>
+    <br>
+    <strong aria-hidden="true">Created date: </strong>Thu, 21 Jul 2022 14:26 KST
+    
+      
+    
+  </div>
+  <article class='post_content'><p><img src="https://github.com/shcDE/pictures/blob/main/images_for_blog/coffee-gab9b09d77_1920.jpg?raw=true" alt="java"></p>
+<hr>
+<h1 id="자바에서-연산자는-어떻게-활용할까요">자바에서 연산자는 어떻게 활용할까요?</h1>
+<hr>
+<p>안녕하세요. shcDE입니다. 이번 포스팅에서는 자바에서 어떻게 연산자를 활용하는지 알아보겠습니다. 프로그래밍을 할 때 쓰이는 연산자란 &lsquo;연산을 수행하는 기호&rsquo;를 말합니다. 예를 들어 &lsquo;+&rsquo; 기호는 덧셈 연산을 수행하며, &lsquo;덧셈 연산자&rsquo;라고 불립니다. 자바에서는 사칙연산(+, -, *, /)을 비롯해서 다양한 연산자들을 제공합니다. 처음에는 배워야할 연산자가 많아 보이지만, 자주 쓰이는 것들을 중심으로 하여 하나씩 실습을 진행하겠습니다.</p>
+<hr>
+<p>시작 전에, 해당 포스팅은 직접 <a href="http://www.kyobobook.co.kr/product/detailViewKor.laf?ejkGb=KOR&amp;mallGb=KOR&amp;barcode=9788994492032&amp;orderClick=LAG&amp;Kc=">&lsquo;자바의 정석(3판)&rsquo;</a>을 구매하여 3장을 공부한 내용을 정리한 자료임을 밝힙니다. 추가로 사용한 IDE는 &lsquo;인텔리제이 IDEA CE&rsquo;이며, 자바8 버전을 사용하였음을 밝힙니다.</p>
+<hr>
+<p>우선 단항 연산자에서 증감 연산자에 대해 알아보겠습니다. 증감 연산자는 증가 연산자 &lsquo;++&lsquo;와 감소 연산자 &lsquo;&ndash;&lsquo;로 구성되어 있습니다. 사용 예시는 다음과 같습니다.</p>
+<hr>
+<ul>
+<li>● 예제 3-1</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">HelloWorldPrint</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span>5<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        i<span style="color:#f92672">++;</span>		      <span style="color:#75715e">// i=i+1;과 같은 의미이다. ++i;로 바꿔 써도 결과는 같다.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>i<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        i<span style="color:#f92672">=</span>5<span style="color:#f92672">;</span>		      <span style="color:#75715e">// 결과를 비교하기 위해 i값을 다시 5로 변경
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#f92672">++</span>i<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>i<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>6
+</span></span><span style="display:flex;"><span>6
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Process finished with exit code 0
+</span></span></code></pre></div><hr>
+<p>독립적인 하나의 문장으로 증감 연산자가 쓰일 경우, 위와 같이 전위형, 후위형 상관 없이 동일한 결과를 호출하게 됩니다. 하지만 다른 수식에 포함되거나, 메서드의 매개변수로 사용된 경우, 즉 단독으로 사용되지 않은 경우 전위형(++i)와 후위형(i++)의 결과는 다릅니다. 해당 결과에 대한 예시는 다음과 같습니다.</p>
+<hr>
+<ul>
+<li>● 예제 3-2</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">HelloWorldPrint</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span>5<span style="color:#f92672">,</span> j<span style="color:#f92672">=</span>0<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        j <span style="color:#f92672">=</span> i<span style="color:#f92672">++;</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;j=i++; 실행 후, i=&#34;</span> <span style="color:#f92672">+</span> i <span style="color:#f92672">+</span><span style="color:#e6db74">&#34;, j=&#34;</span><span style="color:#f92672">+</span> j<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        i<span style="color:#f92672">=</span>5<span style="color:#f92672">;</span>        <span style="color:#75715e">// 결과를 비교하기 위해, i와 j의 값을 다시 5와 0으로 변경
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        j<span style="color:#f92672">=</span>0<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        j <span style="color:#f92672">=</span> <span style="color:#f92672">++</span>i<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;j=++i; 실행 후, i=&#34;</span> <span style="color:#f92672">+</span> i <span style="color:#f92672">+</span><span style="color:#e6db74">&#34;, j=&#34;</span><span style="color:#f92672">+</span> j<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>j=i++; 실행 후, i=6, j=5
+</span></span><span style="display:flex;"><span>j=++i; 실행 후, i=6, j=6
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Process finished with exit code 0
+</span></span></code></pre></div><hr>
+<p>위의 사례를 보면 전위형(++i)에서는 i의 값을 증가시킨 후에 읽어오므로 i의 값이 5에서 6으로 증가된 후에 이 값이 j에 저장되며, 후위형(i++)에서는 i값인 5를 먼저 읽어온 다음에 i를 증가시키므로 j에 5가 저장되는 것을 확인할 수 있습니다. 이렇게 후위형과 전위형을 잘 구분하여 코드를 작성하는 것은 중요하다고 볼 수 있습니다.</p>
+<hr>
+<p>이제 다음 예제를 통해 메서드 호출 시 증감 연산자가 사용된 예시를 보겠습니다.</p>
+<hr>
+<ul>
+<li>● 예제 3-3</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">HelloWorldPrint</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span>5<span style="color:#f92672">,</span> j<span style="color:#f92672">=</span>5<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>i<span style="color:#f92672">++);</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(++</span>j<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;i = &#34;</span> <span style="color:#f92672">+</span> i <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;, j = &#34;</span> <span style="color:#f92672">+</span>j<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>5
+</span></span><span style="display:flex;"><span>6
+</span></span><span style="display:flex;"><span>i = 6, j = 6
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Process finished with exit code 0
+</span></span></code></pre></div><hr>
+<p>해당 사례에서는 첫번째 출력은 i값을 먼저 읽어와서 출력하므로 5가 나옵니다. 그리고 두번째 출력은 j를 증가시킨 후에 출력하므로 6이 나옵니다. 그 이후에 세번째 출력에서는 전위형, 후위형의 연산이 모두 적용된 상태에서 다시 출력하므로 i, j 모두 6이 나오는 것을 확인할 수 있습니다.</p>
+<hr>
+<p>자바에서는 부호 연산자도 적용시킬 수 있습니다. 다음은 해당 연산자 적용에 대한 예시입니다.</p>
+<hr>
+<ul>
+<li>● 예제 3-4</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">HelloWorldPrint</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#f92672">-</span>10<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        i <span style="color:#f92672">=</span> <span style="color:#f92672">+</span>i<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>i<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        i<span style="color:#f92672">=-</span>10<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        i <span style="color:#f92672">=</span> <span style="color:#f92672">-</span>i<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>i<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>-10
+</span></span><span style="display:flex;"><span>10
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Process finished with exit code 0
+</span></span></code></pre></div><hr>
+<p>이런 방식으로 음수의 정수도 문제 없이 출력할 수 있습니다.</p>
+<hr>
+<p>이제 다음으로 산술 연산자에 대해 알아보겠습니다. 우선 사칙 연산자 실행 예시를 보겠습니다.</p>
+<hr>
+<ul>
+<li>● 예제 3-5</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">HelloWorldPrint</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> a <span style="color:#f92672">=</span> 10<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> b <span style="color:#f92672">=</span> 4<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;%d + %d = %d\n&#34;</span><span style="color:#f92672">,</span>  a<span style="color:#f92672">,</span> b<span style="color:#f92672">,</span> a <span style="color:#f92672">+</span> b<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;%d - %d = %d\n&#34;</span><span style="color:#f92672">,</span>  a<span style="color:#f92672">,</span> b<span style="color:#f92672">,</span> a <span style="color:#f92672">-</span> b<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;%d * %d = %d\n&#34;</span><span style="color:#f92672">,</span>  a<span style="color:#f92672">,</span> b<span style="color:#f92672">,</span> a <span style="color:#f92672">*</span> b<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;%d / %d = %d\n&#34;</span><span style="color:#f92672">,</span>  a<span style="color:#f92672">,</span> b<span style="color:#f92672">,</span> a <span style="color:#f92672">/</span> b<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;%d / %f = %f\n&#34;</span><span style="color:#f92672">,</span>  a<span style="color:#f92672">,</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">float</span><span style="color:#f92672">)</span>b<span style="color:#f92672">,</span> a <span style="color:#f92672">/</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">float</span><span style="color:#f92672">)</span>b<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>10 + 4 = 14
+</span></span><span style="display:flex;"><span>10 - 4 = 6
+</span></span><span style="display:flex;"><span>10 * 4 = 40
+</span></span><span style="display:flex;"><span>10 / 4 = 2
+</span></span><span style="display:flex;"><span>10 / 4.000000 = 2.500000
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Process finished with exit code 0
+</span></span></code></pre></div><hr>
+<p>다음 예시와 같이 +, -, *, / 연산자를 활용해서 기본 연산을 실행할 수 있습니다.</p>
+<hr>
+<p>하지만 byte 형 연산을 다음과 같이 실행하면 오류가 발생합니다.</p>
+<hr>
+<ul>
+<li>● 예제 3-6</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">HelloWorldPrint</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">byte</span> a <span style="color:#f92672">=</span> 10<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">byte</span> b <span style="color:#f92672">=</span> 20<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">byte</span> c <span style="color:#f92672">=</span> a <span style="color:#f92672">+</span> b<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>c<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>java: incompatible types: possible lossy conversion from int to byte
+</span></span></code></pre></div><hr>
+<p>해당 에러가 발생하는 이유는 연산자 +가 a, b를 모두 int 형으로 변환 후에 실행하기 때문입니다. 그래서 byte 형을 유지하여 연산을 다음과 같이 실행해야 합니다.</p>
+<hr>
+<ul>
+<li>● 예제 3-7</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">HelloWorldPrint</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">byte</span> a <span style="color:#f92672">=</span> 10<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">byte</span> b <span style="color:#f92672">=</span> 30<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">byte</span> c <span style="color:#f92672">=</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">byte</span><span style="color:#f92672">)(</span>a <span style="color:#f92672">*</span> b<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>c<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>44
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Process finished with exit code 0
+</span></span></code></pre></div><hr>
+<p>앞에 (byte)를 붙이면 정상적으로 byte 형을 유지하여 실행이 되는 것을 확인할 수 있습니다.</p>
+<hr>
+<p>이번에는 원하는 값이 출력되지 않는 두 가지 사례를 보겠습니다.</p>
+<hr>
+<ul>
+<li>● 예제 3-8</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">HelloWorldPrint</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> a <span style="color:#f92672">=</span> 1000000<span style="color:#f92672">;</span>    <span style="color:#75715e">// 1,000,000   1백만
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">int</span> b <span style="color:#f92672">=</span> 2000000<span style="color:#f92672">;</span>    <span style="color:#75715e">// 2,000,000   2백만
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">long</span> c <span style="color:#f92672">=</span> a <span style="color:#f92672">*</span> b<span style="color:#f92672">;</span>     <span style="color:#75715e">// a * b = 2,000,000,000,000 ?
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>c<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>-1454759936
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Process finished with exit code 0
+</span></span></code></pre></div><hr>
+<ul>
+<li>● 예제 3-9</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">HelloWorldPrint</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">long</span> a <span style="color:#f92672">=</span> 1000000 <span style="color:#f92672">*</span> 1000000<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">long</span> b <span style="color:#f92672">=</span> 1000000 <span style="color:#f92672">*</span> 1000000L<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;a=&#34;</span><span style="color:#f92672">+</span>a<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;b=&#34;</span><span style="color:#f92672">+</span>b<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>a=-727379968
+</span></span><span style="display:flex;"><span>b=1000000000000
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Process finished with exit code 0
+</span></span></code></pre></div><hr>
+<p>위의 사례들과 같은 값이 제대로 출력되지 않는 문제를 해결하려면 long 타입 변환을 하여 계산을 하거나, long 타입을 올바르게 입력해야 합니다. 여기에서 3-9의 b 값에서 올바른 값이 나왔으므로, 3-8을 올바르게 수정한 코드만 보여드리겠습니다.</p>
+<hr>
+<ul>
+<li>● 예제 3-8 수정</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">HelloWorldPrint</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> a <span style="color:#f92672">=</span> 1000000<span style="color:#f92672">;</span>    <span style="color:#75715e">// 1,000,000   1백만
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">int</span> b <span style="color:#f92672">=</span> 2000000<span style="color:#f92672">;</span>    <span style="color:#75715e">// 2,000,000   2백만
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">long</span> c <span style="color:#f92672">=</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">long</span><span style="color:#f92672">)</span>a <span style="color:#f92672">*</span> b<span style="color:#f92672">;</span>     <span style="color:#75715e">// a * b = 2,000,000,000,000 ?
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>c<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>2000000000000
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Process finished with exit code 0
+</span></span></code></pre></div><hr>
+<p>3-8에서 a * b 앞에 (long)을 붙여서 형변환 후 출력하니까 정상적으로 결과가 출력되었습니다.</p>
+<hr>
+<p>사칙연산의 순서에 따라 결과가 다르게 나오는 예시는 다음과 같습니다.</p>
+<hr>
+<ul>
+<li>● 예제 3-10</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">HelloWorldPrint</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> a <span style="color:#f92672">=</span> 1000000<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> result1 <span style="color:#f92672">=</span> a <span style="color:#f92672">*</span> a <span style="color:#f92672">/</span> a<span style="color:#f92672">;</span>   <span style="color:#75715e">// 1000000 * 1000000 / 1000000
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">int</span> result2 <span style="color:#f92672">=</span> a <span style="color:#f92672">/</span> a <span style="color:#f92672">*</span> a<span style="color:#f92672">;</span>   <span style="color:#75715e">// 1000000 / 1000000 * 1000000
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;%d * %d / %d = %d\n&#34;</span><span style="color:#f92672">,</span> a<span style="color:#f92672">,</span> a<span style="color:#f92672">,</span> a<span style="color:#f92672">,</span> result1<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;%d / %d * %d = %d\n&#34;</span><span style="color:#f92672">,</span> a<span style="color:#f92672">,</span> a<span style="color:#f92672">,</span> a<span style="color:#f92672">,</span> result2<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>1000000 * 1000000 / 1000000 = -727
+</span></span><span style="display:flex;"><span>1000000 / 1000000 * 1000000 = 1000000
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Process finished with exit code 0
+</span></span></code></pre></div><hr>
+<p>위와 같이, 연산의 우선순위가 동일한 경우, 앞의 연산이 먼저 실행되므로 항상 주의하면서 수식을 적는 것을 권장드립니다.</p>
+<hr>
+<p>추가로, 사칙연산의 피연산자로 숫자뿐만 아니라 문자도 가능합니다. 활용 사례는 다음과 같습니다.</p>
+<hr>
+<ul>
+<li>● 예제 3-11</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">HelloWorldPrint</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">char</span> a <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;a&#39;</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">char</span> d <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;d&#39;</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">char</span> zero <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;0&#39;</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">char</span> two  <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;2&#39;</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;&#39;%c&#39; - &#39;%c&#39; = %d\n&#34;</span><span style="color:#f92672">,</span> d<span style="color:#f92672">,</span> a<span style="color:#f92672">,</span> d <span style="color:#f92672">-</span> a<span style="color:#f92672">);</span> <span style="color:#75715e">// &#39;d&#39; - &#39;a&#39; = 3
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;&#39;%c&#39; - &#39;%c&#39; = %d\n&#34;</span><span style="color:#f92672">,</span> two<span style="color:#f92672">,</span> zero<span style="color:#f92672">,</span> two <span style="color:#f92672">-</span> zero<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;&#39;%c&#39;=%d\n&#34;</span><span style="color:#f92672">,</span> a<span style="color:#f92672">,</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">int</span><span style="color:#f92672">)</span>a<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;&#39;%c&#39;=%d\n&#34;</span><span style="color:#f92672">,</span> d<span style="color:#f92672">,</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">int</span><span style="color:#f92672">)</span>d<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;&#39;%c&#39;=%d\n&#34;</span><span style="color:#f92672">,</span> zero<span style="color:#f92672">,</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">int</span><span style="color:#f92672">)</span>zero<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;&#39;%c&#39;=%d\n&#34;</span><span style="color:#f92672">,</span> two<span style="color:#f92672">,</span>  <span style="color:#f92672">(</span><span style="color:#66d9ef">int</span><span style="color:#f92672">)</span>two<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>&#39;d&#39; - &#39;a&#39; = 3
+</span></span><span style="display:flex;"><span>&#39;2&#39; - &#39;0&#39; = 2
+</span></span><span style="display:flex;"><span>&#39;a&#39;=97
+</span></span><span style="display:flex;"><span>&#39;d&#39;=100
+</span></span><span style="display:flex;"><span>&#39;0&#39;=48
+</span></span><span style="display:flex;"><span>&#39;2&#39;=50
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Process finished with exit code 0
+</span></span></code></pre></div><hr>
+<ul>
+<li>● 예제 3-12</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">HelloWorldPrint</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">char</span> c1 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;a&#39;</span><span style="color:#f92672">;</span>        <span style="color:#75715e">// c1에는 문자 &#39;a&#39;의 코드값인 97이 저장된다.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">char</span> c2 <span style="color:#f92672">=</span> c1<span style="color:#f92672">;</span>         <span style="color:#75715e">// c1에 저장되어 있는 값이 c2에 저장된다.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">char</span> c3 <span style="color:#f92672">=</span><span style="color:#e6db74">&#39; &#39;</span><span style="color:#f92672">;</span>         <span style="color:#75715e">// c3을 공백으로 초기화한다.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> c1 <span style="color:#f92672">+</span> 1<span style="color:#f92672">;</span>       <span style="color:#75715e">// &#39;a&#39;+1 -&gt; 97+1 -&gt; 98
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>        c3 <span style="color:#f92672">=</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">char</span><span style="color:#f92672">)(</span>c1 <span style="color:#f92672">+</span> 1<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        c2<span style="color:#f92672">++;</span>
+</span></span><span style="display:flex;"><span>        c2<span style="color:#f92672">++;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;i=&#34;</span> <span style="color:#f92672">+</span> i<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;c2=&#34;</span> <span style="color:#f92672">+</span> c2<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;c3=&#34;</span> <span style="color:#f92672">+</span> c3<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>i=98
+</span></span><span style="display:flex;"><span>c2=c
+</span></span><span style="display:flex;"><span>c3=b
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Process finished with exit code 0
+</span></span></code></pre></div><hr>
+<p>컴파일 오류가 발생하는 식을 컴파일 에러가 발생하지 않는 식으로 대체하면 컴파일 오류가 발생하지 않습니다. 사용 예시는 다음과 같습니다.</p>
+<hr>
+<ul>
+<li>● 예제 3-13</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">HelloWorldPrint</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">char</span> c1 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;a&#39;</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//			char c2 =  c1+1;           // 라인 5 : 컴파일 에러 발생!!!
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">char</span> c2 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;a&#39;</span><span style="color:#f92672">+</span>1<span style="color:#f92672">;</span>           <span style="color:#75715e">// 라인 6 : 컴파일 에러 없음
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>c2<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>b
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Process finished with exit code 0
+</span></span></code></pre></div><hr>
+<p>자바에서는 반복문을 통해 알파벳도 연속으로 출력할 수 있습니다. 사용 예시는 다음과 같습니다.</p>
+<hr>
+<ul>
+<li>● 예제 3-14</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">HelloWorldPrint</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">char</span> c <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;a&#39;</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span>0<span style="color:#f92672">;</span> i<span style="color:#f92672">&lt;</span>26<span style="color:#f92672">;</span> i<span style="color:#f92672">++)</span> <span style="color:#f92672">{</span>          <span style="color:#75715e">// 블럭{} 안의 문장을 26번을 반복한다.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">print</span><span style="color:#f92672">(</span>c<span style="color:#f92672">++);</span> <span style="color:#75715e">//&#39;a&#39;부터 26개의 문자를 출력한다.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">();</span> <span style="color:#75715e">// 줄바꿈을 한다.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>        c <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;A&#39;</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span>0<span style="color:#f92672">;</span> i<span style="color:#f92672">&lt;</span>26<span style="color:#f92672">;</span> i<span style="color:#f92672">++)</span> <span style="color:#f92672">{</span>          <span style="color:#75715e">// 블럭{} 안의 문장을 26번을 반복한다.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">print</span><span style="color:#f92672">(</span>c<span style="color:#f92672">++);</span> <span style="color:#75715e">//&#39;A&#39;부터 26개의 문자를 출력한다.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        c<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;0&#39;</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span>0<span style="color:#f92672">;</span> i<span style="color:#f92672">&lt;</span>10<span style="color:#f92672">;</span> i<span style="color:#f92672">++)</span> <span style="color:#f92672">{</span>          <span style="color:#75715e">// 블럭{} 안의 문장을 10번 반복한다.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">print</span><span style="color:#f92672">(</span>c<span style="color:#f92672">++);</span> <span style="color:#75715e">// &#39;0&#39;부터 10개의 문자를 출력한다.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>abcdefghijklmnopqrstuvwxyz
+</span></span><span style="display:flex;"><span>ABCDEFGHIJKLMNOPQRSTUVWXYZ
+</span></span><span style="display:flex;"><span>0123456789
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Process finished with exit code 0
+</span></span></code></pre></div><hr>
+<p>문자는 대문자 및 소문자로 변경도 가능합니다. 다음과 같이 32를 빼고 더해서 변경할 수 있습니다.</p>
+<hr>
+<ul>
+<li>● 예제 3-15</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">HelloWorldPrint</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">char</span> lowerCase <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;a&#39;</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">char</span> upperCase <span style="color:#f92672">=</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">char</span><span style="color:#f92672">)(</span>lowerCase <span style="color:#f92672">-</span> 32<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>upperCase<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>A
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Process finished with exit code 0
+</span></span></code></pre></div><hr>
+<p>float 값을 int로 변형하여 결과를 출력하면 다음과 같이 소수점 아래 값이 버려진 상태로 출력됩니다.</p>
+<hr>
+<ul>
+<li>● 예제 3-16</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">HelloWorldPrint</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">float</span> pi <span style="color:#f92672">=</span> 3<span style="color:#f92672">.</span><span style="color:#a6e22e">141592f</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">float</span> shortPi <span style="color:#f92672">=</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">int</span><span style="color:#f92672">)(</span>pi <span style="color:#f92672">*</span> 1000<span style="color:#f92672">)</span> <span style="color:#f92672">/</span> 1000f<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>shortPi<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>3.141
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Process finished with exit code 0
+</span></span></code></pre></div><hr>
+<p>소수점 넷째 자리에서 반올림하려면 다음과 같이 pi * 1000을 pi * 1000 + 0.5로 바꾸면 됩니다.</p>
+<hr>
+<ul>
+<li>● 예제 3-17</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">HelloWorldPrint</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">double</span> pi <span style="color:#f92672">=</span> 3<span style="color:#f92672">.</span><span style="color:#a6e22e">141592</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">double</span> shortPi <span style="color:#f92672">=</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">int</span><span style="color:#f92672">)(</span>pi <span style="color:#f92672">*</span> 1000 <span style="color:#f92672">+</span> 0<span style="color:#f92672">.</span><span style="color:#a6e22e">5</span><span style="color:#f92672">)</span> <span style="color:#f92672">/</span> 1000<span style="color:#f92672">.</span><span style="color:#a6e22e">0</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>shortPi<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>3.142
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Process finished with exit code 0
+</span></span></code></pre></div><hr>
+<p>반올림을 할 때 Math.round()를 사용해도 동일한 결과를 보여줄 수 있습니다.</p>
+<hr>
+<ul>
+<li>● 예제 3-18</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">HelloWorldPrint</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">double</span> pi <span style="color:#f92672">=</span> 3<span style="color:#f92672">.</span><span style="color:#a6e22e">141592</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">double</span> shortPi <span style="color:#f92672">=</span> Math<span style="color:#f92672">.</span><span style="color:#a6e22e">round</span><span style="color:#f92672">(</span>pi <span style="color:#f92672">*</span> 1000<span style="color:#f92672">)</span> <span style="color:#f92672">/</span> 1000<span style="color:#f92672">.</span><span style="color:#a6e22e">0</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>shortPi<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>3.142
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Process finished with exit code 0
+</span></span></code></pre></div><hr>
+<p>나머지 연산자는 다음과 같이 사용할 수 있습니다. 3-20 예제의 경우, 나누는 수로 음수도 허용하지만, 부호가 무시된다는 점 유의해주시길 바랍니다.</p>
+<hr>
+<ul>
+<li>● 예제 3-19</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">HelloWorldPrint</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> x <span style="color:#f92672">=</span> 10<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> y <span style="color:#f92672">=</span> 8<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;%d을 %d로 나누면, %n&#34;</span><span style="color:#f92672">,</span> x<span style="color:#f92672">,</span> y<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;몫은 %d이고, 나머지는 %d입니다. %n&#34;</span><span style="color:#f92672">,</span> x <span style="color:#f92672">/</span> y<span style="color:#f92672">,</span> x <span style="color:#f92672">%</span> y<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>10을 8로 나누면, 
+</span></span><span style="display:flex;"><span>몫은 1이고, 나머지는 2입니다. 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Process finished with exit code 0
+</span></span></code></pre></div><hr>
+<ul>
+<li>● 예제 3-20</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">HelloWorldPrint</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(-</span>10<span style="color:#f92672">%</span>8<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>10<span style="color:#f92672">%-</span>8<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(-</span>10<span style="color:#f92672">%-</span>8<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>-2
+</span></span><span style="display:flex;"><span>2
+</span></span><span style="display:flex;"><span>-2
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Process finished with exit code 0
+</span></span></code></pre></div><hr>
+<p>다음으로 비교 연산자 출력 결과는 다음과 같습니다.</p>
+<hr>
+<ul>
+<li>● 예제 3-21</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">HelloWorldPrint</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;10 == 10.0f  \t %b\n&#34;</span><span style="color:#f92672">,</span> 10<span style="color:#f92672">==</span>10<span style="color:#f92672">.</span><span style="color:#a6e22e">0f</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;&#39;0&#39;== 0      \t %b\n&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;0&#39;</span><span style="color:#f92672">==</span> 0<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;&#39;\\0&#39;== 0    \t %b\n&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;\0&#39;</span><span style="color:#f92672">==</span> 0<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;&#39;A&#39;== 65     \t %b\n&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;A&#39;</span><span style="color:#f92672">==</span> 65<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;&#39;A&#39; &gt; &#39;B&#39;    \t %b\n&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;A&#39;</span> <span style="color:#f92672">&gt;</span> <span style="color:#e6db74">&#39;B&#39;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;&#39;A&#39;+1 != &#39;B&#39; \t %b\n&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;A&#39;</span><span style="color:#f92672">+</span>1 <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#39;B&#39;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>10 == 10.0f  	 true
+</span></span><span style="display:flex;"><span>&#39;0&#39;== 0      	 false
+</span></span><span style="display:flex;"><span>&#39;\0&#39;== 0    	 true
+</span></span><span style="display:flex;"><span>&#39;A&#39;== 65     	 true
+</span></span><span style="display:flex;"><span>&#39;A&#39; &gt; &#39;B&#39;    	 false
+</span></span><span style="display:flex;"><span>&#39;A&#39;+1 != &#39;B&#39; 	 false
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Process finished with exit code 0
+</span></span></code></pre></div><hr>
+<p>다음은 &lsquo;0.1==0.1f&rsquo;는 &lsquo;10.0==10.0f&rsquo;와 다르게 실수형이므로 근사값으로 저장되므로 오차가 발생하여 false가 발생하는 예시입니다.</p>
+<hr>
+<ul>
+<li>● 예제 3-22</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">HelloWorldPrint</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">float</span>  f  <span style="color:#f92672">=</span> 0<span style="color:#f92672">.</span><span style="color:#a6e22e">1f</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">double</span> d  <span style="color:#f92672">=</span> 0<span style="color:#f92672">.</span><span style="color:#a6e22e">1</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">double</span> d2 <span style="color:#f92672">=</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">double</span><span style="color:#f92672">)</span>f<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;10.0==10.0f  %b\n&#34;</span><span style="color:#f92672">,</span> 10<span style="color:#f92672">.</span><span style="color:#a6e22e">0</span><span style="color:#f92672">==</span>10<span style="color:#f92672">.</span><span style="color:#a6e22e">0f</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;0.1==0.1f    %b\n&#34;</span><span style="color:#f92672">,</span>  0<span style="color:#f92672">.</span><span style="color:#a6e22e">1</span><span style="color:#f92672">==</span>0<span style="color:#f92672">.</span><span style="color:#a6e22e">1f</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;f =%19.17f\n&#34;</span><span style="color:#f92672">,</span> f<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;d =%19.17f\n&#34;</span><span style="color:#f92672">,</span> d<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;d2=%19.17f\n&#34;</span><span style="color:#f92672">,</span> d2<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;d==f   %b\n&#34;</span><span style="color:#f92672">,</span> d<span style="color:#f92672">==</span>f<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;d==d2  %b\n&#34;</span><span style="color:#f92672">,</span> d<span style="color:#f92672">==</span>d2<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;d2==f  %b\n&#34;</span><span style="color:#f92672">,</span> d2<span style="color:#f92672">==</span>f<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;(float)d==f  %b\n&#34;</span><span style="color:#f92672">,</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">float</span><span style="color:#f92672">)</span>d<span style="color:#f92672">==</span>f<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>10.0==10.0f  true
+</span></span><span style="display:flex;"><span>0.1==0.1f    false
+</span></span><span style="display:flex;"><span>f =0.10000000149011612
+</span></span><span style="display:flex;"><span>d =0.10000000000000000
+</span></span><span style="display:flex;"><span>d2=0.10000000149011612
+</span></span><span style="display:flex;"><span>d==f   false
+</span></span><span style="display:flex;"><span>d==d2  false
+</span></span><span style="display:flex;"><span>d2==f  true
+</span></span><span style="display:flex;"><span>(float)d==f  true
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Process finished with exit code 0
+</span></span></code></pre></div><hr>
+<p>문자열의 비교는 다음과 같이 진행할 수 있습니다. 여기에서는 str1과 str2가 내용이 같아도 서로 다른 객체이므로 &lsquo;==&lsquo;로 비교하면 false가 출력되는 결과를 보여주고 있습니다. 하지만, equals()를 사용하면 객체가 달라도 true를 반환하는 사실도 보여주고 있습니다. 그래서 문자열을 비교할 때는 항상 equals()를 사용하시는 것을 권장드립니다.</p>
+<hr>
+<ul>
+<li>● 예제 3-23</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">HelloWorldPrint</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        String str1 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;abc&#34;</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        String str2 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> String<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;abc&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;\&#34;abc\&#34;==\&#34;abc\&#34; ? %b%n&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;abc&#34;</span><span style="color:#f92672">==</span><span style="color:#e6db74">&#34;abc&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34; str1==\&#34;abc\&#34; ? %b%n&#34;</span><span style="color:#f92672">,</span>    str1<span style="color:#f92672">==</span><span style="color:#e6db74">&#34;abc&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34; str2==\&#34;abc\&#34; ? %b%n&#34;</span><span style="color:#f92672">,</span>    str2<span style="color:#f92672">==</span><span style="color:#e6db74">&#34;abc&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;str1.equals(\&#34;abc\&#34;) ? %b%n&#34;</span><span style="color:#f92672">,</span> str1<span style="color:#f92672">.</span><span style="color:#a6e22e">equals</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;abc&#34;</span><span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;str2.equals(\&#34;abc\&#34;) ? %b%n&#34;</span><span style="color:#f92672">,</span> str2<span style="color:#f92672">.</span><span style="color:#a6e22e">equals</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;abc&#34;</span><span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;str2.equals(\&#34;ABC\&#34;) ? %b%n&#34;</span><span style="color:#f92672">,</span> str2<span style="color:#f92672">.</span><span style="color:#a6e22e">equals</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;ABC&#34;</span><span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;str2.equalsIgnoreCase(\&#34;ABC\&#34;) ? %b%n&#34;</span><span style="color:#f92672">,</span> str2<span style="color:#f92672">.</span><span style="color:#a6e22e">equalsIgnoreCase</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;ABC&#34;</span><span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>&#34;abc&#34;==&#34;abc&#34; ? true
+</span></span><span style="display:flex;"><span> str1==&#34;abc&#34; ? true
+</span></span><span style="display:flex;"><span> str2==&#34;abc&#34; ? false
+</span></span><span style="display:flex;"><span>str1.equals(&#34;abc&#34;) ? true
+</span></span><span style="display:flex;"><span>str2.equals(&#34;abc&#34;) ? true
+</span></span><span style="display:flex;"><span>str2.equals(&#34;ABC&#34;) ? false
+</span></span><span style="display:flex;"><span>str2.equalsIgnoreCase(&#34;ABC&#34;) ? true
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Process finished with exit code 0
+</span></span></code></pre></div><hr>
+<p>자바는 논리 연산자도 활용할 수 있습니다. 사용 예시는 다음과 같습니다.</p>
+<hr>
+<ul>
+<li>● 예제 3-24</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">HelloWorldPrint</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span>  x <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">char</span> ch <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39; &#39;</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> 15<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;x=%2d, 10 &lt; x &amp;&amp; x &lt; 20 =%b\n&#34;</span><span style="color:#f92672">,</span> x<span style="color:#f92672">,</span> 10 <span style="color:#f92672">&lt;</span> x <span style="color:#f92672">&amp;&amp;</span> x <span style="color:#f92672">&lt;</span> 20<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> 6<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;x=%2d,  x%%2==0 || x%%3==0  &amp;&amp; x%%6!=0 =%b\n&#34;</span><span style="color:#f92672">,</span> x<span style="color:#f92672">,</span> x<span style="color:#f92672">%</span>2<span style="color:#f92672">==</span>0<span style="color:#f92672">||</span>x<span style="color:#f92672">%</span>3<span style="color:#f92672">==</span>0<span style="color:#f92672">&amp;&amp;</span>x<span style="color:#f92672">%</span>6<span style="color:#f92672">!=</span>0<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;x=%2d, (x%%2==0 || x%%3==0) &amp;&amp; x%%6!=0 =%b\n&#34;</span><span style="color:#f92672">,</span> x<span style="color:#f92672">,(</span>x<span style="color:#f92672">%</span>2<span style="color:#f92672">==</span>0<span style="color:#f92672">||</span>x<span style="color:#f92672">%</span>3<span style="color:#f92672">==</span>0<span style="color:#f92672">)&amp;&amp;</span>x<span style="color:#f92672">%</span>6<span style="color:#f92672">!=</span>0<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        ch<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;1&#39;</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;ch=&#39;%c&#39;, &#39;0&#39; &lt;= ch &amp;&amp; ch &lt;= &#39;9&#39; =%b\n&#34;</span><span style="color:#f92672">,</span> ch<span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;0&#39;</span> <span style="color:#f92672">&lt;=</span> ch <span style="color:#f92672">&amp;&amp;</span> ch <span style="color:#f92672">&lt;=</span><span style="color:#e6db74">&#39;9&#39;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        ch<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;a&#39;</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;ch=&#39;%c&#39;, &#39;a&#39; &lt;= ch &amp;&amp; ch &lt;= &#39;z&#39; =%b\n&#34;</span><span style="color:#f92672">,</span> ch<span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;a&#39;</span> <span style="color:#f92672">&lt;=</span> ch <span style="color:#f92672">&amp;&amp;</span> ch <span style="color:#f92672">&lt;=</span><span style="color:#e6db74">&#39;z&#39;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        ch<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;A&#39;</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;ch=&#39;%c&#39;, &#39;A&#39; &lt;= ch &amp;&amp; ch &lt;= &#39;Z&#39; =%b\n&#34;</span><span style="color:#f92672">,</span> ch<span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;A&#39;</span> <span style="color:#f92672">&lt;=</span> ch <span style="color:#f92672">&amp;&amp;</span> ch <span style="color:#f92672">&lt;=</span><span style="color:#e6db74">&#39;Z&#39;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        ch<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;q&#39;</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;ch=&#39;%c&#39;, ch==&#39;q&#39; || ch==&#39;Q&#39; =%b\n&#34;</span><span style="color:#f92672">,</span> ch<span style="color:#f92672">,</span> ch<span style="color:#f92672">==</span><span style="color:#e6db74">&#39;q&#39;</span> <span style="color:#f92672">||</span> ch<span style="color:#f92672">==</span><span style="color:#e6db74">&#39;Q&#39;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>x=15, 10 &lt; x &amp;&amp; x &lt; 20 =true
+</span></span><span style="display:flex;"><span>x= 6,  x%2==0 || x%3==0  &amp;&amp; x%6!=0 =true
+</span></span><span style="display:flex;"><span>x= 6, (x%2==0 || x%3==0) &amp;&amp; x%6!=0 =false
+</span></span><span style="display:flex;"><span>ch=&#39;1&#39;, &#39;0&#39; &lt;= ch &amp;&amp; ch &lt;= &#39;9&#39; =true
+</span></span><span style="display:flex;"><span>ch=&#39;a&#39;, &#39;a&#39; &lt;= ch &amp;&amp; ch &lt;= &#39;z&#39; =true
+</span></span><span style="display:flex;"><span>ch=&#39;A&#39;, &#39;A&#39; &lt;= ch &amp;&amp; ch &lt;= &#39;Z&#39; =true
+</span></span><span style="display:flex;"><span>ch=&#39;q&#39;, ch==&#39;q&#39; || ch==&#39;Q&#39; =true
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Process finished with exit code 0
+</span></span></code></pre></div><hr>
+<p>다음 예제와 같이 if문과 논리 연산자의 결합을 통해 숫자, 문자를 판별할 수 있습니다.</p>
+<hr>
+<ul>
+<li>● 예제 3-25</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#f92672">import</span> java.util.*<span style="color:#f92672">;</span> <span style="color:#75715e">// Scanner를 사용하기 위해 추가
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">HelloWorldPrint</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        Scanner scanner <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Scanner<span style="color:#f92672">(</span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">in</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">char</span> ch <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39; &#39;</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;문자를 하나 입력하세요.&gt;&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        String input <span style="color:#f92672">=</span> scanner<span style="color:#f92672">.</span><span style="color:#a6e22e">nextLine</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>        ch <span style="color:#f92672">=</span> input<span style="color:#f92672">.</span><span style="color:#a6e22e">charAt</span><span style="color:#f92672">(</span>0<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#39;0&#39;</span><span style="color:#f92672">&lt;=</span> ch <span style="color:#f92672">&amp;&amp;</span> ch <span style="color:#f92672">&lt;=</span> <span style="color:#e6db74">&#39;9&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;입력하신 문자는 숫자입니다. %n&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span><span style="color:#f92672">((</span><span style="color:#e6db74">&#39;a&#39;</span><span style="color:#f92672">&lt;=</span> ch <span style="color:#f92672">&amp;&amp;</span> ch <span style="color:#f92672">&lt;=</span> <span style="color:#e6db74">&#39;z&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">||</span> <span style="color:#f92672">(</span><span style="color:#e6db74">&#39;A&#39;</span><span style="color:#f92672">&lt;=</span> ch <span style="color:#f92672">&amp;&amp;</span> ch <span style="color:#f92672">&lt;=</span> <span style="color:#e6db74">&#39;Z&#39;</span><span style="color:#f92672">))</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;입력하신 문자는 영문자입니다. %n&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span> <span style="color:#75715e">// main
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>문자를 하나 입력하세요.&gt;7
+</span></span><span style="display:flex;"><span>입력하신 문자는 숫자입니다. 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Process finished with exit code 0
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>문자를 하나 입력하세요.&gt;a
+</span></span><span style="display:flex;"><span>입력하신 문자는 영문자입니다. 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Process finished with exit code 0
+</span></span></code></pre></div><hr>
+<p>논리 연산자가 효율적인지 확인하는 방법은 다음과 같이 ||, &amp;&amp;을 사용할 수 있습니다.</p>
+<hr>
+<ul>
+<li>● 예제 3-26</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">HelloWorldPrint</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> a <span style="color:#f92672">=</span> 5<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> b <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;a=%d, b=%d%n&#34;</span><span style="color:#f92672">,</span> a<span style="color:#f92672">,</span> b<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;a!=0 || ++b!=0 = %b%n&#34;</span><span style="color:#f92672">,</span> a<span style="color:#f92672">!=</span>0 <span style="color:#f92672">||</span> <span style="color:#f92672">++</span>b<span style="color:#f92672">!=</span>0<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;a=%d, b=%d\n&#34;</span><span style="color:#f92672">,</span> a<span style="color:#f92672">,</span> b<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;a==0 &amp;&amp; ++b!=0 = %b%n&#34;</span><span style="color:#f92672">,</span> a<span style="color:#f92672">==</span>0 <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">++</span>b<span style="color:#f92672">!=</span>0<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;a=%d, b=%d%n&#34;</span><span style="color:#f92672">,</span> a<span style="color:#f92672">,</span> b<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span> <span style="color:#75715e">// main의 끝
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>a=5, b=0
+</span></span><span style="display:flex;"><span>a!=0 || ++b!=0 = true
+</span></span><span style="display:flex;"><span>a=5, b=0
+</span></span><span style="display:flex;"><span>a==0 &amp;&amp; ++b!=0 = false
+</span></span><span style="display:flex;"><span>a=5, b=0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Process finished with exit code 0
+</span></span></code></pre></div><hr>
+<p>논리 부정 연산은 다음과 같이 사용할 수 있습니다.</p>
+<hr>
+<ul>
+<li>● 예제 3-27</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">HelloWorldPrint</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">boolean</span>  b  <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">char</span> ch <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;C&#39;</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;b=%b\n&#34;</span><span style="color:#f92672">,</span> b<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;!b=%b\n&#34;</span><span style="color:#f92672">,</span> <span style="color:#f92672">!</span>b<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;!!b=%b\n&#34;</span><span style="color:#f92672">,</span> <span style="color:#f92672">!!</span>b<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;!!!b=%b\n&#34;</span><span style="color:#f92672">,</span> <span style="color:#f92672">!!!</span>b<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;ch=%c\n&#34;</span><span style="color:#f92672">,</span> ch<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;ch &lt; &#39;a&#39; || ch &gt; &#39;z&#39;=%b\n&#34;</span><span style="color:#f92672">,</span> ch <span style="color:#f92672">&lt;</span> <span style="color:#e6db74">&#39;a&#39;</span> <span style="color:#f92672">||</span> ch <span style="color:#f92672">&gt;</span> <span style="color:#e6db74">&#39;z&#39;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;!(&#39;a&#39;&lt;=ch &amp;&amp; ch&lt;=&#39;z&#39;)=%b\n&#34;</span><span style="color:#f92672">,</span> <span style="color:#f92672">!(</span><span style="color:#e6db74">&#39;a&#39;</span><span style="color:#f92672">&lt;=</span> ch <span style="color:#f92672">&amp;&amp;</span> ch<span style="color:#f92672">&lt;=</span><span style="color:#e6db74">&#39;z&#39;</span><span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;  &#39;a&#39;&lt;=ch &amp;&amp; ch&lt;=&#39;z&#39; =%b\n&#34;</span><span style="color:#f92672">,</span>   <span style="color:#e6db74">&#39;a&#39;</span><span style="color:#f92672">&lt;=</span>ch <span style="color:#f92672">&amp;&amp;</span> ch<span style="color:#f92672">&lt;=</span><span style="color:#e6db74">&#39;z&#39;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span> <span style="color:#75715e">// main의 끝
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>b=true
+</span></span><span style="display:flex;"><span>!b=false
+</span></span><span style="display:flex;"><span>!!b=true
+</span></span><span style="display:flex;"><span>!!!b=false
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>ch=C
+</span></span><span style="display:flex;"><span>ch &lt; &#39;a&#39; || ch &gt; &#39;z&#39;=true
+</span></span><span style="display:flex;"><span>!(&#39;a&#39;&lt;=ch &amp;&amp; ch&lt;=&#39;z&#39;)=true
+</span></span><span style="display:flex;"><span>  &#39;a&#39;&lt;=ch &amp;&amp; ch&lt;=&#39;z&#39; =false
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Process finished with exit code 0
+</span></span></code></pre></div><hr>
+<p>다음으로 비트 연산자 사용 예시는 다음과 같습니다.</p>
+<hr>
+<ul>
+<li>● 예제 3-28</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">HelloWorldPrint</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> x <span style="color:#f92672">=</span> 0xAB<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> y <span style="color:#f92672">=</span> 0xF<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;x = %#X \t\t%s%n&#34;</span><span style="color:#f92672">,</span> x<span style="color:#f92672">,</span> toBinaryString<span style="color:#f92672">(</span>x<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;y = %#X \t\t%s%n&#34;</span><span style="color:#f92672">,</span> x<span style="color:#f92672">,</span> toBinaryString<span style="color:#f92672">(</span>y<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;%#X | %#X = %#X \t%s%n&#34;</span><span style="color:#f92672">,</span> x<span style="color:#f92672">,</span> y<span style="color:#f92672">,</span> x <span style="color:#f92672">|</span> y<span style="color:#f92672">,</span> toBinaryString<span style="color:#f92672">(</span>x <span style="color:#f92672">|</span> y<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;%#X &amp; %#X = %#X \t%s%n&#34;</span><span style="color:#f92672">,</span> x<span style="color:#f92672">,</span> y<span style="color:#f92672">,</span> x <span style="color:#f92672">&amp;</span> y<span style="color:#f92672">,</span> toBinaryString<span style="color:#f92672">(</span>x <span style="color:#f92672">&amp;</span> y<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;%#X ^ %#X = %#X \t%s%n&#34;</span><span style="color:#f92672">,</span> x<span style="color:#f92672">,</span> y<span style="color:#f92672">,</span> x <span style="color:#f92672">^</span> y<span style="color:#f92672">,</span> toBinaryString<span style="color:#f92672">(</span>x <span style="color:#f92672">^</span> y<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;%#X ^ %#X ^ %#X = %#X %s%n&#34;</span><span style="color:#f92672">,</span> x<span style="color:#f92672">,</span> y<span style="color:#f92672">,</span> y<span style="color:#f92672">,</span> x <span style="color:#f92672">^</span> y <span style="color:#f92672">^</span> y<span style="color:#f92672">,</span> toBinaryString<span style="color:#f92672">(</span>x <span style="color:#f92672">^</span> y <span style="color:#f92672">^</span> y<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span> <span style="color:#75715e">// main의 끝
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// 10진 정수를 2진수로 변환하는 메서드
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">static</span> String <span style="color:#a6e22e">toBinaryString</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> x<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        String zero <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;00000000000000000000000000000000&#34;</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        String tmp <span style="color:#f92672">=</span> zero <span style="color:#f92672">+</span> Integer<span style="color:#f92672">.</span><span style="color:#a6e22e">toBinaryString</span><span style="color:#f92672">(</span>x<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> tmp<span style="color:#f92672">.</span><span style="color:#a6e22e">substring</span><span style="color:#f92672">(</span>tmp<span style="color:#f92672">.</span><span style="color:#a6e22e">length</span><span style="color:#f92672">()-</span>32<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>x = 0XAB 		00000000000000000000000010101011
+</span></span><span style="display:flex;"><span>y = 0XAB 		00000000000000000000000000001111
+</span></span><span style="display:flex;"><span>0XAB | 0XF = 0XAF 	00000000000000000000000010101111
+</span></span><span style="display:flex;"><span>0XAB &amp; 0XF = 0XB 	00000000000000000000000000001011
+</span></span><span style="display:flex;"><span>0XAB ^ 0XF = 0XA4 	00000000000000000000000010100100
+</span></span><span style="display:flex;"><span>0XAB ^ 0XF ^ 0XF = 0XAB 00000000000000000000000010101011
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Process finished with exit code 0
+</span></span></code></pre></div><hr>
+<p>비트 전환 연산자 사용 예시는 다음과 같습니다.</p>
+<hr>
+<ul>
+<li>● 예제 3-29</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">HelloWorldPrint</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">byte</span> p <span style="color:#f92672">=</span>  10<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">byte</span> n <span style="color:#f92672">=</span> <span style="color:#f92672">-</span>10<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34; p  =%d \t%s%n&#34;</span><span style="color:#f92672">,</span>  p<span style="color:#f92672">,</span>   toBinaryString<span style="color:#f92672">(</span>p<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;~p  =%d \t%s%n&#34;</span><span style="color:#f92672">,</span> <span style="color:#f92672">~</span>p<span style="color:#f92672">,</span>   toBinaryString<span style="color:#f92672">(~</span>p<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;~p+1=%d \t%s%n&#34;</span><span style="color:#f92672">,</span> <span style="color:#f92672">~</span>p<span style="color:#f92672">+</span>1<span style="color:#f92672">,</span> toBinaryString<span style="color:#f92672">(~</span>p<span style="color:#f92672">+</span>1<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;~~p =%d \t%s%n&#34;</span><span style="color:#f92672">,</span> <span style="color:#f92672">~~</span>p<span style="color:#f92672">,</span>  toBinaryString<span style="color:#f92672">(~~</span>p<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34; n  =%d%n&#34;</span><span style="color:#f92672">,</span>  n<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;~(n-1)=%d%n&#34;</span><span style="color:#f92672">,</span> <span style="color:#f92672">~(</span>n<span style="color:#f92672">-</span>1<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span> <span style="color:#75715e">// main의 끝
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// 10진수 정수를 2진수로 변환하는 메서드
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">static</span> String <span style="color:#a6e22e">toBinaryString</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> x<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        String zero <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;00000000000000000000000000000000&#34;</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        String tmp <span style="color:#f92672">=</span> zero <span style="color:#f92672">+</span> Integer<span style="color:#f92672">.</span><span style="color:#a6e22e">toBinaryString</span><span style="color:#f92672">(</span>x<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> tmp<span style="color:#f92672">.</span><span style="color:#a6e22e">substring</span><span style="color:#f92672">(</span>tmp<span style="color:#f92672">.</span><span style="color:#a6e22e">length</span><span style="color:#f92672">()-</span>32<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span> p  =10 	00000000000000000000000000001010
+</span></span><span style="display:flex;"><span>~p  =-11 	11111111111111111111111111110101
+</span></span><span style="display:flex;"><span>~p+1=-10 	11111111111111111111111111110110
+</span></span><span style="display:flex;"><span>~~p =10 	00000000000000000000000000001010
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> n  =-10
+</span></span><span style="display:flex;"><span>~(n-1)=10
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Process finished with exit code 0
+</span></span></code></pre></div><hr>
+<p>쉬프트 연산자를 활용하여 작성한 코드의 두 가지 예시는 다음과 같습니다.</p>
+<hr>
+<ul>
+<li>● 예제 3-30</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">HelloWorldPrint</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> dec <span style="color:#f92672">=</span> 8<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;%d &gt;&gt; %d = %4d \t%s%n&#34;</span><span style="color:#f92672">,</span> dec<span style="color:#f92672">,</span> 0<span style="color:#f92672">,</span> dec <span style="color:#f92672">&gt;&gt;</span> 0<span style="color:#f92672">,</span> toBinaryString<span style="color:#f92672">(</span>dec <span style="color:#f92672">&gt;&gt;</span> 0<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;%d &gt;&gt; %d = %4d \t%s%n&#34;</span><span style="color:#f92672">,</span> dec<span style="color:#f92672">,</span> 1<span style="color:#f92672">,</span> dec <span style="color:#f92672">&gt;&gt;</span> 1<span style="color:#f92672">,</span> toBinaryString<span style="color:#f92672">(</span>dec <span style="color:#f92672">&gt;&gt;</span> 1<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;%d &gt;&gt; %d = %4d \t%s%n&#34;</span><span style="color:#f92672">,</span> dec<span style="color:#f92672">,</span> 2<span style="color:#f92672">,</span> dec <span style="color:#f92672">&gt;&gt;</span> 2<span style="color:#f92672">,</span> toBinaryString<span style="color:#f92672">(</span>dec <span style="color:#f92672">&gt;&gt;</span> 2<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;%d &lt;&lt; %d = %4d \t%s%n&#34;</span><span style="color:#f92672">,</span> dec<span style="color:#f92672">,</span> 0<span style="color:#f92672">,</span> dec <span style="color:#f92672">&lt;&lt;</span> 0<span style="color:#f92672">,</span> toBinaryString<span style="color:#f92672">(</span>dec <span style="color:#f92672">&lt;&lt;</span> 0<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;%d &lt;&lt; %d = %4d \t%s%n&#34;</span><span style="color:#f92672">,</span> dec<span style="color:#f92672">,</span> 1<span style="color:#f92672">,</span> dec <span style="color:#f92672">&lt;&lt;</span> 1<span style="color:#f92672">,</span> toBinaryString<span style="color:#f92672">(</span>dec <span style="color:#f92672">&lt;&lt;</span> 1<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;%d &lt;&lt; %d = %4d \t%s%n&#34;</span><span style="color:#f92672">,</span> dec<span style="color:#f92672">,</span> 2<span style="color:#f92672">,</span> dec <span style="color:#f92672">&lt;&lt;</span> 2<span style="color:#f92672">,</span> toBinaryString<span style="color:#f92672">(</span>dec <span style="color:#f92672">&lt;&lt;</span> 2<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        dec <span style="color:#f92672">=</span> <span style="color:#f92672">-</span>8<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;%d &gt;&gt; %d = %4d \t%s%n&#34;</span><span style="color:#f92672">,</span> dec<span style="color:#f92672">,</span> 0<span style="color:#f92672">,</span> dec <span style="color:#f92672">&gt;&gt;</span> 0<span style="color:#f92672">,</span> toBinaryString<span style="color:#f92672">(</span>dec <span style="color:#f92672">&gt;&gt;</span> 0<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;%d &gt;&gt; %d = %4d \t%s%n&#34;</span><span style="color:#f92672">,</span> dec<span style="color:#f92672">,</span> 1<span style="color:#f92672">,</span> dec <span style="color:#f92672">&gt;&gt;</span> 1<span style="color:#f92672">,</span> toBinaryString<span style="color:#f92672">(</span>dec <span style="color:#f92672">&gt;&gt;</span> 1<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;%d &gt;&gt; %d = %4d \t%s%n&#34;</span><span style="color:#f92672">,</span> dec<span style="color:#f92672">,</span> 2<span style="color:#f92672">,</span> dec <span style="color:#f92672">&gt;&gt;</span> 2<span style="color:#f92672">,</span> toBinaryString<span style="color:#f92672">(</span>dec <span style="color:#f92672">&gt;&gt;</span> 2<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;%d &lt;&lt; %d = %4d \t%s%n&#34;</span><span style="color:#f92672">,</span> dec<span style="color:#f92672">,</span> 0<span style="color:#f92672">,</span> dec <span style="color:#f92672">&lt;&lt;</span> 0<span style="color:#f92672">,</span> toBinaryString<span style="color:#f92672">(</span>dec <span style="color:#f92672">&lt;&lt;</span> 0<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;%d &lt;&lt; %d = %4d \t%s%n&#34;</span><span style="color:#f92672">,</span> dec<span style="color:#f92672">,</span> 1<span style="color:#f92672">,</span> dec <span style="color:#f92672">&lt;&lt;</span> 1<span style="color:#f92672">,</span> toBinaryString<span style="color:#f92672">(</span>dec <span style="color:#f92672">&lt;&lt;</span> 1<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;%d &lt;&lt; %d = %4d \t%s%n&#34;</span><span style="color:#f92672">,</span> dec<span style="color:#f92672">,</span> 2<span style="color:#f92672">,</span> dec <span style="color:#f92672">&lt;&lt;</span> 2<span style="color:#f92672">,</span> toBinaryString<span style="color:#f92672">(</span>dec <span style="color:#f92672">&lt;&lt;</span> 2<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        dec <span style="color:#f92672">=</span> 8<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;%d &gt;&gt; %2d = %4d \t%s%n&#34;</span><span style="color:#f92672">,</span> dec<span style="color:#f92672">,</span> 0<span style="color:#f92672">,</span>  dec <span style="color:#f92672">&gt;&gt;</span> 0<span style="color:#f92672">,</span>  toBinaryString<span style="color:#f92672">(</span>dec <span style="color:#f92672">&lt;&lt;</span> 2<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;%d &gt;&gt; %2d = %4d \t%s%n&#34;</span><span style="color:#f92672">,</span> dec<span style="color:#f92672">,</span> 32<span style="color:#f92672">,</span> dec <span style="color:#f92672">&gt;&gt;</span> 32<span style="color:#f92672">,</span> toBinaryString<span style="color:#f92672">(</span>dec <span style="color:#f92672">&lt;&lt;</span> 2<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span> <span style="color:#75715e">// main의 끝
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// 10진 정수를 2진수로 변환하는 메서드
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">static</span> String <span style="color:#a6e22e">toBinaryString</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> x<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        String zero <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;00000000000000000000000000000000&#34;</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        String tmp <span style="color:#f92672">=</span> zero <span style="color:#f92672">+</span> Integer<span style="color:#f92672">.</span><span style="color:#a6e22e">toBinaryString</span><span style="color:#f92672">(</span>x<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> tmp<span style="color:#f92672">.</span><span style="color:#a6e22e">substring</span><span style="color:#f92672">(</span>tmp<span style="color:#f92672">.</span><span style="color:#a6e22e">length</span><span style="color:#f92672">()-</span>32<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>8 &gt;&gt; 0 =    8 	00000000000000000000000000001000
+</span></span><span style="display:flex;"><span>8 &gt;&gt; 1 =    4 	00000000000000000000000000000100
+</span></span><span style="display:flex;"><span>8 &gt;&gt; 2 =    2 	00000000000000000000000000000010
+</span></span><span style="display:flex;"><span>8 &lt;&lt; 0 =    8 	00000000000000000000000000001000
+</span></span><span style="display:flex;"><span>8 &lt;&lt; 1 =   16 	00000000000000000000000000010000
+</span></span><span style="display:flex;"><span>8 &lt;&lt; 2 =   32 	00000000000000000000000000100000
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>-8 &gt;&gt; 0 =   -8 	11111111111111111111111111111000
+</span></span><span style="display:flex;"><span>-8 &gt;&gt; 1 =   -4 	11111111111111111111111111111100
+</span></span><span style="display:flex;"><span>-8 &gt;&gt; 2 =   -2 	11111111111111111111111111111110
+</span></span><span style="display:flex;"><span>-8 &lt;&lt; 0 =   -8 	11111111111111111111111111111000
+</span></span><span style="display:flex;"><span>-8 &lt;&lt; 1 =  -16 	11111111111111111111111111110000
+</span></span><span style="display:flex;"><span>-8 &lt;&lt; 2 =  -32 	11111111111111111111111111100000
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>8 &gt;&gt;  0 =    8 	00000000000000000000000000100000
+</span></span><span style="display:flex;"><span>8 &gt;&gt; 32 =    8 	00000000000000000000000000100000
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Process finished with exit code 0
+</span></span></code></pre></div><hr>
+<ul>
+<li>● 예제 3-31</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">HelloWorldPrint</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> dec  <span style="color:#f92672">=</span> 1234<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> hex  <span style="color:#f92672">=</span> 0xABCD<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> mask <span style="color:#f92672">=</span> 0xF<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;hex=%X%n&#34;</span><span style="color:#f92672">,</span> hex<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;%X%n&#34;</span><span style="color:#f92672">,</span> hex <span style="color:#f92672">&amp;</span> mask<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        hex <span style="color:#f92672">=</span> hex <span style="color:#f92672">&gt;&gt;</span> 4<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;%X%n&#34;</span><span style="color:#f92672">,</span> hex <span style="color:#f92672">&amp;</span> mask<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        hex <span style="color:#f92672">=</span> hex <span style="color:#f92672">&gt;&gt;</span> 4<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;%X%n&#34;</span><span style="color:#f92672">,</span> hex <span style="color:#f92672">&amp;</span> mask<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        hex <span style="color:#f92672">=</span> hex <span style="color:#f92672">&gt;&gt;</span> 4<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;%X%n&#34;</span><span style="color:#f92672">,</span> hex <span style="color:#f92672">&amp;</span> mask<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span> <span style="color:#75715e">// main의 끝
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>hex=ABCD
+</span></span><span style="display:flex;"><span>D
+</span></span><span style="display:flex;"><span>C
+</span></span><span style="display:flex;"><span>B
+</span></span><span style="display:flex;"><span>A
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Process finished with exit code 0
+</span></span></code></pre></div><hr>
+<p>마지막으로, 조건 연산자 ?를 사용하는 예시는 다음과 같습니다.</p>
+<hr>
+<ul>
+<li>● 예제 3-32</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">HelloWorldPrint</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span>  x<span style="color:#f92672">,</span> y<span style="color:#f92672">,</span> z<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span>  absX<span style="color:#f92672">,</span> absY<span style="color:#f92672">,</span> absZ<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">char</span> signX<span style="color:#f92672">,</span> signY<span style="color:#f92672">,</span> signZ<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> 10<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        y <span style="color:#f92672">=</span> <span style="color:#f92672">-</span>5<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        z <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        absX <span style="color:#f92672">=</span> x <span style="color:#f92672">&gt;=</span> 0 <span style="color:#f92672">?</span> x <span style="color:#f92672">:</span> <span style="color:#f92672">-</span>x<span style="color:#f92672">;</span>  <span style="color:#75715e">// x의 값이 음수이면, 양수로 만든다.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        absY <span style="color:#f92672">=</span> y <span style="color:#f92672">&gt;=</span> 0 <span style="color:#f92672">?</span> y <span style="color:#f92672">:</span> <span style="color:#f92672">-</span>y<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        absZ <span style="color:#f92672">=</span> z <span style="color:#f92672">&gt;=</span> 0 <span style="color:#f92672">?</span> z <span style="color:#f92672">:</span> <span style="color:#f92672">-</span>z<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        signX <span style="color:#f92672">=</span> x <span style="color:#f92672">&gt;</span> 0 <span style="color:#f92672">?</span> <span style="color:#e6db74">&#39;+&#39;</span> <span style="color:#f92672">:</span> <span style="color:#f92672">(</span> x<span style="color:#f92672">==</span>0 <span style="color:#f92672">?</span> <span style="color:#e6db74">&#39; &#39;</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;-&#39;</span><span style="color:#f92672">);</span>  <span style="color:#75715e">// 조건 연산자를 중첩
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        signY <span style="color:#f92672">=</span> y <span style="color:#f92672">&gt;</span> 0 <span style="color:#f92672">?</span> <span style="color:#e6db74">&#39;+&#39;</span> <span style="color:#f92672">:</span> <span style="color:#f92672">(</span> y<span style="color:#f92672">==</span>0 <span style="color:#f92672">?</span> <span style="color:#e6db74">&#39; &#39;</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;-&#39;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        signZ <span style="color:#f92672">=</span> z <span style="color:#f92672">&gt;</span> 0 <span style="color:#f92672">?</span> <span style="color:#e6db74">&#39;+&#39;</span> <span style="color:#f92672">:</span> <span style="color:#f92672">(</span> z<span style="color:#f92672">==</span>0 <span style="color:#f92672">?</span> <span style="color:#e6db74">&#39; &#39;</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;-&#39;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;x=%c%d\n&#34;</span><span style="color:#f92672">,</span> signX<span style="color:#f92672">,</span> absX<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;y=%c%d\n&#34;</span><span style="color:#f92672">,</span> signY<span style="color:#f92672">,</span> absY<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;z=%c%d\n&#34;</span><span style="color:#f92672">,</span> signZ<span style="color:#f92672">,</span> absZ<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>x=+10
+</span></span><span style="display:flex;"><span>y=-5
+</span></span><span style="display:flex;"><span>z= 0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Process finished with exit code 0
+</span></span></code></pre></div><hr>
+<p>이상으로 자바에서 연산자를 활용하는 예시에 대해 모두 확인하였습니다. 다음 포스팅은 조건문과 반복문을 활용하는 예시를 가져올 예정입니다. 오늘도 긴 글 읽어주셔서 고생하셨습니다.</p>
+<hr>
+<h4 id="감사합니다">감사합니다.</h4>
+<hr>
+<p>[레퍼런스]</p>
+<ol>
+<li>자바의 정석(3판) : <a href="http://www.kyobobook.co.kr/product/detailViewKor.laf?ejkGb=KOR&amp;mallGb=KOR&amp;barcode=9788994492032&amp;orderClick=LAG&amp;Kc=">http://www.kyobobook.co.kr/product/detailViewKor.laf?ejkGb=KOR&amp;mallGb=KOR&amp;barcode=9788994492032&amp;orderClick=LAG&amp;Kc=</a></li>
+</ol>
+
+    
+
+    
+  </article>
+  
+  <aside><h3>More from shcDE Tech-Blog</h3>
+<ul class='posts aside'>
+<li class = 'post_item fp'>
+  <a class = 'post_card' href='https://shcde.github.io/post/java1/' title = '자바 공부 기록(1) - 변수에 대해 알아볼까요?' style = 'background-image: url(https://shcde.github.io/images/coffee-gab9b09d77_1920.jpg);'>
+  </a>
+  <div class = 'excerpt'>
+    <div class = 'excerpt_meta'>
+      <a href = 'https://shcde.github.io/tags/development' class = 'post_tag'>development
+      </a><div id=inline class="out">
+  2022-07-20
+</div>
+<div class = 'copy' data-share = 'Copy' data-copied = 'Copied'><svg>
+  <use xlink:href="#copy"></use>
+</svg>
+</div>
+
+<style>
+  .out {
+  border: 2px solid rgb(255, 132, 0);
+  background-color: rgb(255, 132, 0);
+  width: 100px;
+  height: 25px;
+  border-radius: 5px;
+  font:14px 나눔고딕;
+  font-weight:bold;
+}
+
+#inline {
+  text-align: center;
+  line-height: 20px;
+  color : white;
+}
+</style>
+    </div>
+    <h3 class = 'post_link'>
+      <a href='https://shcde.github.io/post/java1/'>자바 공부 기록(1) - 변수에 대해 알아볼까요?</a>
+    </h3>
+    <p class = 'pale'>자바에서는 변수를 어떻게 활용할까요? 안녕하세요. shcDE입니다. 이번 포스팅을 시작으로 자바 기본 사용법에 대한 내용을 다루고자 합니다. 사실 자바에 대한 포 …</p>
+  </div>
+</li>
+
+<li class = 'post_item fp'>
+  <a class = 'post_card' href='https://shcde.github.io/post/backend/' title = '백엔드 엔지니어로 진로 변경을 한 이유' style = 'background-image: url(https://shcde.github.io/images/table-setting-g52d6e1d65_1920.jpg);'>
+  </a>
+  <div class = 'excerpt'>
+    <div class = 'excerpt_meta'>
+      <a href = 'https://shcde.github.io/tags/development' class = 'post_tag'>development
+      </a><div id=inline class="out">
+  2022-07-19
+</div>
+<div class = 'copy' data-share = 'Copy' data-copied = 'Copied'><svg>
+  <use xlink:href="#copy"></use>
+</svg>
+</div>
+
+<style>
+  .out {
+  border: 2px solid rgb(255, 132, 0);
+  background-color: rgb(255, 132, 0);
+  width: 100px;
+  height: 25px;
+  border-radius: 5px;
+  font:14px 나눔고딕;
+  font-weight:bold;
+}
+
+#inline {
+  text-align: center;
+  line-height: 20px;
+  color : white;
+}
+</style>
+    </div>
+    <h3 class = 'post_link'>
+      <a href='https://shcde.github.io/post/backend/'>백엔드 엔지니어로 진로 변경을 한 이유</a>
+    </h3>
+    <p class = 'pale'>어제까지만 해도 데이터 엔지니어링 공부를 하다가 왜 백엔드 개발로 분야를 바꾸었나? 안녕하세요. shcDE입니다. 이번 포스팅은 제가 데이터 엔지니어에서 백엔드  …</p>
+  </div>
+</li>
+
+</ul>
+
+  </aside>
+  
+</div>
+<script src = 'https://shcde.github.io/js/autosize.min.js'></script>
+<script src = 'https://shcde.github.io/js/timeago.js'></script>
+    </main><svg width="0" height="0" class="hidden">
+  <symbol viewBox="0 0 699.428 699.428" xmlns="http://www.w3.org/2000/svg" id="copy">
+    <path d="M502.714 0H240.428C194.178 0 153 42.425 153 87.429l-25.267.59c-46.228 0-84.019 41.834-84.019 86.838V612c0 45.004 41.179 87.428 87.429 87.428H459c46.249 0 87.428-42.424 87.428-87.428h21.857c46.25 0 87.429-42.424 87.429-87.428v-349.19zM459 655.715H131.143c-22.95 0-43.714-21.441-43.714-43.715V174.857c0-22.272 18.688-42.993 41.638-42.993l23.933-.721v393.429C153 569.576 194.178 612 240.428 612h262.286c0 22.273-20.765 43.715-43.714 43.715zm153-131.143c0 22.271-20.765 43.713-43.715 43.713H240.428c-22.95 0-43.714-21.441-43.714-43.713V87.429c0-22.272 20.764-43.714 43.714-43.714H459c-.351 50.337 0 87.975 0 87.975 0 45.419 40.872 86.882 87.428 86.882H612zm-65.572-349.715c-23.277 0-43.714-42.293-43.714-64.981V44.348L612 174.857zm-43.714 131.537H306c-12.065 0-21.857 9.77-21.857 21.835s9.792 21.835 21.857 21.835h196.714c12.065 0 21.857-9.771 21.857-21.835 0-12.065-9.792-21.835-21.857-21.835zm0 109.176H306c-12.065 0-21.857 9.77-21.857 21.834 0 12.066 9.792 21.836 21.857 21.836h196.714c12.065 0 21.857-9.77 21.857-21.836 0-12.064-9.792-21.834-21.857-21.834z"
+    ></path>
+  </symbol>
+  <symbol viewBox="0 0 60.015 60.015" xmlns="http://www.w3.org/2000/svg" id="reply">
+    <path d="M42.007 0h-24c-9.925 0-18 8.075-18 18v14c0 9.59 7.538 17.452 17 17.973v8.344a1.694 1.694 0 0 0 1.699 1.698c.44 0 .873-.173 1.198-.498l1.876-1.876C26.708 52.713 33.259 50 40.227 50h1.78c9.925 0 18-8.075 18-18V18c0-9.925-8.075-18-18-18zm16 32c0 8.822-7.178 16-16 16h-1.78c-7.502 0-14.556 2.921-19.86 8.226l-1.359 1.359V44a1 1 0 1 0-2 0v3.949c-8.356-.52-15-7.465-15-15.949V18c0-8.822 7.178-16 16-16h24c8.822 0 16 7.178 16 16v14z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="scan">
+    <path d="M456.66 0H385c-8.284 0-15 6.716-15 15s6.716 15 15 15h71.66C470.632 30 482 41.368 482 55.341V127c0 8.284 6.716 15 15 15s15-6.716 15-15V55.341C512 24.826 487.174 0 456.66 0zM15 142c8.284 0 15-6.716 15-15V55.341C30 41.368 41.368 30 55.34 30H127c8.284 0 15-6.716 15-15s-6.716-15-15-15H55.34C24.826 0 0 24.826 0 55.341V127c0 8.284 6.716 15 15 15zm112 340H55.34C41.368 482 30 470.632 30 456.659V385c0-8.284-6.716-15-15-15s-15 6.716-15 15v71.659C0 487.174 24.826 512 55.34 512H127c8.284 0 15-6.716 15-15s-6.716-15-15-15zm370-112c-8.284 0-15 6.716-15 15v71.659C482 470.632 470.632 482 456.66 482H385c-8.284 0-15 6.716-15 15s6.716 15 15 15h71.66c30.515 0 55.34-24.826 55.34-55.341V385c0-8.284-6.716-15-15-15zM341.643 110h47.575c6.497 0 11.782 5.285 11.782 11.782v47.574c0 8.284 6.716 15 15 15s15-6.716 15-15v-47.574C431 98.743 412.256 80 389.218 80h-47.575c-8.284 0-15 6.716-15 15s6.716 15 15 15zM81 121.782v47.574c0 8.284 6.716 15 15 15s15-6.716 15-15v-47.574c0-6.497 5.286-11.782 11.782-11.782h47.575c8.284 0 15-6.716 15-15s-6.716-15-15-15h-47.575C99.744 80 81 98.743 81 121.782zM170.357 400h-47.575c-6.497 0-11.782-5.285-11.782-11.782v-47.574c0-8.284-6.716-15-15-15s-15 6.716-15 15v47.574C81 411.257 99.744 430 122.782 430h47.575c8.284 0 15-6.716 15-15s-6.716-15-15-15zM431 388.218v-47.574c0-8.284-6.716-15-15-15s-15 6.716-15 15v47.574c0 6.497-5.286 11.782-11.782 11.782h-47.575c-8.284 0-15 6.716-15 15s6.716 15 15 15h47.575C412.256 430 431 411.257 431 388.218zM1 256c0 8.284 6.716 15 15 15h480c8.284 0 15-6.716 15-15s-6.716-15-15-15H16c-8.284 0-15 6.716-15 15z"></path>
+  </symbol>
+</svg>
+<footer class="footer">
+  <div class="footer_inner wrap pale">
+    <p>&copy;&nbsp;<span class="year"></span>&nbsp;shcDE Tech-Blog.
+    Designed by  <a href = 'https://www.linkedin.com/in/dan-weru-profile/' title = 'Linkedin Profile'>Weru</a></p>
+  </div>
+  
+  <script src="https://utteranc.es/client.js"
+        repo="shcDE/blog-comments"
+        issue-term="title"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+  </script>
+</footer><script type="text/javascript" src="https://shcde.github.io/js/bundle.444d59fb57116584f9d07a6aff51bf335fe9975644550a0d68e213d2d51db57326d29ea67a57b44b1b381cf4ca7d866d3e69f5ad5f3d1e49b2fc4edc508cbd03.js" integrity="sha512-RE1Z&#43;1cRZYT50Hpq/1G/M1/pl1ZEVQoNaOIT0tUdtXMm0p6mele0Sxs4HPTKfYZtPmn1rV89Hkmy/E7cUIy9Aw==" crossorigin="anonymous"></script>
+
+  </body>
+</html>
