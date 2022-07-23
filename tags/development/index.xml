@@ -6,7 +6,17 @@
     <description>Recent content in development on shcDE Tech-Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Copyright © 2008–2018, Steve Francia and the Hugo Authors; all rights reserved.</copyright>
-    <lastBuildDate>Fri, 22 Jul 2022 14:06:10 +0900</lastBuildDate><atom:link href="https://shcde.github.io/tags/development/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 23 Jul 2022 14:12:38 +0900</lastBuildDate><atom:link href="https://shcde.github.io/tags/development/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>자바 공부 기록(4) - 배열에 대해 알아볼까요?</title>
+      <link>https://shcde.github.io/post/java4/</link>
+      <pubDate>Sat, 23 Jul 2022 14:12:38 +0900</pubDate>
+      
+      <guid>https://shcde.github.io/post/java4/</guid>
+      <description>자바에서 배열은 어떻게 사용할까요? 안녕하세요. shcDE입니다. 이번 포스팅에서는 배열에 대해 다루겠습니다. 배열이란 같은 타입의 여러 변수를 하나의 묶음으로 다루는 것을 의미합니다. 많은 양의 데이터를 저장하기 위해서, 그 데이터의 숫자만큼 변수를 선언해야 한다면 매우 혼란스러울 것입니다. 10,000개의 데이터를 저장하기 위해 같은 수의 변수를 선언해야 한다면 상상하는 것만으로도 상당히 곤혹스러울 것입니다. 이런 경우에 배열을 사용하면 많은 양의 데이터를 손쉽게 다룰 수 있습니다. 그러면 이러한 배열을 어떻게 다루는지 지금부터 알아보도록 하겠습니다.
+시작 전에, 해당 포스팅은 직접 &amp;lsquo;자바의 정석(3판)&amp;rsquo;을 구매하여 5장을 공부한 내용을 정리한 자료임을 밝힙니다.</description>
+    </item>
+    
     <item>
       <title>자바 공부 기록(3) - 조건문과 반복문에 대해 알아볼까요?</title>
       <link>https://shcde.github.io/post/java3/</link>
