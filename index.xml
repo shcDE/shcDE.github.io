@@ -6,7 +6,16 @@
     <description>Recent content on shcDE Tech-Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Copyright © 2008–2018, Steve Francia and the Hugo Authors; all rights reserved.</copyright>
-    <lastBuildDate>Sat, 23 Jul 2022 14:12:38 +0900</lastBuildDate><atom:link href="https://shcde.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 24 Jul 2022 15:30:43 +0900</lastBuildDate><atom:link href="https://shcde.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>자바 공부 기록(5) - 객체지향 프로그래밍에 대해 알아볼까요?(1)</title>
+      <link>https://shcde.github.io/post/java5/</link>
+      <pubDate>Sun, 24 Jul 2022 15:30:43 +0900</pubDate>
+      
+      <guid>https://shcde.github.io/post/java5/</guid>
+      <description>자바에서 객체지향 프로그래밍은 어떻게 할까요? 안녕하세요. shcDE입니다. 이번 포스팅부터는 객체지향 프로그래밍에 대해 2~3회에 걸쳐 설명하겠습니다. 여기에서 말하는 객체지향언어란 기존의 프로그래밍 언어와 다른 전혀 새로운 것이 아니라, 기존의 프로그래밍 언어에 몇가지 새로운 규칙을 추가한 보다 발전된 형태의 언어입니다. 이러한 규칙들을 이용해서 코드 간에 서로 관계를 맺어줌으로써 보다 유기적으로 프로그램을 구성하는 것이 가능해졌습니다. 기존의 프로그래밍 언어에 익숙한 사람이라면 자바의 객체지향적인 부분만 새로 배우면 됩니다. 다만 절차적 언어에 익숙한 프로그래밍 습관을 객체지향적으로 바꾸도록 노력을 해야 할 것입니다.</description>
+    </item>
+    
     <item>
       <title>자바 공부 기록(4) - 배열에 대해 알아볼까요?</title>
       <link>https://shcde.github.io/post/java4/</link>
