@@ -6,7 +6,17 @@
     <description>Recent content in development on shcDE Tech-Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Copyright © 2008–2018, Steve Francia and the Hugo Authors; all rights reserved.</copyright>
-    <lastBuildDate>Tue, 26 Jul 2022 16:29:18 +0900</lastBuildDate><atom:link href="https://shcde.github.io/categories/development/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 27 Jul 2022 14:05:55 +0900</lastBuildDate><atom:link href="https://shcde.github.io/categories/development/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>자바 공부 기록(8) - java.lang패키지와 유용한 클래스에 대해 알아볼까요?</title>
+      <link>https://shcde.github.io/post/java8/</link>
+      <pubDate>Wed, 27 Jul 2022 14:05:55 +0900</pubDate>
+      
+      <guid>https://shcde.github.io/post/java8/</guid>
+      <description>안녕하세요. shcDE입니다. 이번 포스팅에서는 java.lang패키지와 유용한 클래스에 대해 알아보겠습니다. java.lang패키지는 자바 프로그래밍에서 가장 기본이 되는 클래스들을 포함하고 있습니다. 그동안 String 클래스나 System 클래스를 import문 없이 사용할 수 있었던 이유는 바로 java.lang패키지에 속한 클래스들이었기 때문이었습니다. 제 포스팅에서는 java.lang패키지의 여러 클래스들 중에서도 자주 사용되는 클래스들을 일부만 확인해보겠습니다.
+시작 전에, 해당 포스팅은 직접 &amp;lsquo;자바의 정석(3판)&amp;rsquo;을 구매하여 9장을 공부한 내용을 정리한 자료임을 밝힙니다. 추가로 사용한 IDE는 &amp;lsquo;인텔리제이 IDEA CE&amp;rsquo;이며, 자바8 버전을 사용하였음을 밝힙니다.</description>
+    </item>
+    
     <item>
       <title>자바 공부 기록(7) - 예외처리에 대해 알아볼까요?</title>
       <link>https://shcde.github.io/post/java7/</link>
