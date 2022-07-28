@@ -6,7 +6,17 @@
     <description>Recent content on shcDE Tech-Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Copyright © 2008–2018, Steve Francia and the Hugo Authors; all rights reserved.</copyright>
-    <lastBuildDate>Wed, 27 Jul 2022 14:05:55 +0900</lastBuildDate><atom:link href="https://shcde.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 28 Jul 2022 14:05:43 +0900</lastBuildDate><atom:link href="https://shcde.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>자바 공부 기록(9) - 컬렉션 프레임워크에 대해 알아볼까요?</title>
+      <link>https://shcde.github.io/post/java9/</link>
+      <pubDate>Thu, 28 Jul 2022 14:05:43 +0900</pubDate>
+      
+      <guid>https://shcde.github.io/post/java9/</guid>
+      <description>안녕하세요. shcDE입니다. 이번 포스팅에서는 컬렉션 프레임워크에 대해 알아보겠습니다. 컬렉션 프레임워크란 &amp;lsquo;데이터 군을 저장하는 클래스들을 표준화한 설계&amp;rsquo;를 의밓합니다. 컬렉션은 다수의 데이터, 즉 데이터 그룹을, 프레임워크는 표준화된 프로그래밍 방식을 의미합니다.
+이러한 컬렉션 프레임워크는 컬렉션을 다루는데 필요한 다양하고 풍부한 클래스들을 제공하기 때문에 프로그래머의 짐을 상당히 덜어주고 있으며, 또한 인터페이스와 다형성을 이용한 객체지향적 설계를 통해 표준화되어 있기 때문에 사용법을 익히기에도 편리하고 재사용성이 높은 코드를 작성할 수 있다는 장점이 있습니다. 지금부터 ArrayList부터 하나씩 차근차근 컬렉션 프레임워크에 대해 알아보겠습니다.</description>
+    </item>
+    
     <item>
       <title>자바 공부 기록(8) - java.lang패키지와 유용한 클래스에 대해 알아볼까요?</title>
       <link>https://shcde.github.io/post/java8/</link>
