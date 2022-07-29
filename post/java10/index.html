@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang='en'><head>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3031042205762577" crossorigin="anonymous"></script>
+  <title>자바 공부 기록(10) - 지네릭스, 열거형, 애너테이션에 대해 알아볼까요? | shcDE Tech-Blog</title>
+  <meta charset='utf-8'>
+  <meta name="generator" content="Hugo 0.101.0" />
+  
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XCDRBEN300"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-XCDRBEN300', { 'anonymize_ip': false });
+}
+</script>
+
+  <meta name = 'viewport' content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'>
+  <meta http-equiv = 'X-UA-Compatible' content = 'IE=edge'>
+  <meta property="og:image" content="https://github.com/shcDE/pictures/blob/main/images_for_blog/business-gb1f55b807_1920.jpg?raw=true/coffee-gab9b09d77_1920.jpg">
+  <meta property="og:description" content="schDE의 개발 지식 정리용 블로그입니다." /> 
+  <meta name="description" content="안녕하세요. schDE의 개발 지식 정리용 블로그입니다.">
+<meta property = 'og:locale' content = 'en_US' />
+<meta property="og:type" content="article">
+<meta property = 'og:title' content = '자바 공부 기록(10) - 지네릭스, 열거형, 애너테이션에 대해 알아볼까요?' />
+<meta name="description" content="안녕하세요. shcDE입니다. 이번 포스팅에서는 지네릭스, 열거형, 애너테이션에 대해 알아보겠습니다. 시작 전에, 해당 포스팅은 직접 &lsquo;자바의 정석(3판)&rsquo;을 구매하여 12장을 공부한 내용을 정리한 자료임을 밝힙니다. 추가로 사용한 IDE는 &lsquo; …">
+<meta property = 'og:description' content = '안녕하세요. shcDE입니다. 이번 포스팅에서는 지네릭스, 열거형, 애너테이션에 대해 알아보겠습니다. 시작 전에, 해당 포스팅은 직접 &lsquo;자바의 정석(3판)&rsquo;을 구매하여 12장을 공부한 내용을 정리한 자료임을 밝힙니다. 추가로 사용한 IDE는 &lsquo; …'>
+<meta property = 'og:url' content = 'https://shcde.github.io/post/java10/' />
+<meta property = 'og:image' content = 'https://shcde.github.io/images/coffee-gab9b09d77_1920.jpg'/>
+<meta name = 'twitter:card' content = 'summary_large_image' />
+<meta name = 'twitter:creator' content = ''>
+<meta name = 'twitter:title' content = '자바 공부 기록(10) - 지네릭스, 열거형, 애너테이션에 대해 알아볼까요?' />
+<meta property = 'twitter:description'  content = '안녕하세요. shcDE입니다. 이번 포스팅에서는 지네릭스, 열거형, 애너테이션에 대해 알아보겠습니다. 시작 전에, 해당 포스팅은 직접 &lsquo;자바의 정석(3판)&rsquo;을 구매하여 12장을 공부한 내용을 정리한 자료임을 밝힙니다. 추가로 사용한 IDE는 &lsquo; …'/>
+<meta name = 'twitter:image' content = 'https://shcde.github.io/images/coffee-gab9b09d77_1920.jpg' />
+<link rel='apple-touch-icon' sizes='180x180' href='https://shcde.github.io/images/icons/apple-touch-icon.png'>
+<link rel='icon' type='image/png' sizes='32x32' href='https://shcde.github.io/images/icons/favicon-32x32.png'>
+<link rel='icon' type='image/png' sizes='16x16' href='https://shcde.github.io/images/icons/favicon-16x16.png'>
+<link rel='manifest' href='https://shcde.github.io/images/icons/site.webmanifest'>
+
+  <link rel='canonical' href='https://shcde.github.io/post/java10/'>
+  <link rel = 'stylesheet' href = 'https://shcde.github.io/css/styles.42db596b1300421b76166668f896d65a0e912909aa95394f74e207c69da0d0b652fe2ad414cb6b746661857c824297f791d6df38fce0872ba2a9ccaa421a6b89.css' integrity = 'sha512-QttZaxMAQht2FmZo&#43;JbWWg6RKQmqlTlPdOIHxp2g0LZS/irUFMtrdGZhhXyCQpf3kdbfOPzghyuiqcyqQhpriQ=='>
+    
+  
+  <link rel="stylesheet" href="https://shcde.github.io/Users/shc/Desktop/blog/themes/hugo-swift-theme/static/css/prism.css" media="none" onload="this.media='all';">
+  
+  <script defer language="javascript" type="text/javascript"  src="https://shcde.github.io/users/shc/desktop/blog/themes/hu-swift-theme/static/js/prism.js"></script>
+  
+
+
+</head>
+
+  <body><div class = 'nav-drop'>
+  <div class = 'nav-body'>
+    
+      <a href = 'https://shcde.github.io/categories/freetalk/' class = 'nav_item'>Free Talk</a>
+      <a href = 'https://shcde.github.io/categories/development/' class = 'nav_item'>Development</a>
+    <div class = 'nav-close'></div>
+  </div>
+</div><header class = 'nav' >
+  <nav class = 'nav-menu'>
+
+    <a href='https://shcde.github.io/' class = 'nav-brand nav_item'>shcDE Tech-Blog</a>
+    <div class = 'nav_bar-wrap'>
+      <div class = 'nav_bar'></div>
+    </div>
+  </nav>
+  <p><button id="theme-toggle">Click to Switch between Light and Dark Mode</button></p>
+</header>
+
+<style>
+  .nav_bar-wrap {
+  background-Color:orange;
+  color: orange;
+  }
+
+  button {
+  border:2px solid #ff9900;     
+  background-Color:#000000;    
+  font:16px 나눔고딕;       
+  font-weight:bold;    
+  color:#ff9900;     
+  width:200;height:70;   
+  }
+
+  body {
+	color: rgb(12, 14, 29); 
+	background-color: white;
+}
+body.dark {
+	color: rgb(255, 191, 0); 
+	background-color: rgb(12, 14, 29);
+}
+  </style>
+
+<script>
+  var darkMode = false;
+
+
+if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+	darkMode = true;
+}
+
+
+if (localStorage.getItem('theme') === 'dark') {
+	darkMode = true;
+} else if (localStorage.getItem('theme') === 'light') {
+	darkMode = false;
+}
+
+if (darkMode) {
+	document.body.classList.toggle('dark');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    document.getElementById('theme-toggle').addEventListener('click', () => {
+		document.body.classList.toggle('dark');
+    	localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+	});
+
+});
+</script>
+
+
+    <main>
+
+<section class = 'post_header' style = 'background-image:url(https://shcde.github.io/images/coffee-gab9b09d77_1920.jpg);'>
+  <h1 class='post_title'>자바 공부 기록(10) - 지네릭스, 열거형, 애너테이션에 대해 알아볼까요?</h1>
+</section>
+<div class = 'post'>
+  <div class="date">
+    
+    
+    
+    <strong aria-hidden="true"> </strong>
+    <br>
+    <strong aria-hidden="true">Created date: </strong>Fri, 29 Jul 2022 13:33 KST
+    
+      
+    
+  </div>
+  <article class='post_content'><p><img src="https://github.com/shcDE/pictures/blob/main/images_for_blog/coffee-gab9b09d77_1920.jpg?raw=true" alt="java"></p>
+<hr>
+<p>안녕하세요. shcDE입니다. 이번 포스팅에서는 지네릭스, 열거형, 애너테이션에 대해 알아보겠습니다. 시작 전에, 해당 포스팅은 직접 <a href="http://www.kyobobook.co.kr/product/detailViewKor.laf?ejkGb=KOR&amp;mallGb=KOR&amp;barcode=9788994492032&amp;orderClick=LAG&amp;Kc=">&lsquo;자바의 정석(3판)&rsquo;</a>을 구매하여 12장을 공부한 내용을 정리한 자료임을 밝힙니다. 추가로 사용한 IDE는 &lsquo;인텔리제이 IDEA CE&rsquo;이며, 자바8 버전을 사용하였음을 밝힙니다.</p>
+<hr>
+<p>우선 지네릭스란 다양한 타입의 객체들을 다루는 메서드나 컬렉션 클래스에 컴파일 시의 타입체크를 해주는 기능입니다. 객체의 타입을 컴파일 시에 체크하기 때문에 객체의 타입 안정성을 높이고 형변환의 번거로움이 줄어들 수 있습니다. 그러면 이러한 지네릭스를 어떻게 활용하는지 지금부터 알아보겠습니다.</p>
+<hr>
+<p>우선 지네릭 클래스의 객체 생성과 사용에 대해 알아보겠습니다. 사용 예시는 다음과 같습니다.</p>
+<hr>
+<ul>
+<li>● 예제 12-1</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#f92672">import</span> java.util.ArrayList<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Fruit</span>				  <span style="color:#f92672">{</span> <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">toString</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span> <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;Fruit&#34;</span><span style="color:#f92672">;}}</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Apple</span> <span style="color:#66d9ef">extends</span> Fruit <span style="color:#f92672">{</span> <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">toString</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span> <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;Apple&#34;</span><span style="color:#f92672">;}}</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Grape</span> <span style="color:#66d9ef">extends</span> Fruit <span style="color:#f92672">{</span> <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">toString</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span> <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;Grape&#34;</span><span style="color:#f92672">;}}</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Toy</span>		          <span style="color:#f92672">{</span> <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">toString</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span> <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;Toy&#34;</span>  <span style="color:#f92672">;}}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">FruitBoxEx1</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        Box<span style="color:#f92672">&lt;</span>Fruit<span style="color:#f92672">&gt;</span> fruitBox <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Box<span style="color:#f92672">&lt;</span>Fruit<span style="color:#f92672">&gt;();</span>
+</span></span><span style="display:flex;"><span>        Box<span style="color:#f92672">&lt;</span>Apple<span style="color:#f92672">&gt;</span> appleBox <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Box<span style="color:#f92672">&lt;</span>Apple<span style="color:#f92672">&gt;();</span>
+</span></span><span style="display:flex;"><span>        Box<span style="color:#f92672">&lt;</span>Toy<span style="color:#f92672">&gt;</span>   toyBox   <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Box<span style="color:#f92672">&lt;</span>Toy<span style="color:#f92672">&gt;();</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//		Box&lt;Grape&gt; grapeBox = new Box&lt;Apple&gt;(); // 에러. 타입 불일치
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>        fruitBox<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> Fruit<span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>        fruitBox<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> Apple<span style="color:#f92672">());</span> <span style="color:#75715e">// OK. void add(Fruit item)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>        appleBox<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> Apple<span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>        appleBox<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> Apple<span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//		appleBox.add(new Toy()); // 에러. Box&lt;Apple&gt;에는 Apple만 담을 수 있음
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>        toyBox<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> Toy<span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//		toyBox.add(new Apple()); // 에러. Box&lt;Toy&gt;에는 Apple을 담을 수 없음
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>fruitBox<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>appleBox<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>toyBox<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>  <span style="color:#75715e">// main의 끝
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Box</span><span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    ArrayList<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> list <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>T item<span style="color:#f92672">)</span>  <span style="color:#f92672">{</span> list<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>item<span style="color:#f92672">);</span> <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    T <span style="color:#a6e22e">get</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> i<span style="color:#f92672">)</span>      <span style="color:#f92672">{</span> <span style="color:#66d9ef">return</span> list<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>i<span style="color:#f92672">);</span> <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">size</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span> <span style="color:#66d9ef">return</span> list<span style="color:#f92672">.</span><span style="color:#a6e22e">size</span><span style="color:#f92672">();</span> <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">toString</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span> <span style="color:#66d9ef">return</span> list<span style="color:#f92672">.</span><span style="color:#a6e22e">toString</span><span style="color:#f92672">();}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>[Fruit, Apple]
+</span></span><span style="display:flex;"><span>[Apple, Apple]
+</span></span><span style="display:flex;"><span>[Toy]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Process finished with exit code 0
+</span></span></code></pre></div><hr>
+<p>제한된 지네릭 클래스에 대한 예시는 다음과 같습니다.</p>
+<hr>
+<ul>
+<li>● 예제 12-2</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#f92672">import</span> java.util.ArrayList<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Fruit</span> <span style="color:#66d9ef">implements</span> Eatable <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">toString</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span> <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;Fruit&#34;</span><span style="color:#f92672">;}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Apple</span> <span style="color:#66d9ef">extends</span> Fruit <span style="color:#f92672">{</span> <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">toString</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span> <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;Apple&#34;</span><span style="color:#f92672">;}}</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Grape</span> <span style="color:#66d9ef">extends</span> Fruit <span style="color:#f92672">{</span> <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">toString</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span> <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;Grape&#34;</span><span style="color:#f92672">;}}</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Toy</span>		          <span style="color:#f92672">{</span> <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">toString</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span> <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;Toy&#34;</span>  <span style="color:#f92672">;}}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">Eatable</span> <span style="color:#f92672">{}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">FruitBoxEx2</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        FruitBox<span style="color:#f92672">&lt;</span>Fruit<span style="color:#f92672">&gt;</span> fruitBox <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> FruitBox<span style="color:#f92672">&lt;</span>Fruit<span style="color:#f92672">&gt;();</span>
+</span></span><span style="display:flex;"><span>        FruitBox<span style="color:#f92672">&lt;</span>Apple<span style="color:#f92672">&gt;</span> appleBox <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> FruitBox<span style="color:#f92672">&lt;</span>Apple<span style="color:#f92672">&gt;();</span>
+</span></span><span style="display:flex;"><span>        FruitBox<span style="color:#f92672">&lt;</span>Grape<span style="color:#f92672">&gt;</span> grapeBox <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> FruitBox<span style="color:#f92672">&lt;</span>Grape<span style="color:#f92672">&gt;();</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//		FruitBox&lt;Grape&gt; grapeBox = new FruitBox&lt;Apple&gt;(); // 에러. 타입 불일치
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//		FruitBox&lt;Toy&gt;   toyBox    = new FruitBox&lt;Toy&gt;();   // 에러.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>        fruitBox<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> Fruit<span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>        fruitBox<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> Apple<span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>        fruitBox<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> Grape<span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>        appleBox<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> Apple<span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//		appleBox.add(new Grape());  // 에러. Grape는 Apple의 자손이 아님
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        grapeBox<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> Grape<span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;fruitBox-&#34;</span><span style="color:#f92672">+</span>fruitBox<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;appleBox-&#34;</span><span style="color:#f92672">+</span>appleBox<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;grapeBox-&#34;</span><span style="color:#f92672">+</span>grapeBox<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>  <span style="color:#75715e">// main
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">FruitBox</span><span style="color:#f92672">&lt;</span>T <span style="color:#66d9ef">extends</span> Fruit <span style="color:#f92672">&amp;</span> Eatable<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">extends</span> Box<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> <span style="color:#f92672">{}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Box</span><span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    ArrayList<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> list <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>T item<span style="color:#f92672">)</span>  <span style="color:#f92672">{</span> list<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>item<span style="color:#f92672">);</span>      <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    T <span style="color:#a6e22e">get</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> i<span style="color:#f92672">)</span>      <span style="color:#f92672">{</span> <span style="color:#66d9ef">return</span> list<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>i<span style="color:#f92672">);</span> <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">size</span><span style="color:#f92672">()</span>        <span style="color:#f92672">{</span> <span style="color:#66d9ef">return</span> list<span style="color:#f92672">.</span><span style="color:#a6e22e">size</span><span style="color:#f92672">();</span>  <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">toString</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span> <span style="color:#66d9ef">return</span> list<span style="color:#f92672">.</span><span style="color:#a6e22e">toString</span><span style="color:#f92672">();}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>fruitBox-[Fruit, Apple, Grape]
+</span></span><span style="display:flex;"><span>appleBox-[Apple]
+</span></span><span style="display:flex;"><span>grapeBox-[Grape]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Process finished with exit code 0
+</span></span></code></pre></div><hr>
+<p>와일드 카드에 관련된 예시는 다음 두개가 있습니다.</p>
+<hr>
+<ul>
+<li>● 예제 12-3</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#f92672">import</span> java.util.ArrayList<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Fruit</span>		          <span style="color:#f92672">{</span> <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">toString</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span> <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;Fruit&#34;</span><span style="color:#f92672">;}}</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Apple</span> <span style="color:#66d9ef">extends</span> Fruit <span style="color:#f92672">{</span> <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">toString</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span> <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;Apple&#34;</span><span style="color:#f92672">;}}</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Grape</span> <span style="color:#66d9ef">extends</span> Fruit <span style="color:#f92672">{</span> <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">toString</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span> <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;Grape&#34;</span><span style="color:#f92672">;}}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Juice</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    String name<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    Juice<span style="color:#f92672">(</span>String name<span style="color:#f92672">)</span>	     <span style="color:#f92672">{</span> <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> name <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;Juice&#34;</span><span style="color:#f92672">;</span> <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">toString</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span> <span style="color:#66d9ef">return</span> name<span style="color:#f92672">;</span>		 <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Juicer</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">static</span> Juice <span style="color:#a6e22e">makeJuice</span><span style="color:#f92672">(</span>FruitBox<span style="color:#f92672">&lt;?</span> <span style="color:#66d9ef">extends</span> Fruit<span style="color:#f92672">&gt;</span> box<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        String tmp <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span><span style="color:#f92672">(</span>Fruit f <span style="color:#f92672">:</span> box<span style="color:#f92672">.</span><span style="color:#a6e22e">getList</span><span style="color:#f92672">())</span>
+</span></span><span style="display:flex;"><span>            tmp <span style="color:#f92672">+=</span> f <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; &#34;</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> Juice<span style="color:#f92672">(</span>tmp<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">FruitBoxEx3</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        FruitBox<span style="color:#f92672">&lt;</span>Fruit<span style="color:#f92672">&gt;</span> fruitBox <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> FruitBox<span style="color:#f92672">&lt;</span>Fruit<span style="color:#f92672">&gt;();</span>
+</span></span><span style="display:flex;"><span>        FruitBox<span style="color:#f92672">&lt;</span>Apple<span style="color:#f92672">&gt;</span> appleBox <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> FruitBox<span style="color:#f92672">&lt;</span>Apple<span style="color:#f92672">&gt;();</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        fruitBox<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> Apple<span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>        fruitBox<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> Grape<span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>        appleBox<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> Apple<span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>        appleBox<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> Apple<span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>Juicer<span style="color:#f92672">.</span><span style="color:#a6e22e">makeJuice</span><span style="color:#f92672">(</span>fruitBox<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>Juicer<span style="color:#f92672">.</span><span style="color:#a6e22e">makeJuice</span><span style="color:#f92672">(</span>appleBox<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>  <span style="color:#75715e">// main
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">FruitBox</span><span style="color:#f92672">&lt;</span>T <span style="color:#66d9ef">extends</span> Fruit<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">extends</span> Box<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> <span style="color:#f92672">{}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Box</span><span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//class FruitBox&lt;T extends Fruit&gt; {
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    ArrayList<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> list <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>T item<span style="color:#f92672">)</span> <span style="color:#f92672">{</span> list<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>item<span style="color:#f92672">);</span>      <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    T <span style="color:#a6e22e">get</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> i<span style="color:#f92672">)</span>     <span style="color:#f92672">{</span> <span style="color:#66d9ef">return</span> list<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>i<span style="color:#f92672">);</span> <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    ArrayList<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">getList</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span> <span style="color:#66d9ef">return</span> list<span style="color:#f92672">;</span>  <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">size</span><span style="color:#f92672">()</span>       <span style="color:#f92672">{</span> <span style="color:#66d9ef">return</span> list<span style="color:#f92672">.</span><span style="color:#a6e22e">size</span><span style="color:#f92672">();</span> <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">toString</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span> <span style="color:#66d9ef">return</span> list<span style="color:#f92672">.</span><span style="color:#a6e22e">toString</span><span style="color:#f92672">();}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>Apple Grape Juice
+</span></span><span style="display:flex;"><span>Apple Apple Juice
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Process finished with exit code 0
+</span></span></code></pre></div><hr>
+<ul>
+<li>● 예제 12-4</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#f92672">import</span> java.util.*<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Fruit</span>	<span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    String name<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> weight<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    Fruit<span style="color:#f92672">(</span>String name<span style="color:#f92672">,</span> <span style="color:#66d9ef">int</span> weight<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">name</span>   <span style="color:#f92672">=</span> name<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">weight</span> <span style="color:#f92672">=</span> weight<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">toString</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span> <span style="color:#66d9ef">return</span> name<span style="color:#f92672">+</span><span style="color:#e6db74">&#34;(&#34;</span><span style="color:#f92672">+</span>weight<span style="color:#f92672">+</span><span style="color:#e6db74">&#34;)&#34;</span><span style="color:#f92672">;}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Apple</span> <span style="color:#66d9ef">extends</span> Fruit <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    Apple<span style="color:#f92672">(</span>String name<span style="color:#f92672">,</span> <span style="color:#66d9ef">int</span> weight<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">super</span><span style="color:#f92672">(</span>name<span style="color:#f92672">,</span> weight<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Grape</span> <span style="color:#66d9ef">extends</span> Fruit <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    Grape<span style="color:#f92672">(</span>String name<span style="color:#f92672">,</span> <span style="color:#66d9ef">int</span> weight<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">super</span><span style="color:#f92672">(</span>name<span style="color:#f92672">,</span> weight<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">AppleComp</span> <span style="color:#66d9ef">implements</span> Comparator<span style="color:#f92672">&lt;</span>Apple<span style="color:#f92672">&gt;</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">compare</span><span style="color:#f92672">(</span>Apple t1<span style="color:#f92672">,</span> Apple t2<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> t2<span style="color:#f92672">.</span><span style="color:#a6e22e">weight</span> <span style="color:#f92672">-</span> t1<span style="color:#f92672">.</span><span style="color:#a6e22e">weight</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">GrapeComp</span> <span style="color:#66d9ef">implements</span> Comparator<span style="color:#f92672">&lt;</span>Grape<span style="color:#f92672">&gt;</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">compare</span><span style="color:#f92672">(</span>Grape t1<span style="color:#f92672">,</span> Grape t2<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> t2<span style="color:#f92672">.</span><span style="color:#a6e22e">weight</span> <span style="color:#f92672">-</span> t1<span style="color:#f92672">.</span><span style="color:#a6e22e">weight</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">FruitComp</span> <span style="color:#66d9ef">implements</span> Comparator<span style="color:#f92672">&lt;</span>Fruit<span style="color:#f92672">&gt;</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">compare</span><span style="color:#f92672">(</span>Fruit t1<span style="color:#f92672">,</span> Fruit t2<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> t1<span style="color:#f92672">.</span><span style="color:#a6e22e">weight</span> <span style="color:#f92672">-</span> t2<span style="color:#f92672">.</span><span style="color:#a6e22e">weight</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">FruitBoxEx4</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        FruitBox<span style="color:#f92672">&lt;</span>Apple<span style="color:#f92672">&gt;</span> appleBox <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> FruitBox<span style="color:#f92672">&lt;</span>Apple<span style="color:#f92672">&gt;();</span>
+</span></span><span style="display:flex;"><span>        FruitBox<span style="color:#f92672">&lt;</span>Grape<span style="color:#f92672">&gt;</span> grapeBox <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> FruitBox<span style="color:#f92672">&lt;</span>Grape<span style="color:#f92672">&gt;();</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        appleBox<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> Apple<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;GreenApple&#34;</span><span style="color:#f92672">,</span> 300<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>        appleBox<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> Apple<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;GreenApple&#34;</span><span style="color:#f92672">,</span> 100<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>        appleBox<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> Apple<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;GreenApple&#34;</span><span style="color:#f92672">,</span> 200<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        grapeBox<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> Grape<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;GreenGrape&#34;</span><span style="color:#f92672">,</span> 400<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>        grapeBox<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> Grape<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;GreenGrape&#34;</span><span style="color:#f92672">,</span> 300<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>        grapeBox<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> Grape<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;GreenGrape&#34;</span><span style="color:#f92672">,</span> 200<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        Collections<span style="color:#f92672">.</span><span style="color:#a6e22e">sort</span><span style="color:#f92672">(</span>appleBox<span style="color:#f92672">.</span><span style="color:#a6e22e">getList</span><span style="color:#f92672">(),</span> <span style="color:#66d9ef">new</span> AppleComp<span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>        Collections<span style="color:#f92672">.</span><span style="color:#a6e22e">sort</span><span style="color:#f92672">(</span>grapeBox<span style="color:#f92672">.</span><span style="color:#a6e22e">getList</span><span style="color:#f92672">(),</span> <span style="color:#66d9ef">new</span> GrapeComp<span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>appleBox<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>grapeBox<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>        Collections<span style="color:#f92672">.</span><span style="color:#a6e22e">sort</span><span style="color:#f92672">(</span>appleBox<span style="color:#f92672">.</span><span style="color:#a6e22e">getList</span><span style="color:#f92672">(),</span> <span style="color:#66d9ef">new</span> FruitComp<span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>        Collections<span style="color:#f92672">.</span><span style="color:#a6e22e">sort</span><span style="color:#f92672">(</span>grapeBox<span style="color:#f92672">.</span><span style="color:#a6e22e">getList</span><span style="color:#f92672">(),</span> <span style="color:#66d9ef">new</span> FruitComp<span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>appleBox<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>grapeBox<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>  <span style="color:#75715e">// main
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">FruitBox</span><span style="color:#f92672">&lt;</span>T <span style="color:#66d9ef">extends</span> Fruit<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">extends</span> Box<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> <span style="color:#f92672">{}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Box</span><span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    ArrayList<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> list <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;();</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>T item<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        list<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>item<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    T <span style="color:#a6e22e">get</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> i<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> list<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>i<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    ArrayList<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">getList</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span> <span style="color:#66d9ef">return</span> list<span style="color:#f92672">;</span> <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">size</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> list<span style="color:#f92672">.</span><span style="color:#a6e22e">size</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">toString</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> list<span style="color:#f92672">.</span><span style="color:#a6e22e">toString</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>[GreenApple(300), GreenApple(200), GreenApple(100)]
+</span></span><span style="display:flex;"><span>[GreenGrape(400), GreenGrape(300), GreenGrape(200)]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[GreenApple(100), GreenApple(200), GreenApple(300)]
+</span></span><span style="display:flex;"><span>[GreenGrape(200), GreenGrape(300), GreenGrape(400)]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Process finished with exit code 0
+</span></span></code></pre></div><hr>
+<p>다음으로 열거형에 대해 확인해보겠습니다. 열거형이란 서로 관련된 상수를 편리하게 선언하기 위한 것으로 여러 상수를 정의할 때 사용하면 유용합니다. 원래 자바는 C언어와 달리 열거형이라는 것이 존재하지 않았으나 JDK1.5부터 새로 추가되었습니다. 자바의 열거형은 C언어의 열거형보다 더 향상된 것으로 열거형이 갖는 값뿐만 아니라 타입도 관리하기 때문에 보다 논리적인 오류를 줄일 수 있습니다.</p>
+<hr>
+<p>이러한 열거형을 정의하고 사용하는 예시는 다음과 같습니다.</p>
+<hr>
+<ul>
+<li>● 예제 12-5</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">enum</span> Direction <span style="color:#f92672">{</span> EAST<span style="color:#f92672">,</span> SOUTH<span style="color:#f92672">,</span> WEST<span style="color:#f92672">,</span> NORTH <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">EnumEx1</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        Direction d1 <span style="color:#f92672">=</span> Direction<span style="color:#f92672">.</span><span style="color:#a6e22e">EAST</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        Direction d2 <span style="color:#f92672">=</span> Direction<span style="color:#f92672">.</span><span style="color:#a6e22e">valueOf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;WEST&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        Direction d3 <span style="color:#f92672">=</span> Enum<span style="color:#f92672">.</span><span style="color:#a6e22e">valueOf</span><span style="color:#f92672">(</span>Direction<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;EAST&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;d1=&#34;</span><span style="color:#f92672">+</span>d1<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;d2=&#34;</span><span style="color:#f92672">+</span>d2<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;d3=&#34;</span><span style="color:#f92672">+</span>d3<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;d1==d2 ? &#34;</span><span style="color:#f92672">+</span> <span style="color:#f92672">(</span>d1<span style="color:#f92672">==</span>d2<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;d1==d3 ? &#34;</span><span style="color:#f92672">+</span> <span style="color:#f92672">(</span>d1<span style="color:#f92672">==</span>d3<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;d1.equals(d3) ? &#34;</span><span style="color:#f92672">+</span> d1<span style="color:#f92672">.</span><span style="color:#a6e22e">equals</span><span style="color:#f92672">(</span>d3<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//		System.out.println(&#34;d2 &gt; d3 ? &#34;+ (d1 &gt; d3)); // 에러
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;d1.compareTo(d3) ? &#34;</span><span style="color:#f92672">+</span> <span style="color:#f92672">(</span>d1<span style="color:#f92672">.</span><span style="color:#a6e22e">compareTo</span><span style="color:#f92672">(</span>d3<span style="color:#f92672">)));</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;d1.compareTo(d2) ? &#34;</span><span style="color:#f92672">+</span> <span style="color:#f92672">(</span>d1<span style="color:#f92672">.</span><span style="color:#a6e22e">compareTo</span><span style="color:#f92672">(</span>d2<span style="color:#f92672">)));</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">switch</span><span style="color:#f92672">(</span>d1<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">case</span> EAST<span style="color:#f92672">:</span> <span style="color:#75715e">// Direction.EAST라고 쓸 수 있다.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;The direction is EAST.&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">break</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">case</span> SOUTH<span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>                System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;The direction is SOUTH.&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">break</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">case</span> WEST<span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>                System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;The direction is WEST.&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">break</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">case</span> NORTH<span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>                System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;The direction is NORTH.&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">break</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">default</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>                System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Invalid direction.&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//				break;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        Direction<span style="color:#f92672">[]</span> dArr <span style="color:#f92672">=</span> Direction<span style="color:#f92672">.</span><span style="color:#a6e22e">values</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span><span style="color:#f92672">(</span>Direction d <span style="color:#f92672">:</span> dArr<span style="color:#f92672">)</span>  <span style="color:#75715e">// for(Direction d : Direction.values())
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;%s=%d%n&#34;</span><span style="color:#f92672">,</span> d<span style="color:#f92672">.</span><span style="color:#a6e22e">name</span><span style="color:#f92672">(),</span> d<span style="color:#f92672">.</span><span style="color:#a6e22e">ordinal</span><span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>d1=EAST
+</span></span><span style="display:flex;"><span>d2=WEST
+</span></span><span style="display:flex;"><span>d3=EAST
+</span></span><span style="display:flex;"><span>d1==d2 ? false
+</span></span><span style="display:flex;"><span>d1==d3 ? true
+</span></span><span style="display:flex;"><span>d1.equals(d3) ? true
+</span></span><span style="display:flex;"><span>d1.compareTo(d3) ? 0
+</span></span><span style="display:flex;"><span>d1.compareTo(d2) ? -2
+</span></span><span style="display:flex;"><span>The direction is EAST.
+</span></span><span style="display:flex;"><span>EAST=0
+</span></span><span style="display:flex;"><span>SOUTH=1
+</span></span><span style="display:flex;"><span>WEST=2
+</span></span><span style="display:flex;"><span>NORTH=3
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Process finished with exit code 0
+</span></span></code></pre></div><hr>
+<p>열거형에 멤버를 추가하는 예시는 다음 두개가 있습니다.</p>
+<hr>
+<ul>
+<li>● 예제 12-6</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">enum</span> Direction <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    EAST<span style="color:#f92672">(</span>1<span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;&gt;&#34;</span><span style="color:#f92672">),</span> SOUTH<span style="color:#f92672">(</span>2<span style="color:#f92672">,</span><span style="color:#e6db74">&#34;V&#34;</span><span style="color:#f92672">),</span> WEST<span style="color:#f92672">(</span>3<span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;&lt;&#34;</span><span style="color:#f92672">),</span> NORTH<span style="color:#f92672">(</span>4<span style="color:#f92672">,</span><span style="color:#e6db74">&#34;^&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> Direction<span style="color:#f92672">[]</span> DIR_ARR <span style="color:#f92672">=</span> Direction<span style="color:#f92672">.</span><span style="color:#a6e22e">values</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">int</span> value<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">final</span> String symbol<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    Direction<span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> value<span style="color:#f92672">,</span> String symbol<span style="color:#f92672">)</span> <span style="color:#f92672">{</span> <span style="color:#75715e">// private Direction(int value)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">value</span>  <span style="color:#f92672">=</span> value<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">symbol</span> <span style="color:#f92672">=</span> symbol<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">getValue</span><span style="color:#f92672">()</span>      <span style="color:#f92672">{</span> <span style="color:#66d9ef">return</span> value<span style="color:#f92672">;</span>  <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">getSymbol</span><span style="color:#f92672">()</span>  <span style="color:#f92672">{</span> <span style="color:#66d9ef">return</span> symbol<span style="color:#f92672">;</span> <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> Direction <span style="color:#a6e22e">of</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> dir<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>dir <span style="color:#f92672">&lt;</span> 1 <span style="color:#f92672">||</span> dir <span style="color:#f92672">&gt;</span> 4<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> IllegalArgumentException<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Invalid value :&#34;</span> <span style="color:#f92672">+</span> dir<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> DIR_ARR<span style="color:#f92672">[</span>dir <span style="color:#f92672">-</span> 1<span style="color:#f92672">];</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 방향을 회전시키는 메서드. num의 값만큼 90도씩 시계방향으로 회전한다.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">public</span> Direction <span style="color:#a6e22e">rotate</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> num<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        num <span style="color:#f92672">=</span> num <span style="color:#f92672">%</span> 4<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>num <span style="color:#f92672">&lt;</span> 0<span style="color:#f92672">)</span> num <span style="color:#f92672">+=</span>4<span style="color:#f92672">;</span> <span style="color:#75715e">// num이 음수일 때는 시계반대 방향으로 회전
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> DIR_ARR<span style="color:#f92672">[(</span>value<span style="color:#f92672">-</span>1<span style="color:#f92672">+</span>num<span style="color:#f92672">)</span> <span style="color:#f92672">%</span> 4<span style="color:#f92672">];</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">toString</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> name<span style="color:#f92672">()+</span>getSymbol<span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span> <span style="color:#75715e">// enum Direction
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">EnumEx2</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span><span style="color:#f92672">(</span>Direction d <span style="color:#f92672">:</span> Direction<span style="color:#f92672">.</span><span style="color:#a6e22e">values</span><span style="color:#f92672">())</span>
+</span></span><span style="display:flex;"><span>            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;%s=%d%n&#34;</span><span style="color:#f92672">,</span> d<span style="color:#f92672">.</span><span style="color:#a6e22e">name</span><span style="color:#f92672">(),</span> d<span style="color:#f92672">.</span><span style="color:#a6e22e">getValue</span><span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        Direction d1 <span style="color:#f92672">=</span> Direction<span style="color:#f92672">.</span><span style="color:#a6e22e">EAST</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        Direction d2 <span style="color:#f92672">=</span> Direction<span style="color:#f92672">.</span><span style="color:#a6e22e">of</span><span style="color:#f92672">(</span>1<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;d1=%s, %d%n&#34;</span><span style="color:#f92672">,</span> d1<span style="color:#f92672">.</span><span style="color:#a6e22e">name</span><span style="color:#f92672">(),</span> d1<span style="color:#f92672">.</span><span style="color:#a6e22e">getValue</span><span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;d2=%s, %d%n&#34;</span><span style="color:#f92672">,</span> d2<span style="color:#f92672">.</span><span style="color:#a6e22e">name</span><span style="color:#f92672">(),</span> d2<span style="color:#f92672">.</span><span style="color:#a6e22e">getValue</span><span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>Direction<span style="color:#f92672">.</span><span style="color:#a6e22e">EAST</span><span style="color:#f92672">.</span><span style="color:#a6e22e">rotate</span><span style="color:#f92672">(</span>1<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>Direction<span style="color:#f92672">.</span><span style="color:#a6e22e">EAST</span><span style="color:#f92672">.</span><span style="color:#a6e22e">rotate</span><span style="color:#f92672">(</span>2<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>Direction<span style="color:#f92672">.</span><span style="color:#a6e22e">EAST</span><span style="color:#f92672">.</span><span style="color:#a6e22e">rotate</span><span style="color:#f92672">(-</span>1<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>Direction<span style="color:#f92672">.</span><span style="color:#a6e22e">EAST</span><span style="color:#f92672">.</span><span style="color:#a6e22e">rotate</span><span style="color:#f92672">(-</span>2<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>EAST=1
+</span></span><span style="display:flex;"><span>SOUTH=2
+</span></span><span style="display:flex;"><span>WEST=3
+</span></span><span style="display:flex;"><span>NORTH=4
+</span></span><span style="display:flex;"><span>d1=EAST, 1
+</span></span><span style="display:flex;"><span>d2=EAST, 1
+</span></span><span style="display:flex;"><span>SOUTHV
+</span></span><span style="display:flex;"><span>WEST&lt;
+</span></span><span style="display:flex;"><span>NORTH^
+</span></span><span style="display:flex;"><span>WEST&lt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Process finished with exit code 0
+</span></span></code></pre></div><hr>
+<ul>
+<li>● 예제 12-7</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">enum</span> Transportation <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    BUS<span style="color:#f92672">(</span>100<span style="color:#f92672">)</span>      <span style="color:#f92672">{</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">fare</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> distance<span style="color:#f92672">)</span> <span style="color:#f92672">{</span> <span style="color:#66d9ef">return</span> distance<span style="color:#f92672">*</span>BASIC_FARE<span style="color:#f92672">;}},</span>
+</span></span><span style="display:flex;"><span>    TRAIN<span style="color:#f92672">(</span>150<span style="color:#f92672">)</span>    <span style="color:#f92672">{</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">fare</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> distance<span style="color:#f92672">)</span> <span style="color:#f92672">{</span> <span style="color:#66d9ef">return</span> distance<span style="color:#f92672">*</span>BASIC_FARE<span style="color:#f92672">;}},</span>
+</span></span><span style="display:flex;"><span>    SHIP<span style="color:#f92672">(</span>100<span style="color:#f92672">)</span>     <span style="color:#f92672">{</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">fare</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> distance<span style="color:#f92672">)</span> <span style="color:#f92672">{</span> <span style="color:#66d9ef">return</span> distance<span style="color:#f92672">*</span>BASIC_FARE<span style="color:#f92672">;}},</span>
+</span></span><span style="display:flex;"><span>    AIRPLANE<span style="color:#f92672">(</span>300<span style="color:#f92672">)</span> <span style="color:#f92672">{</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">fare</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> distance<span style="color:#f92672">)</span> <span style="color:#f92672">{</span> <span style="color:#66d9ef">return</span> distance<span style="color:#f92672">*</span>BASIC_FARE<span style="color:#f92672">;}};</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">protected</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">int</span> BASIC_FARE<span style="color:#f92672">;</span> <span style="color:#75715e">// protected로 해야 각 상수에서 접근 가능
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>    Transportation<span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> basicFare<span style="color:#f92672">)</span> <span style="color:#f92672">{</span> <span style="color:#75715e">// private Transportation(int basicFare) {
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        BASIC_FARE <span style="color:#f92672">=</span> basicFare<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">getBasicFare</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span> <span style="color:#66d9ef">return</span> BASIC_FARE<span style="color:#f92672">;</span> <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">abstract</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">fare</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> distance<span style="color:#f92672">);</span> <span style="color:#75715e">// 거리에 따른 요금 계산
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">EnumEx3</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;bus fare=&#34;</span>     <span style="color:#f92672">+</span>Transportation<span style="color:#f92672">.</span><span style="color:#a6e22e">BUS</span><span style="color:#f92672">.</span><span style="color:#a6e22e">fare</span><span style="color:#f92672">(</span>100<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;train fare=&#34;</span>   <span style="color:#f92672">+</span>Transportation<span style="color:#f92672">.</span><span style="color:#a6e22e">TRAIN</span><span style="color:#f92672">.</span><span style="color:#a6e22e">fare</span><span style="color:#f92672">(</span>100<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;ship fare=&#34;</span>    <span style="color:#f92672">+</span>Transportation<span style="color:#f92672">.</span><span style="color:#a6e22e">SHIP</span><span style="color:#f92672">.</span><span style="color:#a6e22e">fare</span><span style="color:#f92672">(</span>100<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;airplane fare=&#34;</span><span style="color:#f92672">+</span>Transportation<span style="color:#f92672">.</span><span style="color:#a6e22e">AIRPLANE</span><span style="color:#f92672">.</span><span style="color:#a6e22e">fare</span><span style="color:#f92672">(</span>100<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>bus fare=10000
+</span></span><span style="display:flex;"><span>train fare=15000
+</span></span><span style="display:flex;"><span>ship fare=10000
+</span></span><span style="display:flex;"><span>airplane fare=30000
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Process finished with exit code 0
+</span></span></code></pre></div><hr>
+<p>열거형과 관련된 예제는 다음과 같습니다.</p>
+<hr>
+<ul>
+<li>● 예제 12-8</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">abstract</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyEnum</span><span style="color:#f92672">&lt;</span>T <span style="color:#66d9ef">extends</span> MyEnum<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;&gt;</span> <span style="color:#66d9ef">implements</span> Comparable<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> id <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> ordinal<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    String name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">ordinal</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span> <span style="color:#66d9ef">return</span> ordinal<span style="color:#f92672">;</span> <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    MyEnum<span style="color:#f92672">(</span>String name<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> name<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        ordinal <span style="color:#f92672">=</span> id<span style="color:#f92672">++;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">compareTo</span><span style="color:#f92672">(</span>T t<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> ordinal <span style="color:#f92672">-</span> t<span style="color:#f92672">.</span><span style="color:#a6e22e">ordinal</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">abstract</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyTransportation</span> <span style="color:#66d9ef">extends</span> MyEnum <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> MyTransportation BUS   <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> MyTransportation<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;BUS&#34;</span><span style="color:#f92672">,</span> 100<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">fare</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> distance<span style="color:#f92672">)</span> <span style="color:#f92672">{</span> <span style="color:#66d9ef">return</span> distance <span style="color:#f92672">*</span> BASIC_FARE<span style="color:#f92672">;</span> <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">};</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> MyTransportation TRAIN <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> MyTransportation<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;TRAIN&#34;</span><span style="color:#f92672">,</span> 150<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">fare</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> distance<span style="color:#f92672">)</span> <span style="color:#f92672">{</span> <span style="color:#66d9ef">return</span> distance <span style="color:#f92672">*</span> BASIC_FARE<span style="color:#f92672">;</span> <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">};</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> MyTransportation SHIP  <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> MyTransportation<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;SHIP&#34;</span><span style="color:#f92672">,</span> 100<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">fare</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> distance<span style="color:#f92672">)</span> <span style="color:#f92672">{</span> <span style="color:#66d9ef">return</span> distance <span style="color:#f92672">*</span> BASIC_FARE<span style="color:#f92672">;</span> <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">};</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> MyTransportation AIRPLANE <span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">new</span> MyTransportation<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;AIRPLANE&#34;</span><span style="color:#f92672">,</span> 300<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">fare</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> distance<span style="color:#f92672">)</span> <span style="color:#f92672">{</span> <span style="color:#66d9ef">return</span> distance <span style="color:#f92672">*</span> BASIC_FARE<span style="color:#f92672">;</span> <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">};</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">abstract</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">fare</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> distance<span style="color:#f92672">);</span> <span style="color:#75715e">// 추상 메서드
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">protected</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">int</span> BASIC_FARE<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">MyTransportation</span><span style="color:#f92672">(</span>String name<span style="color:#f92672">,</span> <span style="color:#66d9ef">int</span> basicFare<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">super</span><span style="color:#f92672">(</span>name<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        BASIC_FARE <span style="color:#f92672">=</span> basicFare<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">name</span><span style="color:#f92672">()</span>     <span style="color:#f92672">{</span> <span style="color:#66d9ef">return</span> name<span style="color:#f92672">;</span> <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">toString</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span> <span style="color:#66d9ef">return</span> name<span style="color:#f92672">;</span> <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">EnumEx4</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        MyTransportation t1 <span style="color:#f92672">=</span> MyTransportation<span style="color:#f92672">.</span><span style="color:#a6e22e">BUS</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        MyTransportation t2 <span style="color:#f92672">=</span> MyTransportation<span style="color:#f92672">.</span><span style="color:#a6e22e">BUS</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        MyTransportation t3 <span style="color:#f92672">=</span> MyTransportation<span style="color:#f92672">.</span><span style="color:#a6e22e">TRAIN</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        MyTransportation t4 <span style="color:#f92672">=</span> MyTransportation<span style="color:#f92672">.</span><span style="color:#a6e22e">SHIP</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        MyTransportation t5 <span style="color:#f92672">=</span> MyTransportation<span style="color:#f92672">.</span><span style="color:#a6e22e">AIRPLANE</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;t1=%s, %d%n&#34;</span><span style="color:#f92672">,</span> t1<span style="color:#f92672">.</span><span style="color:#a6e22e">name</span><span style="color:#f92672">(),</span> t1<span style="color:#f92672">.</span><span style="color:#a6e22e">ordinal</span><span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;t2=%s, %d%n&#34;</span><span style="color:#f92672">,</span> t2<span style="color:#f92672">.</span><span style="color:#a6e22e">name</span><span style="color:#f92672">(),</span> t2<span style="color:#f92672">.</span><span style="color:#a6e22e">ordinal</span><span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;t3=%s, %d%n&#34;</span><span style="color:#f92672">,</span> t3<span style="color:#f92672">.</span><span style="color:#a6e22e">name</span><span style="color:#f92672">(),</span> t3<span style="color:#f92672">.</span><span style="color:#a6e22e">ordinal</span><span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;t4=%s, %d%n&#34;</span><span style="color:#f92672">,</span> t4<span style="color:#f92672">.</span><span style="color:#a6e22e">name</span><span style="color:#f92672">(),</span> t4<span style="color:#f92672">.</span><span style="color:#a6e22e">ordinal</span><span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">printf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;t5=%s, %d%n&#34;</span><span style="color:#f92672">,</span> t5<span style="color:#f92672">.</span><span style="color:#a6e22e">name</span><span style="color:#f92672">(),</span> t5<span style="color:#f92672">.</span><span style="color:#a6e22e">ordinal</span><span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;t1==t2 ? &#34;</span><span style="color:#f92672">+(</span>t1<span style="color:#f92672">==</span>t2<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;t1.compareTo(t3)=&#34;</span><span style="color:#f92672">+</span> t1<span style="color:#f92672">.</span><span style="color:#a6e22e">compareTo</span><span style="color:#f92672">(</span>t3<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>t1=BUS, 0
+</span></span><span style="display:flex;"><span>t2=BUS, 0
+</span></span><span style="display:flex;"><span>t3=TRAIN, 1
+</span></span><span style="display:flex;"><span>t4=SHIP, 2
+</span></span><span style="display:flex;"><span>t5=AIRPLANE, 3
+</span></span><span style="display:flex;"><span>t1==t2 ? true
+</span></span><span style="display:flex;"><span>t1.compareTo(t3)=-1
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Process finished with exit code 0
+</span></span></code></pre></div><hr>
+<p>다음으로 애너테이션에 대해 알아보겠습니다. 애너테이션이란 자바 소스 코드에 추가하여 사용할 수 있는 메타데이터의 일종입니다. 이러한 애너테이션은 JDK에서 기본적으로 제공하는 것과 다른 프로그램에서 제공하는 것들이 있는데, 어느 것이든 그저 약속된 형식으로 정보를 제공하기만 하면 됩니다. JDK에서 제공하는 표준 애너테이션은 주로 컴파일러를 위한 것으로 컴파일러에게 유용한 정보를 제공합니다. 그리고 새로운 애너테이션을 정의할 때 사용하는 메타 애너테이션을 제공합니다.</p>
+<hr>
+<p>이러한 애너테이션 중 표준 애너테이션에 대한 예시는 다음과 같이 4개가 있습니다.</p>
+<hr>
+<ul>
+<li>● 예제 12-9</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Parent</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">parentMethod</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span> <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Child</span> <span style="color:#66d9ef">extends</span> Parent <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">parentmethod</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span> <span style="color:#f92672">}</span> <span style="color:#75715e">// 조상 메서드의 이름을 잘못적었음.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><hr>
+<ul>
+<li>● 예제 12-10</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">NewClass</span><span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> newField<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">getNewField</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> newField<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Deprecated</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> oldField<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Deprecated</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">getOldField</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> oldField<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">AnnotationEx2</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String args<span style="color:#f92672">[])</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        NewClass nc <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> NewClass<span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        nc<span style="color:#f92672">.</span><span style="color:#a6e22e">oldField</span> <span style="color:#f92672">=</span> 10<span style="color:#f92672">;</span>                     <span style="color:#75715e">//@Depreacted가 붙은 대상을 사용
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>nc<span style="color:#f92672">.</span><span style="color:#a6e22e">getOldField</span><span style="color:#f92672">());</span> <span style="color:#75715e">//@Depreacted가 붙은 대상을 사용
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>10
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Process finished with exit code 0
+</span></span></code></pre></div><hr>
+<ul>
+<li>● 예제 12-11</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#f92672">import</span> java.util.ArrayList<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">NewClass</span><span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> newField<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">getNewField</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> newField<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Deprecated</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> oldField<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Deprecated</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">getOldField</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> oldField<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">AnnotationEx3</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@SuppressWarnings</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;deprecation&#34;</span><span style="color:#f92672">)</span>     <span style="color:#75715e">// deprecation관련 경고를 억제
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String args<span style="color:#f92672">[])</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        NewClass nc <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> NewClass<span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        nc<span style="color:#f92672">.</span><span style="color:#a6e22e">oldField</span> <span style="color:#f92672">=</span> 10<span style="color:#f92672">;</span>                     <span style="color:#75715e">//@Depreacted가 붙은 대상을 사용
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>nc<span style="color:#f92672">.</span><span style="color:#a6e22e">getOldField</span><span style="color:#f92672">());</span> <span style="color:#75715e">//@Depreacted가 붙은 대상을 사용
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">@SuppressWarnings</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;unchecked&#34;</span><span style="color:#f92672">)</span>               <span style="color:#75715e">// 지네릭스 관련 경고를 억제
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        ArrayList<span style="color:#f92672">&lt;</span>NewClass<span style="color:#f92672">&gt;</span> list <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">();</span>  <span style="color:#75715e">// 타입을 지정하지 않음.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        list<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>nc<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>10
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Process finished with exit code 0
+</span></span></code></pre></div><hr>
+<ul>
+<li>● 예제 12-12</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#f92672">import</span> java.util.Arrays<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyArrayList</span><span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    T<span style="color:#f92672">[]</span> arr<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@SafeVarargs</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@SuppressWarnings</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;varargs&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    MyArrayList<span style="color:#f92672">(</span>T<span style="color:#f92672">...</span> arr<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">arr</span> <span style="color:#f92672">=</span> arr<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@SafeVarargs</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//	@SuppressWarnings(&#34;unchecked&#34;)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> MyArrayList<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">asList</span><span style="color:#f92672">(</span>T<span style="color:#f92672">...</span> a<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> MyArrayList<span style="color:#f92672">&lt;&gt;(</span>a<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">toString</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> Arrays<span style="color:#f92672">.</span><span style="color:#a6e22e">toString</span><span style="color:#f92672">(</span>arr<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">AnnotationEx4</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//	@SuppressWarnings(&#34;unchecked&#34;)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String args<span style="color:#f92672">[])</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        MyArrayList<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> list <span style="color:#f92672">=</span> MyArrayList<span style="color:#f92672">.</span><span style="color:#a6e22e">asList</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;1&#34;</span><span style="color:#f92672">,</span><span style="color:#e6db74">&#34;2&#34;</span><span style="color:#f92672">,</span><span style="color:#e6db74">&#34;3&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>list<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>[1, 2, 3]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Process finished with exit code 0
+</span></span></code></pre></div><hr>
+<p>마지막으로, 애너테이션 타입 정의를 하는 예제는 다음과 같습니다.</p>
+<hr>
+<ul>
+<li>● 예제 12-13</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#f92672">import</span> java.lang.annotation.*<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@Deprecated</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@SuppressWarnings</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;1111&#34;</span><span style="color:#f92672">)</span> <span style="color:#75715e">// 유효하지 않은 애너테이션은 무시된다.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">@TestInfo</span><span style="color:#f92672">(</span>testedBy<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;aaa&#34;</span><span style="color:#f92672">,</span> testDate<span style="color:#f92672">=</span><span style="color:#a6e22e">@DateTime</span><span style="color:#f92672">(</span>yymmdd<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;160101&#34;</span><span style="color:#f92672">,</span> hhmmss<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;235959&#34;</span><span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">AnnotationEx5</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String args<span style="color:#f92672">[])</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// AnnotaionEx5의 Class객체를 얻는다.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        Class<span style="color:#f92672">&lt;</span>AnnotationEx5<span style="color:#f92672">&gt;</span> cls <span style="color:#f92672">=</span> AnnotationEx5<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        TestInfo anno <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>TestInfo<span style="color:#f92672">)</span>cls<span style="color:#f92672">.</span><span style="color:#a6e22e">getAnnotation</span><span style="color:#f92672">(</span>TestInfo<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;anno.testedBy()=&#34;</span><span style="color:#f92672">+</span>anno<span style="color:#f92672">.</span><span style="color:#a6e22e">testedBy</span><span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;anno.testDate().yymmdd()=&#34;</span><span style="color:#f92672">+</span>anno<span style="color:#f92672">.</span><span style="color:#a6e22e">testDate</span><span style="color:#f92672">().</span><span style="color:#a6e22e">yymmdd</span><span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;anno.testDate().hhmmss()=&#34;</span><span style="color:#f92672">+</span>anno<span style="color:#f92672">.</span><span style="color:#a6e22e">testDate</span><span style="color:#f92672">().</span><span style="color:#a6e22e">hhmmss</span><span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span><span style="color:#f92672">(</span>String str <span style="color:#f92672">:</span> anno<span style="color:#f92672">.</span><span style="color:#a6e22e">testTools</span><span style="color:#f92672">())</span>
+</span></span><span style="display:flex;"><span>            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;testTools=&#34;</span><span style="color:#f92672">+</span>str<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// AnnotationEx5에 적용된 모든 애너테이션을 가져온다.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        Annotation<span style="color:#f92672">[]</span> annoArr <span style="color:#f92672">=</span> cls<span style="color:#f92672">.</span><span style="color:#a6e22e">getAnnotations</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span><span style="color:#f92672">(</span>Annotation a <span style="color:#f92672">:</span> annoArr<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>a<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span> <span style="color:#75715e">// main의 끝
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@Retention</span><span style="color:#f92672">(</span>RetentionPolicy<span style="color:#f92672">.</span><span style="color:#a6e22e">RUNTIME</span><span style="color:#f92672">)</span>  <span style="color:#75715e">// 실행 시에 사용가능하도록 지정
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">@interface</span> TestInfo <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span>       <span style="color:#a6e22e">count</span><span style="color:#f92672">()</span>	    <span style="color:#66d9ef">default</span> 1<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    String    <span style="color:#a6e22e">testedBy</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>    String<span style="color:#f92672">[]</span>  <span style="color:#a6e22e">testTools</span><span style="color:#f92672">()</span>   <span style="color:#66d9ef">default</span> <span style="color:#e6db74">&#34;JUnit&#34;</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    TestType  <span style="color:#a6e22e">testType</span><span style="color:#f92672">()</span>    <span style="color:#66d9ef">default</span> TestType<span style="color:#f92672">.</span><span style="color:#a6e22e">FIRST</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    DateTime  <span style="color:#a6e22e">testDate</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@Retention</span><span style="color:#f92672">(</span>RetentionPolicy<span style="color:#f92672">.</span><span style="color:#a6e22e">RUNTIME</span><span style="color:#f92672">)</span>  <span style="color:#75715e">// 실행 시에 사용가능하도록 지정
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">@interface</span> DateTime <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    String <span style="color:#a6e22e">yymmdd</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>    String <span style="color:#a6e22e">hhmmss</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">enum</span> TestType <span style="color:#f92672">{</span> FIRST<span style="color:#f92672">,</span> FINAL <span style="color:#f92672">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>anno.testedBy()=aaa
+</span></span><span style="display:flex;"><span>anno.testDate().yymmdd()=160101
+</span></span><span style="display:flex;"><span>anno.testDate().hhmmss()=235959
+</span></span><span style="display:flex;"><span>testTools=JUnit
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>@java.lang.Deprecated()
+</span></span><span style="display:flex;"><span>@TestInfo(count=1, testType=FIRST, testTools=[JUnit], testedBy=aaa, testDate=@DateTime(yymmdd=160101, hhmmss=235959))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Process finished with exit code 0
+</span></span></code></pre></div><hr>
+<p>이상으로 지네릭스, 열거형, 애너테이션에 대해 모두 알아보았습니다. 다음 포스팅에서는 입출력(I/O)에 대해 알아보겠습니다. 다음 포스팅을 끝으로 자바의 기초에 대한 공부 기록을 마무리하려고 합니다. 자바에 대한 포스팅이 모두 끝난 이후에는 스프링에 대한 공부 기록을 할 예정입니다. 스프링의 공부 범위는 최대한 기본 난이도의 선에서 기록하고자 합니다. 오늘도 긴 글 읽어주셔서 감사드리고 주말 잘 보내시길 바랍니다.</p>
+<hr>
+<h4 id="감사합니다">감사합니다.</h4>
+<hr>
+<p>[레퍼런스]</p>
+<ol>
+<li>자바의 정석(3판) : <a href="http://www.kyobobook.co.kr/product/detailViewKor.laf?ejkGb=KOR&amp;mallGb=KOR&amp;barcode=9788994492032&amp;orderClick=LAG&amp;Kc=">http://www.kyobobook.co.kr/product/detailViewKor.laf?ejkGb=KOR&amp;mallGb=KOR&amp;barcode=9788994492032&amp;orderClick=LAG&amp;Kc=</a></li>
+</ol>
+
+    
+
+    
+  </article>
+  
+  <aside><h3>More from shcDE Tech-Blog</h3>
+<ul class='posts aside'>
+<li class = 'post_item fp'>
+  <a class = 'post_card' href='https://shcde.github.io/post/java9/' title = '자바 공부 기록(9) - 컬렉션 프레임워크에 대해 알아볼까요?' style = 'background-image: url(https://shcde.github.io/images/coffee-gab9b09d77_1920.jpg);'>
+  </a>
+  <div class = 'excerpt'>
+    <div class = 'excerpt_meta'>
+      <a href = 'https://shcde.github.io/tags/development' class = 'post_tag'>development
+      </a><div id=inline class="out">
+  2022-07-28
+</div>
+<div class = 'copy' data-share = 'Copy' data-copied = 'Copied'><svg>
+  <use xlink:href="#copy"></use>
+</svg>
+</div>
+
+<style>
+  .out {
+  border: 2px solid rgb(255, 132, 0);
+  background-color: rgb(255, 132, 0);
+  width: 100px;
+  height: 25px;
+  border-radius: 5px;
+  font:14px 나눔고딕;
+  font-weight:bold;
+}
+
+#inline {
+  text-align: center;
+  line-height: 20px;
+  color : white;
+}
+</style>
+    </div>
+    <h3 class = 'post_link'>
+      <a href='https://shcde.github.io/post/java9/'>자바 공부 기록(9) - 컬렉션 프레임워크에 대해 알아볼까요?</a>
+    </h3>
+    <p class = 'pale'>안녕하세요. shcDE입니다. 이번 포스팅에서는 컬렉션 프레임워크에 대해 알아보겠습니다. 컬렉션 프레임워크란 &lsquo; …</p>
+  </div>
+</li>
+
+<li class = 'post_item fp'>
+  <a class = 'post_card' href='https://shcde.github.io/post/java8/' title = '자바 공부 기록(8) - java.lang패키지와 유용한 클래스에 대해 알아볼까요?' style = 'background-image: url(https://shcde.github.io/images/coffee-gab9b09d77_1920.jpg);'>
+  </a>
+  <div class = 'excerpt'>
+    <div class = 'excerpt_meta'>
+      <a href = 'https://shcde.github.io/tags/development' class = 'post_tag'>development
+      </a><div id=inline class="out">
+  2022-07-27
+</div>
+<div class = 'copy' data-share = 'Copy' data-copied = 'Copied'><svg>
+  <use xlink:href="#copy"></use>
+</svg>
+</div>
+
+<style>
+  .out {
+  border: 2px solid rgb(255, 132, 0);
+  background-color: rgb(255, 132, 0);
+  width: 100px;
+  height: 25px;
+  border-radius: 5px;
+  font:14px 나눔고딕;
+  font-weight:bold;
+}
+
+#inline {
+  text-align: center;
+  line-height: 20px;
+  color : white;
+}
+</style>
+    </div>
+    <h3 class = 'post_link'>
+      <a href='https://shcde.github.io/post/java8/'>자바 공부 기록(8) - java.lang패키지와 유용한 클래스에 대해 알아볼까요?</a>
+    </h3>
+    <p class = 'pale'>안녕하세요. shcDE입니다. 이번 포스팅에서는 java.lang패키지와 유용한 클래스에 대해 알아보겠습니다. java.lang패키지는 자바 프로그래밍에서 가장  …</p>
+  </div>
+</li>
+
+</ul>
+
+  </aside>
+  
+</div>
+<script src = 'https://shcde.github.io/js/autosize.min.js'></script>
+<script src = 'https://shcde.github.io/js/timeago.js'></script>
+    </main><svg width="0" height="0" class="hidden">
+  <symbol viewBox="0 0 699.428 699.428" xmlns="http://www.w3.org/2000/svg" id="copy">
+    <path d="M502.714 0H240.428C194.178 0 153 42.425 153 87.429l-25.267.59c-46.228 0-84.019 41.834-84.019 86.838V612c0 45.004 41.179 87.428 87.429 87.428H459c46.249 0 87.428-42.424 87.428-87.428h21.857c46.25 0 87.429-42.424 87.429-87.428v-349.19zM459 655.715H131.143c-22.95 0-43.714-21.441-43.714-43.715V174.857c0-22.272 18.688-42.993 41.638-42.993l23.933-.721v393.429C153 569.576 194.178 612 240.428 612h262.286c0 22.273-20.765 43.715-43.714 43.715zm153-131.143c0 22.271-20.765 43.713-43.715 43.713H240.428c-22.95 0-43.714-21.441-43.714-43.713V87.429c0-22.272 20.764-43.714 43.714-43.714H459c-.351 50.337 0 87.975 0 87.975 0 45.419 40.872 86.882 87.428 86.882H612zm-65.572-349.715c-23.277 0-43.714-42.293-43.714-64.981V44.348L612 174.857zm-43.714 131.537H306c-12.065 0-21.857 9.77-21.857 21.835s9.792 21.835 21.857 21.835h196.714c12.065 0 21.857-9.771 21.857-21.835 0-12.065-9.792-21.835-21.857-21.835zm0 109.176H306c-12.065 0-21.857 9.77-21.857 21.834 0 12.066 9.792 21.836 21.857 21.836h196.714c12.065 0 21.857-9.77 21.857-21.836 0-12.064-9.792-21.834-21.857-21.834z"
+    ></path>
+  </symbol>
+  <symbol viewBox="0 0 60.015 60.015" xmlns="http://www.w3.org/2000/svg" id="reply">
+    <path d="M42.007 0h-24c-9.925 0-18 8.075-18 18v14c0 9.59 7.538 17.452 17 17.973v8.344a1.694 1.694 0 0 0 1.699 1.698c.44 0 .873-.173 1.198-.498l1.876-1.876C26.708 52.713 33.259 50 40.227 50h1.78c9.925 0 18-8.075 18-18V18c0-9.925-8.075-18-18-18zm16 32c0 8.822-7.178 16-16 16h-1.78c-7.502 0-14.556 2.921-19.86 8.226l-1.359 1.359V44a1 1 0 1 0-2 0v3.949c-8.356-.52-15-7.465-15-15.949V18c0-8.822 7.178-16 16-16h24c8.822 0 16 7.178 16 16v14z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="scan">
+    <path d="M456.66 0H385c-8.284 0-15 6.716-15 15s6.716 15 15 15h71.66C470.632 30 482 41.368 482 55.341V127c0 8.284 6.716 15 15 15s15-6.716 15-15V55.341C512 24.826 487.174 0 456.66 0zM15 142c8.284 0 15-6.716 15-15V55.341C30 41.368 41.368 30 55.34 30H127c8.284 0 15-6.716 15-15s-6.716-15-15-15H55.34C24.826 0 0 24.826 0 55.341V127c0 8.284 6.716 15 15 15zm112 340H55.34C41.368 482 30 470.632 30 456.659V385c0-8.284-6.716-15-15-15s-15 6.716-15 15v71.659C0 487.174 24.826 512 55.34 512H127c8.284 0 15-6.716 15-15s-6.716-15-15-15zm370-112c-8.284 0-15 6.716-15 15v71.659C482 470.632 470.632 482 456.66 482H385c-8.284 0-15 6.716-15 15s6.716 15 15 15h71.66c30.515 0 55.34-24.826 55.34-55.341V385c0-8.284-6.716-15-15-15zM341.643 110h47.575c6.497 0 11.782 5.285 11.782 11.782v47.574c0 8.284 6.716 15 15 15s15-6.716 15-15v-47.574C431 98.743 412.256 80 389.218 80h-47.575c-8.284 0-15 6.716-15 15s6.716 15 15 15zM81 121.782v47.574c0 8.284 6.716 15 15 15s15-6.716 15-15v-47.574c0-6.497 5.286-11.782 11.782-11.782h47.575c8.284 0 15-6.716 15-15s-6.716-15-15-15h-47.575C99.744 80 81 98.743 81 121.782zM170.357 400h-47.575c-6.497 0-11.782-5.285-11.782-11.782v-47.574c0-8.284-6.716-15-15-15s-15 6.716-15 15v47.574C81 411.257 99.744 430 122.782 430h47.575c8.284 0 15-6.716 15-15s-6.716-15-15-15zM431 388.218v-47.574c0-8.284-6.716-15-15-15s-15 6.716-15 15v47.574c0 6.497-5.286 11.782-11.782 11.782h-47.575c-8.284 0-15 6.716-15 15s6.716 15 15 15h47.575C412.256 430 431 411.257 431 388.218zM1 256c0 8.284 6.716 15 15 15h480c8.284 0 15-6.716 15-15s-6.716-15-15-15H16c-8.284 0-15 6.716-15 15z"></path>
+  </symbol>
+</svg>
+<footer class="footer">
+  <div class="footer_inner wrap pale">
+    <p>&copy;&nbsp;<span class="year"></span>&nbsp;shcDE Tech-Blog.
+    Designed by  <a href = 'https://www.linkedin.com/in/dan-weru-profile/' title = 'Linkedin Profile'>Weru</a></p>
+  </div>
+  
+  <script src="https://utteranc.es/client.js"
+        repo="shcDE/blog-comments"
+        issue-term="title"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+  </script>
+</footer><script type="text/javascript" src="https://shcde.github.io/js/bundle.444d59fb57116584f9d07a6aff51bf335fe9975644550a0d68e213d2d51db57326d29ea67a57b44b1b381cf4ca7d866d3e69f5ad5f3d1e49b2fc4edc508cbd03.js" integrity="sha512-RE1Z&#43;1cRZYT50Hpq/1G/M1/pl1ZEVQoNaOIT0tUdtXMm0p6mele0Sxs4HPTKfYZtPmn1rV89Hkmy/E7cUIy9Aw==" crossorigin="anonymous"></script>
+
+  </body>
+</html>
