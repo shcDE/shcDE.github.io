@@ -6,7 +6,16 @@
     <description>Recent content on shcDE Tech-Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Copyright © 2008–2018, Steve Francia and the Hugo Authors; all rights reserved.</copyright>
-    <lastBuildDate>Fri, 29 Jul 2022 13:33:53 +0900</lastBuildDate><atom:link href="https://shcde.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 30 Jul 2022 14:46:34 +0900</lastBuildDate><atom:link href="https://shcde.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>자바 공부 기록(11) - 입출력 I/O에 대해 알아볼까요?</title>
+      <link>https://shcde.github.io/post/java11/</link>
+      <pubDate>Sat, 30 Jul 2022 14:46:34 +0900</pubDate>
+      
+      <guid>https://shcde.github.io/post/java11/</guid>
+      <description>안녕하세요. shcDE입니다. 이번 포스팅에서는 자바에서의 입출력 I/O에 대해 알아보겠습니다. I/O란 Input과 Output의 약자로 입력과 출력, 간단히 줄여서 입출력이라고 불립니다. 이러한 입출력은 컴퓨터 내부 또는 외부의 장치와 프로그램 간의 데이터를 주고받는 것을 의미합니다. 이번 포스팅을 끝으로 기본 단계에서의 자바 포스팅을 마무리하고자 합니다. 사실 제가 공부하는 책에서는 진도가 4장이 더 있지만, 문서에 따르면 나머지 파트는 프로젝트를 진행하다가 필요한 경우에 보는 것을 권장해서 그 진도 그대로 따라갔기 때문에 스킵하였습니다. 그래서 나중에 프로젝트를 하다가 필요한 경우가 발생하면 그 때 포스팅할 예정입니다.</description>
+    </item>
+    
     <item>
       <title>자바 공부 기록(10) - 지네릭스, 열거형, 애너테이션에 대해 알아볼까요?</title>
       <link>https://shcde.github.io/post/java10/</link>
