@@ -6,7 +6,16 @@
     <description>Recent content in development on shcDE Tech-Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Copyright © 2008–2018, Steve Francia and the Hugo Authors; all rights reserved.</copyright>
-    <lastBuildDate>Sat, 30 Jul 2022 14:46:34 +0900</lastBuildDate><atom:link href="https://shcde.github.io/tags/development/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 01 Aug 2022 16:16:49 +0900</lastBuildDate><atom:link href="https://shcde.github.io/tags/development/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>자바 1회독 마무리 및 스프링 사용 후기</title>
+      <link>https://shcde.github.io/post/java-and-spring/</link>
+      <pubDate>Mon, 01 Aug 2022 16:16:49 +0900</pubDate>
+      
+      <guid>https://shcde.github.io/post/java-and-spring/</guid>
+      <description>자바를 마무리하고 스프링으로 넘어가면서 느낀 점은? 안녕하세요. shcDE입니다. 이번 포스팅에서는 자바 1회독(필수적인 부분만 읽음) 및 스프링 프레임워크 사용 후기에 대해 말씀드릴려고 합니다. 사실 저는 학부 재학 당시 자바 프로그래밍 과목을 수강한 경험이 있습니다. 하지만 그 당시에 프로그래밍에 큰 뜻이 없었고, 마케터 및 디자이너로서의 진로를 생각했기 때문에 공부를 열심히 하지 않았습니다. 실제로 이를 증명하듯 학부에서 유일하게 들은 프로그래밍 관련 전공 과목은 해당 과목 외에 없으며, 해당 과목의 학점 또한 C+였습니다. 그렇기에, 사실상 이번 경험을 통해 제대로 자바를 공부했다고 볼 수 있습니다.</description>
+    </item>
+    
     <item>
       <title>자바 공부 기록(11) - 입출력 I/O에 대해 알아볼까요?</title>
       <link>https://shcde.github.io/post/java11/</link>
