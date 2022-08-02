@@ -6,7 +6,17 @@
     <description>Recent content in development on shcDE Tech-Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Copyright © 2008–2018, Steve Francia and the Hugo Authors; all rights reserved.</copyright>
-    <lastBuildDate>Mon, 01 Aug 2022 16:16:49 +0900</lastBuildDate><atom:link href="https://shcde.github.io/tags/development/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 02 Aug 2022 18:37:08 +0900</lastBuildDate><atom:link href="https://shcde.github.io/tags/development/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>스프링을 입문해볼까요?(1)</title>
+      <link>https://shcde.github.io/post/spring1/</link>
+      <pubDate>Tue, 02 Aug 2022 18:37:08 +0900</pubDate>
+      
+      <guid>https://shcde.github.io/post/spring1/</guid>
+      <description>안녕하세요. shcDE입니다. 이번 포스팅부터 스프링 공부 기록을 시작해보겠습니다. 이번 포스팅에서는 스프링 웹 개발 기초, 회원 관리 예제 - 백엔드 개발, 스프링 빈과 의존관계와 관련된 내용에 대해 다룰 예정입니다. 해당 포스팅에서는 운영체제에 따라 설치 방법이 다를 수 있으므로, 설치 및 환경설정에 대해서는 다루지 않을 예정입니다.
+시작 전에, 해당 포스팅은 김영한님의 &amp;lsquo;스프링 입문 - 코드로 배우는 스프링 부트, 웹 MVC, DB 접근 기술&amp;rsquo; 섹션2~4를 공부하여 정리한 내용임을 밝히며, 직접 해당 강의를 구매하여 게시물을 작성함을 알립니다.</description>
+    </item>
+    
     <item>
       <title>자바 1회독 마무리 및 스프링 사용 후기</title>
       <link>https://shcde.github.io/post/java-and-spring/</link>
