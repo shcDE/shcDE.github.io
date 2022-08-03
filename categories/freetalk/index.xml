@@ -6,7 +6,18 @@
     <description>Recent content in freetalk on shcDE Tech-Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Copyright © 2008–2018, Steve Francia and the Hugo Authors; all rights reserved.</copyright>
-    <lastBuildDate>Sun, 10 Jul 2022 22:19:19 +0900</lastBuildDate><atom:link href="https://shcde.github.io/categories/freetalk/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 03 Aug 2022 21:50:29 +0900</lastBuildDate><atom:link href="https://shcde.github.io/categories/freetalk/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>디자인 작업에 다시 참여하게 되면서</title>
+      <link>https://shcde.github.io/post/design/</link>
+      <pubDate>Wed, 03 Aug 2022 21:50:29 +0900</pubDate>
+      
+      <guid>https://shcde.github.io/post/design/</guid>
+      <description>안녕하세요. shcDE입니다. 원래 이번 포스팅은 스프링 공부 기록을 계속 이어서 하려고 했으나, 너무 자유 주제를 다루지 않은 것 같다는 생각에 그동안의 일상에 대해 말씀드리고자 합니다. 스프링 공부 기록은 다음주부터 진행할 계획입니다.
+어느덧 퇴사 후 3개월이라는 시간이 지났습니다. 그동안 저는 사이드 프로젝트 3개에 참여하면서 모든 팀에서 머신러닝 및 백엔드 엔지니어로 활동하고 있었습니다. 그러던 중, 저번주부터 한 프로젝트에서는 자발적으로 디자인 보조 작업도 참여하게 되었습니다.
+디자인 보조 작업에 참여하게 된 계기는 해당 프로젝트 팀 내 디자이너의 부재였습니다.</description>
+    </item>
+    
     <item>
       <title>회사 생활을 하면서 서로 연봉이 공개될 때</title>
       <link>https://shcde.github.io/post/money/</link>
