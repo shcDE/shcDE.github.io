@@ -6,7 +6,17 @@
     <description>Recent content in Posts on shcDE Tech-Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Copyright © 2008–2018, Steve Francia and the Hugo Authors; all rights reserved.</copyright>
-    <lastBuildDate>Sat, 06 Aug 2022 11:39:03 +0900</lastBuildDate><atom:link href="https://shcde.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 07 Aug 2022 20:53:29 +0900</lastBuildDate><atom:link href="https://shcde.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>스프링을 입문해볼까요?(2)</title>
+      <link>https://shcde.github.io/post/spring2/</link>
+      <pubDate>Sun, 07 Aug 2022 20:53:29 +0900</pubDate>
+      
+      <guid>https://shcde.github.io/post/spring2/</guid>
+      <description>안녕하세요. shcDE입니다. 오랜만에 다시 공부 기록 포스팅으로 돌아왔습니다. 이번 포스팅은 저번 공부 기록에 이어 스프링 입문 단계 강의에서 배운 내용을 기록하고자 합니다. 사실 해당 강의를 오늘 완강을 하였으나, DB나 AOP는 현재 실무에서 다루지 않는 기술이 많이 섞여 있어 웹 MVC 개발에 대한 내용만 이번 포스팅에서 다루겠습니다.
+시작 전에, 해당 포스팅은 김영한님의 &amp;lsquo;스프링 입문 - 코드로 배우는 스프링 부트, 웹 MVC, DB 접근 기술&amp;rsquo; 섹션 5를 공부하여 정리한 내용임을 밝히며, 직접 해당 강의를 구매하여 게시물을 작성함을 알립니다.</description>
+    </item>
+    
     <item>
       <title>신입을 위한 백엔드 로드맵</title>
       <link>https://shcde.github.io/post/backend-roadmap/</link>
@@ -44,7 +54,7 @@
       
       <guid>https://shcde.github.io/post/spring1/</guid>
       <description>안녕하세요. shcDE입니다. 이번 포스팅부터 스프링 공부 기록을 시작해보겠습니다. 이번 포스팅에서는 스프링 웹 개발 기초, 회원 관리 예제 - 백엔드 개발, 스프링 빈과 의존관계와 관련된 내용에 대해 다룰 예정입니다. 해당 포스팅에서는 운영체제에 따라 설치 방법이 다를 수 있으므로, 설치 및 환경설정에 대해서는 다루지 않을 예정입니다.
-시작 전에, 해당 포스팅은 김영한님의 &amp;lsquo;스프링 입문 - 코드로 배우는 스프링 부트, 웹 MVC, DB 접근 기술&amp;rsquo; 섹션2~4를 공부하여 정리한 내용임을 밝히며, 직접 해당 강의를 구매하여 게시물을 작성함을 알립니다.</description>
+시작 전에, 해당 포스팅은 김영한님의 &amp;lsquo;스프링 입문 - 코드로 배우는 스프링 부트, 웹 MVC, DB 접근 기술&amp;rsquo; 섹션 2~4를 공부하여 정리한 내용임을 밝히며, 직접 해당 강의를 구매하여 게시물을 작성함을 알립니다.</description>
     </item>
     
     <item>
