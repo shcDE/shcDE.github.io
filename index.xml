@@ -6,7 +6,18 @@
     <description>Recent content on shcDE Tech-Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Copyright © 2008–2018, Steve Francia and the Hugo Authors; all rights reserved.</copyright>
-    <lastBuildDate>Mon, 08 Aug 2022 18:20:47 +0900</lastBuildDate><atom:link href="https://shcde.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 09 Aug 2022 22:38:21 +0900</lastBuildDate><atom:link href="https://shcde.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>스프링의 기본에 대해 알아볼까요?(2)</title>
+      <link>https://shcde.github.io/post/spring_basic2/</link>
+      <pubDate>Tue, 09 Aug 2022 22:38:21 +0900</pubDate>
+      
+      <guid>https://shcde.github.io/post/spring_basic2/</guid>
+      <description>안녕하세요. shcDE입니다. 이번 포스팅에서는 이전 포스팅에 이어 스프링의 핵심 원리부터 스프링 빈까지 알아보도록 하겠습니다. 시작 전에, 해당 포스팅은 김영한님의 &amp;lsquo;스프링 핵심 원리 - 기본편&amp;rsquo; 섹션 3, 4를 공부하여 정리한 내용임을 밝히며, 직접 해당 강의를 구매하여 게시물을 작성함을 알립니다.
+우선 주어진 상황은 다음과 같습니다.
+새로운 할인 정책 개발 새로운 할인 정책을 확장해보자. 악덕 기획자: 서비스 오픈 직전에 할인 정책을 지금처럼 고정 금액 할인이 아니라 좀 더 합리적인 주문 금액당 할인하는 정률% 할인으로 변경하고 싶어요.</description>
+    </item>
+    
     <item>
       <title>스프링의 기본에 대해 알아볼까요?(1)</title>
       <link>https://shcde.github.io/post/spring_basic1/</link>
