@@ -6,7 +6,18 @@
     <description>Recent content in development on shcDE Tech-Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Copyright © 2008–2018, Steve Francia and the Hugo Authors; all rights reserved.</copyright>
-    <lastBuildDate>Wed, 10 Aug 2022 17:41:50 +0900</lastBuildDate><atom:link href="https://shcde.github.io/tags/development/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 11 Aug 2022 16:42:23 +0900</lastBuildDate><atom:link href="https://shcde.github.io/tags/development/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>스프링의 기본에 대해 알아볼까요?(4)</title>
+      <link>https://shcde.github.io/post/spring_basic4/</link>
+      <pubDate>Thu, 11 Aug 2022 16:42:23 +0900</pubDate>
+      
+      <guid>https://shcde.github.io/post/spring_basic4/</guid>
+      <description>안녕하세요. shcDE입니다. 이번 포스팅에서는 스프링에서 기본적으로 쓰이는 의존관계 자동 주입과 빈 생명주기 콜백에 대해 알아보겠습니다. 시작 전에, 해당 포스팅은 김영한님의 &amp;lsquo;스프링 핵심 원리 - 기본편&amp;rsquo; 섹션 7, 8를 공부하여 정리한 내용임을 밝히며, 직접 해당 강의를 구매하여 게시물을 작성함을 알립니다.
+우선 생성자 주입을 먼저 해줍니다. 코드 예시는 다음과 같습니다.
+@Component public class OrderServiceImpl implements OrderService { private final MemberRepository memberRepository; private final DiscountPolicy discountPolicy; @Autowired public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicydiscountPolicy) { this.</description>
+    </item>
+    
     <item>
       <title>스프링의 기본에 대해 알아볼까요?(3)</title>
       <link>https://shcde.github.io/post/spring_basic3/</link>
