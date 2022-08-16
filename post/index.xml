@@ -6,7 +6,17 @@
     <description>Recent content in Posts on shcDE Tech-Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Copyright © 2008–2018, Steve Francia and the Hugo Authors; all rights reserved.</copyright>
-    <lastBuildDate>Sat, 13 Aug 2022 17:01:54 +0900</lastBuildDate><atom:link href="https://shcde.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 15 Aug 2022 23:40:29 +0900</lastBuildDate><atom:link href="https://shcde.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>스프링 부트와 JPA에 대해 알아볼까요?(1)</title>
+      <link>https://shcde.github.io/post/springboot_jpa1/</link>
+      <pubDate>Mon, 15 Aug 2022 23:40:29 +0900</pubDate>
+      
+      <guid>https://shcde.github.io/post/springboot_jpa1/</guid>
+      <description>안녕하세요. shcDE입니다. 드디어 이번 포스팅부터는 스프링 부트와 JPA에 대해 다루게 되었습니다. 스프링 부트란 기존 스프링 프레임워크에 톰캣 서버를 내장하고, 여러 기능을 추가하여 꾸준한 인기를 얻고 있는 프레임워크이며, JPA란 자바 진영에서 ORM(Object-Relational Mapping) 기술 표준으로 사용하는 인터페이스 모음이며, 자바 애플리케이션에서 관계형 데이터베이스를 사용하는 방식을 정의한 인터페이스입니다.
+이번 포스팅에서는 이러한 스프링 부트와 JPA를 활용하여 웹 사이트를 개발하는 과정에 대해 알아보겠으며, 해당 포스팅은 김영한님의 &amp;lsquo;실전! 스프링 부트와 JPA 활용1 - 웹 애플리케이션 개발&amp;rsquo; 전체 내용을 공부하여 정리한 내용임을 밝히며, 직접 해당 강의를 구매하여 게시물을 작성함을 알립니다.</description>
+    </item>
+    
     <item>
       <title>스프링의 기본에 대해 알아볼까요?(5)</title>
       <link>https://shcde.github.io/post/spring_basic5/</link>
