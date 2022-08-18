@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang='en'><head>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3031042205762577" crossorigin="anonymous"></script>
+  <title>스프링 부트와 JPA에 대해 알아볼까요?(2) | shcDE Tech-Blog</title>
+  <meta charset='utf-8'>
+  <meta name="generator" content="Hugo 0.101.0" />
+  
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XCDRBEN300"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-XCDRBEN300', { 'anonymize_ip': false });
+}
+</script>
+
+  <meta name = 'viewport' content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'>
+  <meta http-equiv = 'X-UA-Compatible' content = 'IE=edge'>
+  <meta property="og:image" content="https://github.com/shcDE/pictures/blob/main/images_for_blog/business-gb1f55b807_1920.jpg?raw=true/web-design-gc14b2ac25_1920.jpg">
+  <meta property="og:description" content="schDE의 개발 지식 정리용 블로그입니다." /> 
+  <meta name="description" content="안녕하세요. schDE의 개발 지식 정리용 블로그입니다.">
+<meta property = 'og:locale' content = 'en_US' />
+<meta property="og:type" content="article">
+<meta property = 'og:title' content = '스프링 부트와 JPA에 대해 알아볼까요?(2)' />
+<meta name="description" content="안녕하세요. shcDE입니다. 이번 포스팅에서는 스프링 부트와 JPA를 활용하여 API를 개발하는 방법에 대해 알아보고자 합니다. API란 정의 및 프로토콜 집합을 사용하여 두 소프트웨어 구성 요소가 서로 통신할 수 있게 하는 메커니즘을 의미합니다. 예를 들어, 기상청의 소프트웨어 시스 …">
+<meta property = 'og:description' content = '안녕하세요. shcDE입니다. 이번 포스팅에서는 스프링 부트와 JPA를 활용하여 API를 개발하는 방법에 대해 알아보고자 합니다. API란 정의 및 프로토콜 집합을 사용하여 두 소프트웨어 구성 요소가 서로 통신할 수 있게 하는 메커니즘을 의미합니다. 예를 들어, 기상청의 소프트웨어 시스 …'>
+<meta property = 'og:url' content = 'https://shcde.github.io/post/springboot_jpa2/' />
+<meta property = 'og:image' content = 'https://shcde.github.io/images/web-design-gc14b2ac25_1920.jpg'/>
+<meta name = 'twitter:card' content = 'summary_large_image' />
+<meta name = 'twitter:creator' content = ''>
+<meta name = 'twitter:title' content = '스프링 부트와 JPA에 대해 알아볼까요?(2)' />
+<meta property = 'twitter:description'  content = '안녕하세요. shcDE입니다. 이번 포스팅에서는 스프링 부트와 JPA를 활용하여 API를 개발하는 방법에 대해 알아보고자 합니다. API란 정의 및 프로토콜 집합을 사용하여 두 소프트웨어 구성 요소가 서로 통신할 수 있게 하는 메커니즘을 의미합니다. 예를 들어, 기상청의 소프트웨어 시스 …'/>
+<meta name = 'twitter:image' content = 'https://shcde.github.io/images/web-design-gc14b2ac25_1920.jpg' />
+<link rel='apple-touch-icon' sizes='180x180' href='https://shcde.github.io/images/icons/apple-touch-icon.png'>
+<link rel='icon' type='image/png' sizes='32x32' href='https://shcde.github.io/images/icons/favicon-32x32.png'>
+<link rel='icon' type='image/png' sizes='16x16' href='https://shcde.github.io/images/icons/favicon-16x16.png'>
+<link rel='manifest' href='https://shcde.github.io/images/icons/site.webmanifest'>
+
+  <link rel='canonical' href='https://shcde.github.io/post/springboot_jpa2/'>
+  <link rel = 'stylesheet' href = 'https://shcde.github.io/css/styles.42db596b1300421b76166668f896d65a0e912909aa95394f74e207c69da0d0b652fe2ad414cb6b746661857c824297f791d6df38fce0872ba2a9ccaa421a6b89.css' integrity = 'sha512-QttZaxMAQht2FmZo&#43;JbWWg6RKQmqlTlPdOIHxp2g0LZS/irUFMtrdGZhhXyCQpf3kdbfOPzghyuiqcyqQhpriQ=='>
+    
+  
+  <link rel="stylesheet" href="https://shcde.github.io/Users/shc/Desktop/blog/themes/hugo-swift-theme/static/css/prism.css" media="none" onload="this.media='all';">
+  
+  <script defer language="javascript" type="text/javascript"  src="https://shcde.github.io/users/shc/desktop/blog/themes/hu-swift-theme/static/js/prism.js"></script>
+  
+
+
+</head>
+
+  <body><div class = 'nav-drop'>
+  <div class = 'nav-body'>
+    
+      <a href = 'https://shcde.github.io/categories/freetalk/' class = 'nav_item'>Free Talk</a>
+      <a href = 'https://shcde.github.io/categories/development/' class = 'nav_item'>Development</a>
+    <div class = 'nav-close'></div>
+  </div>
+</div><header class = 'nav' >
+  <nav class = 'nav-menu'>
+
+    <a href='https://shcde.github.io/' class = 'nav-brand nav_item'>shcDE Tech-Blog</a>
+    <div class = 'nav_bar-wrap'>
+      <div class = 'nav_bar'></div>
+    </div>
+  </nav>
+  <p><button id="theme-toggle">Click to Switch between Light and Dark Mode</button></p>
+</header>
+
+<style>
+  .nav_bar-wrap {
+  background-Color:orange;
+  color: orange;
+  }
+
+  button {
+  border:2px solid #ff9900;     
+  background-Color:#000000;    
+  font:16px 나눔고딕;       
+  font-weight:bold;    
+  color:#ff9900;     
+  width:200;height:70;   
+  }
+
+  body {
+	color: rgb(12, 14, 29); 
+	background-color: white;
+}
+body.dark {
+	color: rgb(255, 191, 0); 
+	background-color: rgb(12, 14, 29);
+}
+  </style>
+
+<script>
+  var darkMode = false;
+
+
+if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+	darkMode = true;
+}
+
+
+if (localStorage.getItem('theme') === 'dark') {
+	darkMode = true;
+} else if (localStorage.getItem('theme') === 'light') {
+	darkMode = false;
+}
+
+if (darkMode) {
+	document.body.classList.toggle('dark');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    document.getElementById('theme-toggle').addEventListener('click', () => {
+		document.body.classList.toggle('dark');
+    	localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+	});
+
+});
+</script>
+
+
+    <main>
+
+<section class = 'post_header' style = 'background-image:url(https://shcde.github.io/images/web-design-gc14b2ac25_1920.jpg);'>
+  <h1 class='post_title'>스프링 부트와 JPA에 대해 알아볼까요?(2)</h1>
+</section>
+<div class = 'post'>
+  <div class="date">
+    
+    
+    
+    <strong aria-hidden="true"> </strong>
+    <br>
+    <strong aria-hidden="true">Created date: </strong>Wed, 17 Aug 2022 23:01 KST
+    
+      
+    
+  </div>
+  <article class='post_content'><p><img src="https://github.com/shcDE/pictures/blob/main/images_for_blog/web-design-gc14b2ac25_1920.jpg?raw=true" alt="웹페이지"></p>
+<hr>
+<p>안녕하세요. shcDE입니다. 이번 포스팅에서는 스프링 부트와 JPA를 활용하여 API를 개발하는 방법에 대해 알아보고자 합니다. API란 정의 및 프로토콜 집합을 사용하여 두 소프트웨어 구성 요소가 서로 통신할 수 있게 하는 메커니즘을 의미합니다. 예를 들어, 기상청의 소프트웨어 시스템에는 일일 기상 데이터가 들어 있습니다. 휴대폰의 날씨 애플리케이션은 API를 통해 이 시스템과 대화하여 휴대폰에 매일 최신 날씨 정보를 표시합니다. 이러한 API를 개발하는 방법에 대해 지금부터 알아보겠습니다.</p>
+<hr>
+<p>시작 전에, 해당 포스팅은 김영한님의 <a href="https://www.inflearn.com/course/%EC%8A%A4%ED%94%84%EB%A7%81%EB%B6%80%ED%8A%B8-JPA-API%EA%B0%9C%EB%B0%9C-%EC%84%B1%EB%8A%A5%EC%B5%9C%EC%A0%81%ED%99%94/dashboard">&lsquo;실전! 스프링 부트와 JPA 활용2 - API 개발과 성능 최적화&rsquo;</a> 전체 내용을 공부하여 정리한 내용임을 밝히며, 직접 해당 강의를 구매하여 게시물을 작성함을 알립니다. 참고로, 환경설정은 개인의 컴퓨터 환경에 따라 다르므로 따로 다루지 않겠습니다.</p>
+<hr>
+<p>우선 Postman 설치를 완료했으면 회원 등록 API를 설계합니다. 해당 코드는 다음과 같습니다.</p>
+<hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#f92672">package</span> jpabook.jpashop.api<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> jpabook.jpashop.domain.Member<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> jpabook.jpashop.service.MemberService<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> lombok.AllArgsConstructor<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> lombok.Data<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> lombok.RequiredArgsConstructor<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> org.springframework.web.bind.annotation.*<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> javax.validation.Valid<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> java.util.List<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> java.util.stream.Collectors<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@RestController</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@RequiredArgsConstructor</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MemberApiController</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">final</span> MemberService memberService<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">* 등록 V1: 요청 값으로 Member 엔티티를 직접 받는다.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">* 문제점
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">* - 엔티티에 프레젠테이션 계층을 위한 로직이 추가된다.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">* - 엔티티에 API 검증을 위한 로직이 들어간다. (@NotEmpty 등등)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">* - 실무에서는 회원 엔티티를 위한 API가 다양하게 만들어지는데, 한 엔티티에 각각의 API를
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">위한 모든 요청 요구사항을 담기는 어렵다.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">* - 엔티티가 변경되면 API 스펙이 변한다.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">* 결론
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">* - API 요청 스펙에 맞추어 별도의 DTO를 파라미터로 받는다. 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@PostMapping</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/api/v1/members&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> CreateMemberResponse <span style="color:#a6e22e">saveMemberV1</span><span style="color:#f92672">(</span><span style="color:#a6e22e">@RequestBody</span> <span style="color:#a6e22e">@Valid</span> Member member<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        Long id <span style="color:#f92672">=</span> memberService<span style="color:#f92672">.</span><span style="color:#a6e22e">join</span><span style="color:#f92672">(</span>member<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> CreateMemberResponse<span style="color:#f92672">(</span>id<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Data</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CreateMemberRequest</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">private</span> String name<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Data</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CreateMemberResponse</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">private</span> Long id<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">CreateMemberResponse</span><span style="color:#f92672">(</span>Long id<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">id</span> <span style="color:#f92672">=</span> id<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><hr>
+<p>V2 엔티티 대신에 DTO를 RequestBody에 매핑하는 코드는 다음과 같습니다.</p>
+<hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">* 등록 V2: 요청 값으로 Member 엔티티 대신에 별도의 DTO를 받는다.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@PostMapping</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/api/v2/members&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> CreateMemberResponse <span style="color:#a6e22e">saveMemberV2</span><span style="color:#f92672">(</span><span style="color:#a6e22e">@RequestBody</span> <span style="color:#a6e22e">@Valid</span> CreateMemberRequest request<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    Member member <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Member<span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>    member<span style="color:#f92672">.</span><span style="color:#a6e22e">setName</span><span style="color:#f92672">(</span>request<span style="color:#f92672">.</span><span style="color:#a6e22e">getName</span><span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>    Long id <span style="color:#f92672">=</span> memberService<span style="color:#f92672">.</span><span style="color:#a6e22e">join</span><span style="color:#f92672">(</span>member<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> CreateMemberResponse<span style="color:#f92672">(</span>id<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><hr>
+<p>회원 수정 API 코드는 다음과 같습니다.</p>
+<hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">* 수정 API
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@PutMapping</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/api/v2/members/{id}&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> UpdateMemberResponse <span style="color:#a6e22e">updateMemberV2</span><span style="color:#f92672">(</span><span style="color:#a6e22e">@PathVariable</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">)</span> Long id<span style="color:#f92672">,</span> <span style="color:#a6e22e">@RequestBody</span> <span style="color:#a6e22e">@Valid</span> UpdateMemberRequest request<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    memberService<span style="color:#f92672">.</span><span style="color:#a6e22e">update</span><span style="color:#f92672">(</span>id<span style="color:#f92672">,</span> request<span style="color:#f92672">.</span><span style="color:#a6e22e">getName</span><span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>    Member findMember <span style="color:#f92672">=</span> memberService<span style="color:#f92672">.</span><span style="color:#a6e22e">findOne</span><span style="color:#f92672">(</span>id<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> UpdateMemberResponse<span style="color:#f92672">(</span>findMember<span style="color:#f92672">.</span><span style="color:#a6e22e">getId</span><span style="color:#f92672">(),</span> findMember<span style="color:#f92672">.</span><span style="color:#a6e22e">getName</span><span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@Data</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">UpdateMemberRequest</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> String name<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@Data</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@AllArgsConstructor</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">UpdateMemberResponse</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> Long id<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> String name<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><hr>
+<p>회원 수정 코드도 DTO를 요청 파라미터에 매핑할 수 있습니다.</p>
+<hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MemberService</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">final</span> MemberRepository memberRepository<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    * 회원 수정
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    */</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Transactional</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">update</span><span style="color:#f92672">(</span>Long id<span style="color:#f92672">,</span> String name<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        Member member <span style="color:#f92672">=</span> memberRepository<span style="color:#f92672">.</span><span style="color:#a6e22e">findOne</span><span style="color:#f92672">(</span>id<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        member<span style="color:#f92672">.</span><span style="color:#a6e22e">setName</span><span style="color:#f92672">(</span>name<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><hr>
+<p>이제 회원 조회 API를 설계하겠습니다. 먼저 회원조회 V1 API는 응답 값으로 엔티티를 직접 외부에 노출하는 방식으로 설계합니다.</p>
+<hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#f92672">package</span> jpabook.jpashop.api<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@RestController</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@RequiredArgsConstructor</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MemberApiController</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">final</span> MemberService memberService<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">* 조회 V1: 응답 값으로 엔티티를 직접 외부에 노출한다.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">* 문제점
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">* - 엔티티에 프레젠테이션 계층을 위한 로직이 추가된다.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">* - 기본적으로 엔티티의 모든 값이 노출된다.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">* - 응답 스펙을 맞추기 위해 로직이 추가된다. (@JsonIgnore, 별도의 뷰 로직 등등)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">* - 실무에서는 같은 엔티티에 대해 API가 용도에 따라 다양하게 만들어지는데, 한 엔티티에 각각의
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">API를 위한 프레젠테이션 응답 로직을 담기는 어렵다.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">* - 엔티티가 변경되면 API 스펙이 변한다.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">* - 추가로 컬렉션을 직접 반환하면 항후 API 스펙을 변경하기 어렵다.(별도의 Result 클래스생성으로 해결) 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">* 결론
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">* - API 응답 스펙에 맞추어 별도의 DTO를 반환한다. */</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//조회 V1: 안 좋은 버전, 모든 엔티티가 노출, @JsonIgnore -&gt; 이건 정말 최악, api가 이거 하나인가! 화면에 종속적이지 마라!
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">@GetMapping</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/api/v1/members&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> List<span style="color:#f92672">&lt;</span>Member<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">membersV1</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> memberService<span style="color:#f92672">.</span><span style="color:#a6e22e">findMembers</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><hr>
+<p>회원조회 V2 API는 응답 값으로 엔티티가 아닌 별도의 DTO를 사용할 수 있도록 설계합니다.</p>
+<hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">              
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * 조회 V2: 응답 값으로 엔티티가 아닌 별도의 DTO를 반환한다.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@GetMapping</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/api/v2/members&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> Result <span style="color:#a6e22e">membersV2</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    List<span style="color:#f92672">&lt;</span>Member<span style="color:#f92672">&gt;</span> findMembers <span style="color:#f92672">=</span> memberService<span style="color:#f92672">.</span><span style="color:#a6e22e">findMembers</span><span style="color:#f92672">();</span> <span style="color:#75715e">//엔티티 -&gt; DTO 변환
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    List<span style="color:#f92672">&lt;</span>MemberDto<span style="color:#f92672">&gt;</span> collect <span style="color:#f92672">=</span> findMembers<span style="color:#f92672">.</span><span style="color:#a6e22e">stream</span><span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">.</span><span style="color:#a6e22e">map</span><span style="color:#f92672">(</span>m <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">new</span> MemberDto<span style="color:#f92672">(</span>m<span style="color:#f92672">.</span><span style="color:#a6e22e">getName</span><span style="color:#f92672">()))</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">.</span><span style="color:#a6e22e">collect</span><span style="color:#f92672">(</span>Collectors<span style="color:#f92672">.</span><span style="color:#a6e22e">toList</span><span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> Result<span style="color:#f92672">(</span>collect<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>      
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@Data</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@AllArgsConstructor</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Result</span><span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> T data<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>      
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@Data</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@AllArgsConstructor</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MemberDto</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> String name<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><hr>
+<p>이제 본격적으로 더 상세한 API 개발을 진행하겠습니다. 우선 조회용 샘플 데이터를 입력합니다.</p>
+<hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#f92672">package</span> jpabook.jpashop<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> jpabook.jpashop.domain.*<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> jpabook.jpashop.domain.item.Book<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> lombok.RequiredArgsConstructor<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> org.springframework.stereotype.Component<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> org.springframework.transaction.annotation.Transactional<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> javax.annotation.PostConstruct<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> javax.persistence.EntityManager<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@Component</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@RequiredArgsConstructor</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">InitDb</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">final</span> InitService initService<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@PostConstruct</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">init</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        initService<span style="color:#f92672">.</span><span style="color:#a6e22e">dbInit1</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>        initService<span style="color:#f92672">.</span><span style="color:#a6e22e">dbInit2</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Component</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Transactional</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@RequiredArgsConstructor</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">InitService</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">final</span> EntityManager em<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">dbInit1</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            Member member <span style="color:#f92672">=</span> createMember<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;userA&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;서울&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;1&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;1111&#34;</span><span style="color:#f92672">);</span> em<span style="color:#f92672">.</span><span style="color:#a6e22e">persist</span><span style="color:#f92672">(</span>member<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            Book book1 <span style="color:#f92672">=</span> createBook<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;JPA1 BOOK&#34;</span><span style="color:#f92672">,</span> 10000<span style="color:#f92672">,</span> 100<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            em<span style="color:#f92672">.</span><span style="color:#a6e22e">persist</span><span style="color:#f92672">(</span>book1<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            Book book2 <span style="color:#f92672">=</span> createBook<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;JPA2 BOOK&#34;</span><span style="color:#f92672">,</span> 20000<span style="color:#f92672">,</span> 100<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            em<span style="color:#f92672">.</span><span style="color:#a6e22e">persist</span><span style="color:#f92672">(</span>book2<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            OrderItem orderItem1 <span style="color:#f92672">=</span> OrderItem<span style="color:#f92672">.</span><span style="color:#a6e22e">createOrderItem</span><span style="color:#f92672">(</span>book1<span style="color:#f92672">,</span> 10000<span style="color:#f92672">,</span> 1<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            OrderItem orderItem2 <span style="color:#f92672">=</span> OrderItem<span style="color:#f92672">.</span><span style="color:#a6e22e">createOrderItem</span><span style="color:#f92672">(</span>book2<span style="color:#f92672">,</span> 20000<span style="color:#f92672">,</span> 2<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            Order order <span style="color:#f92672">=</span> Order<span style="color:#f92672">.</span><span style="color:#a6e22e">createOrder</span><span style="color:#f92672">(</span>member<span style="color:#f92672">,</span> createDelivery<span style="color:#f92672">(</span>member<span style="color:#f92672">),</span>
+</span></span><span style="display:flex;"><span>orderItem1<span style="color:#f92672">,</span> orderItem2<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            em<span style="color:#f92672">.</span><span style="color:#a6e22e">persist</span><span style="color:#f92672">(</span>order<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">dbInit2</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            Member member <span style="color:#f92672">=</span> createMember<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;userB&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;진주&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;2&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;2222&#34;</span><span style="color:#f92672">);</span> em<span style="color:#f92672">.</span><span style="color:#a6e22e">persist</span><span style="color:#f92672">(</span>member<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            Book book1 <span style="color:#f92672">=</span> createBook<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;SPRING1 BOOK&#34;</span><span style="color:#f92672">,</span> 20000<span style="color:#f92672">,</span> 200<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            em<span style="color:#f92672">.</span><span style="color:#a6e22e">persist</span><span style="color:#f92672">(</span>book1<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            Book book2 <span style="color:#f92672">=</span> createBook<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;SPRING2 BOOK&#34;</span><span style="color:#f92672">,</span> 40000<span style="color:#f92672">,</span> 300<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            em<span style="color:#f92672">.</span><span style="color:#a6e22e">persist</span><span style="color:#f92672">(</span>book2<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            Delivery delivery <span style="color:#f92672">=</span> createDelivery<span style="color:#f92672">(</span>member<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            OrderItem orderItem1 <span style="color:#f92672">=</span> OrderItem<span style="color:#f92672">.</span><span style="color:#a6e22e">createOrderItem</span><span style="color:#f92672">(</span>book1<span style="color:#f92672">,</span> 20000<span style="color:#f92672">,</span> 3<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            OrderItem orderItem2 <span style="color:#f92672">=</span> OrderItem<span style="color:#f92672">.</span><span style="color:#a6e22e">createOrderItem</span><span style="color:#f92672">(</span>book2<span style="color:#f92672">,</span> 40000<span style="color:#f92672">,</span> 4<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            Order order <span style="color:#f92672">=</span> Order<span style="color:#f92672">.</span><span style="color:#a6e22e">createOrder</span><span style="color:#f92672">(</span>member<span style="color:#f92672">,</span> delivery<span style="color:#f92672">,</span> orderItem1<span style="color:#f92672">,</span>
+</span></span><span style="display:flex;"><span>orderItem2<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            em<span style="color:#f92672">.</span><span style="color:#a6e22e">persist</span><span style="color:#f92672">(</span>order<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">private</span> Member <span style="color:#a6e22e">createMember</span><span style="color:#f92672">(</span>String name<span style="color:#f92672">,</span> String city<span style="color:#f92672">,</span> String street<span style="color:#f92672">,</span> String zipcode<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            Member member <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Member<span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>            member<span style="color:#f92672">.</span><span style="color:#a6e22e">setName</span><span style="color:#f92672">(</span>name<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            member<span style="color:#f92672">.</span><span style="color:#a6e22e">setAddress</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> Address<span style="color:#f92672">(</span>city<span style="color:#f92672">,</span> street<span style="color:#f92672">,</span> zipcode<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> member<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">private</span> Book <span style="color:#a6e22e">createBook</span><span style="color:#f92672">(</span>String name<span style="color:#f92672">,</span> <span style="color:#66d9ef">int</span> price<span style="color:#f92672">,</span> <span style="color:#66d9ef">int</span> stockQuantity<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            Book book <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Book<span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>            book<span style="color:#f92672">.</span><span style="color:#a6e22e">setName</span><span style="color:#f92672">(</span>name<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            book<span style="color:#f92672">.</span><span style="color:#a6e22e">setPrice</span><span style="color:#f92672">(</span>price<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            book<span style="color:#f92672">.</span><span style="color:#a6e22e">setStockQuantity</span><span style="color:#f92672">(</span>stockQuantity<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> book<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">private</span> Delivery <span style="color:#a6e22e">createDelivery</span><span style="color:#f92672">(</span>Member member<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            Delivery delivery <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Delivery<span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>            delivery<span style="color:#f92672">.</span><span style="color:#a6e22e">setAddress</span><span style="color:#f92672">(</span>member<span style="color:#f92672">.</span><span style="color:#a6e22e">getAddress</span><span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> delivery<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span> 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><hr>
+<p>이제 지연 로딩과 조회 성능 최적화를 진행하겠습니다. 우선 V1에서 간단한 주문 조회 API를 설계합니다. 여기에서 엔티티를 직접 노출해보겠습니다.</p>
+<hr>
+<ul>
+<li>OrderSimpleApiController</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#f92672">package</span> jpabook.jpashop.api<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> jpabook.jpashop.domain.Address<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> jpabook.jpashop.domain.Order<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> jpabook.jpashop.domain.OrderStatus<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> jpabook.jpashop.repository.*<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> lombok.Data<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> lombok.RequiredArgsConstructor<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> org.springframework.web.bind.annotation.GetMapping<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> org.springframework.web.bind.annotation.RestController<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> java.time.LocalDateTime<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> java.util.List<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import static</span> java.util.stream.Collectors.toList<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/** *
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">* xToOne(ManyToOne, OneToOne) 관계 최적화 * Order
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">* Order -&gt; Member
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">* Order -&gt; Delivery
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@RestController</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@RequiredArgsConstructor</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">OrderSimpleApiController</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">final</span> OrderRepository orderRepository<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    * V1. 엔티티 직접 노출
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    * - Hibernate5Module 모듈 등록, LAZY=null 처리 * - 양방향 관계 문제 발생 -&gt; @JsonIgnore
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    */</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@GetMapping</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/api/v1/simple-orders&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> List<span style="color:#f92672">&lt;</span>Order<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">ordersV1</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        List<span style="color:#f92672">&lt;</span>Order<span style="color:#f92672">&gt;</span> all <span style="color:#f92672">=</span> orderRepository<span style="color:#f92672">.</span><span style="color:#a6e22e">findAllByString</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> OrderSearch<span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span>Order order <span style="color:#f92672">:</span> all<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            order<span style="color:#f92672">.</span><span style="color:#a6e22e">getMember</span><span style="color:#f92672">().</span><span style="color:#a6e22e">getName</span><span style="color:#f92672">();</span> <span style="color:#75715e">//Lazy 강제 초기화
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            order<span style="color:#f92672">.</span><span style="color:#a6e22e">getDelivery</span><span style="color:#f92672">().</span><span style="color:#a6e22e">getAddress</span><span style="color:#f92672">();</span> <span style="color:#75715e">//Lazy 강제 초기환 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> all<span style="color:#f92672">;</span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><hr>
+<ul>
+<li>JpashopApplication 에 다음 코드 추가</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@Bean</span>
+</span></span><span style="display:flex;"><span>Hibernate5Module <span style="color:#a6e22e">hibernate5Module</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> Hibernate5Module<span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><hr>
+<ul>
+<li>다음과 같이 설정하면 강제로 지연 로딩 가능</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@Bean</span>
+</span></span><span style="display:flex;"><span>Hibernate5Module <span style="color:#a6e22e">hibernate5Module</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    Hibernate5Module hibernate5Module <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Hibernate5Module<span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//강제 지연 로딩 설정 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    hibernate5Module<span style="color:#f92672">.</span><span style="color:#a6e22e">configure</span><span style="color:#f92672">(</span>Hibernate5Module<span style="color:#f92672">.</span><span style="color:#a6e22e">Feature</span><span style="color:#f92672">.</span><span style="color:#a6e22e">FORCE_LAZY_LOADING</span><span style="color:#f92672">,</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">true</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> hibernate5Module<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><hr>
+<p>이제 간단한 주문 조회용 API V2를 개발하겠습니다. 여기에서는 엔티티를 DTO로 변환합니다.</p>
+<hr>
+<ul>
+<li>OrderSimpleApiController에 다음 추가</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">* V2. 엔티티를 조회해서 DTO로 변환(fetch join 사용X) * - 단점: 지연로딩으로 쿼리 N번 호출
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@GetMapping</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/api/v2/simple-orders&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> List<span style="color:#f92672">&lt;</span>SimpleOrderDto<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">ordersV2</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    List<span style="color:#f92672">&lt;</span>Order<span style="color:#f92672">&gt;</span> orders <span style="color:#f92672">=</span> orderRepository<span style="color:#f92672">.</span><span style="color:#a6e22e">findAll</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>    List<span style="color:#f92672">&lt;</span>SimpleOrderDto<span style="color:#f92672">&gt;</span> result <span style="color:#f92672">=</span> orders<span style="color:#f92672">.</span><span style="color:#a6e22e">stream</span><span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">.</span><span style="color:#a6e22e">map</span><span style="color:#f92672">(</span>o <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">new</span> SimpleOrderDto<span style="color:#f92672">(</span>o<span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">.</span><span style="color:#a6e22e">collect</span><span style="color:#f92672">(</span>toList<span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> result<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@Data</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">SimpleOrderDto</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> Long orderId<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> String name<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> LocalDateTime orderDate<span style="color:#f92672">;</span> <span style="color:#75715e">//주문시간 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">private</span> OrderStatus orderStatus<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> Address address<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">SimpleOrderDto</span><span style="color:#f92672">(</span>Order order<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        orderId <span style="color:#f92672">=</span> order<span style="color:#f92672">.</span><span style="color:#a6e22e">getId</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>        name <span style="color:#f92672">=</span> order<span style="color:#f92672">.</span><span style="color:#a6e22e">getMember</span><span style="color:#f92672">().</span><span style="color:#a6e22e">getName</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>        orderDate <span style="color:#f92672">=</span> order<span style="color:#f92672">.</span><span style="color:#a6e22e">getOrderDate</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>        orderStatus <span style="color:#f92672">=</span> order<span style="color:#f92672">.</span><span style="color:#a6e22e">getStatus</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>        address <span style="color:#f92672">=</span> order<span style="color:#f92672">.</span><span style="color:#a6e22e">getDelivery</span><span style="color:#f92672">().</span><span style="color:#a6e22e">getAddress</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span> 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><hr>
+<p>이제 간단한 주문 조회용 V3 API를 개발하여 엔티티를 DTO로 변환하겠습니다. 페치 조인 최적화를 중점으로 개발하겠습니다.</p>
+<hr>
+<ul>
+<li>OrderSimpleApiController에 다음 코드 추가</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">* V3. 엔티티를 조회해서 DTO로 변환(fetch join 사용O)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">* - fetch join으로 쿼리 1번 호출
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">* 참고: fetch join에 대한 자세한 내용은 JPA 기본편 참고(정말 중요함) 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@GetMapping</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/api/v3/simple-orders&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> List<span style="color:#f92672">&lt;</span>SimpleOrderDto<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">ordersV3</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    List<span style="color:#f92672">&lt;</span>Order<span style="color:#f92672">&gt;</span> orders <span style="color:#f92672">=</span> orderRepository<span style="color:#f92672">.</span><span style="color:#a6e22e">findAllWithMemberDelivery</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>    List<span style="color:#f92672">&lt;</span>SimpleOrderDto<span style="color:#f92672">&gt;</span> result <span style="color:#f92672">=</span> orders<span style="color:#f92672">.</span><span style="color:#a6e22e">stream</span><span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">.</span><span style="color:#a6e22e">map</span><span style="color:#f92672">(</span>o <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">new</span> SimpleOrderDto<span style="color:#f92672">(</span>o<span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">.</span><span style="color:#a6e22e">collect</span><span style="color:#f92672">(</span>toList<span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> result<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><hr>
+<ul>
+<li>OrderRepository에 다음 코드 추가</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> List<span style="color:#f92672">&lt;</span>Order<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">findAllWithMemberDelivery</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> em<span style="color:#f92672">.</span><span style="color:#a6e22e">createQuery</span><span style="color:#f92672">(</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;select o from Order o&#34;</span> <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34; join fetch o.member m&#34;</span> <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34; join fetch o.delivery d&#34;</span><span style="color:#f92672">,</span> Order<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">.</span><span style="color:#a6e22e">getResultList</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><hr>
+<p>이제 간단한 주문 조회용 V4 API를 개발하여 JPA에서 DTO로 바로 조회해보겠습니다.</p>
+<hr>
+<ul>
+<li>OrderSimpleApiController에 다음 코드 추가</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">final</span> OrderSimpleQueryRepository orderSimpleQueryRepository<span style="color:#f92672">;</span> <span style="color:#75715e">//의존관계 주입
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">* V4. JPA에서 DTO로 바로 조회
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*-쿼리1번 호출
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">* - select 절에서 원하는 데이터만 선택해서 조회 */</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@GetMapping</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/api/v4/simple-orders&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> List<span style="color:#f92672">&lt;</span>OrderSimpleQueryDto<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">ordersV4</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> orderSimpleQueryRepository<span style="color:#f92672">.</span><span style="color:#a6e22e">findOrderDtos</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><hr>
+<ul>
+<li>OrderSimpleQueryRepository 조회 전용 리포지토리 코드 작성</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#f92672">package</span> jpabook.jpashop.repository.order.simplequery<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> lombok.RequiredArgsConstructor<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> org.springframework.stereotype.Repository<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> javax.persistence.EntityManager<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> java.util.List<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@Repository</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@RequiredArgsConstructor</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">OrderSimpleQueryRepository</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">final</span> EntityManager em<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> List<span style="color:#f92672">&lt;</span>OrderSimpleQueryDto<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">findOrderDtos</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> em<span style="color:#f92672">.</span><span style="color:#a6e22e">createQuery</span><span style="color:#f92672">(</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;select new jpabook.jpashop.repository.order.simplequery.OrderSimpleQueryDto(o.id, m.name, o.orderDate, o.status, d.address)&#34;</span> <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34; from Order o&#34;</span> <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34; join o.member m&#34;</span> <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34; join o.delivery d&#34;</span><span style="color:#f92672">,</span> OrderSimpleQueryDto<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">.</span><span style="color:#a6e22e">getResultList</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><hr>
+<ul>
+<li>OrderSimpleQueryDto 리포지토리에서 DTO 직접 조회</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#f92672">package</span> jpabook.jpashop.repository.order.simplequery<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> jpabook.jpashop.domain.Address<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> jpabook.jpashop.domain.OrderStatus<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> lombok.Data<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> java.time.LocalDateTime<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@Data</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">OrderSimpleQueryDto</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span> Long orderId<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span> String name<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span> LocalDateTime orderDate<span style="color:#f92672">;</span> <span style="color:#75715e">//주문시간 private OrderStatus orderStatus;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">private</span> Address address<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">OrderSimpleQueryDto</span><span style="color:#f92672">(</span>Long orderId<span style="color:#f92672">,</span> String name<span style="color:#f92672">,</span> LocalDateTime orderDate<span style="color:#f92672">,</span> OrderStatus orderStatus<span style="color:#f92672">,</span> Address address<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">orderId</span> <span style="color:#f92672">=</span> orderId<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> name<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">orderDate</span> <span style="color:#f92672">=</span> orderDate<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">orderStatus</span> <span style="color:#f92672">=</span> orderStatus<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">address</span> <span style="color:#f92672">=</span> address<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span> 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><hr>
+<p>이제 컬렉션 조회 최적화를 진행하겠습니다. 우선 주문 조회 V1 API에서 엔티티를 직접 노출하겠습니다.</p>
+<hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#f92672">package</span> jpabook.jpashop.api<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> jpabook.jpashop.domain.Address<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> jpabook.jpashop.domain.Order<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> jpabook.jpashop.domain.OrderItem<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> jpabook.jpashop.domain.OrderStatus<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> jpabook.jpashop.repository.*<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> lombok.Data<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> lombok.RequiredArgsConstructor<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> org.springframework.web.bind.annotation.GetMapping<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> org.springframework.web.bind.annotation.RestController<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> java.time.LocalDateTime<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> java.util.List<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import static</span> java.util.stream.Collectors.*<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">* V1. 엔티티 직접 노출
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">* - 엔티티가 변하면 API 스펙이 변한다.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">* - 트랜잭션 안에서 지연 로딩 필요
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">* - 양방향 연관관계 문제 *
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">* V2. 엔티티를 조회해서 DTO로 변환(fetch join 사용X)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">* - 트랜잭션 안에서 지연 로딩 필요
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">* V3. 엔티티를 조회해서 DTO로 변환(fetch join 사용O)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">* - 페이징 시에는 N 부분을 포기해야함(대신에 batch fetch size? 옵션 주면 N -&gt; 1 쿼리로 변경
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">가능) *
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*V4.JPA에서 DTO로 바로 조회, 컬렉션 N 조회 (1+NQuery)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">* - 페이징 가능
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*V5.JPA에서 DTO로 바로 조회, 컬렉션 1 조회 최적화 버전 (1+1Query)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">* - 페이징 가능
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">* V6. JPA에서 DTO로 바로 조회, 플랫 데이터(1Query) (1 Query)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">* - 페이징 불가능... *
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@RestController</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@RequiredArgsConstructor</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">OrderApiController</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">final</span> OrderRepository orderRepository<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    * V1. 엔티티 직접 노출
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    * - Hibernate5Module 모듈 등록, LAZY=null 처리 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    * - 양방향 관계 문제 발생 -&gt; @JsonIgnore
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    */</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@GetMapping</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/api/v1/orders&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> List<span style="color:#f92672">&lt;</span>Order<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">ordersV1</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        List<span style="color:#f92672">&lt;</span>Order<span style="color:#f92672">&gt;</span> all <span style="color:#f92672">=</span> orderRepository<span style="color:#f92672">.</span><span style="color:#a6e22e">findAll</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span>Order order <span style="color:#f92672">:</span> all<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            order<span style="color:#f92672">.</span><span style="color:#a6e22e">getMember</span><span style="color:#f92672">().</span><span style="color:#a6e22e">getName</span><span style="color:#f92672">();</span> <span style="color:#75715e">//Lazy 강제 초기화 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            order<span style="color:#f92672">.</span><span style="color:#a6e22e">getDelivery</span><span style="color:#f92672">().</span><span style="color:#a6e22e">getAddress</span><span style="color:#f92672">();</span> <span style="color:#75715e">//Lazy 강제 초기환
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            List<span style="color:#f92672">&lt;</span>OrderItem<span style="color:#f92672">&gt;</span> orderItems <span style="color:#f92672">=</span> order<span style="color:#f92672">.</span><span style="color:#a6e22e">getOrderItems</span><span style="color:#f92672">();</span> 
+</span></span><span style="display:flex;"><span>            orderItems<span style="color:#f92672">.</span><span style="color:#a6e22e">stream</span><span style="color:#f92672">().</span><span style="color:#a6e22e">forEach</span><span style="color:#f92672">(</span>o <span style="color:#f92672">-&gt;</span> o<span style="color:#f92672">.</span><span style="color:#a6e22e">getItem</span><span style="color:#f92672">().</span><span style="color:#a6e22e">getName</span><span style="color:#f92672">());</span> <span style="color:#75715e">//Lazy 강제 초기화
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> all<span style="color:#f92672">;</span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><hr>
+<p>주문 조회용 V2 API에서는 엔티티를 DTO로 변환합니다.</p>
+<hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@GetMapping</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/api/v2/orders&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> List<span style="color:#f92672">&lt;</span>OrderDto<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">ordersV2</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    List<span style="color:#f92672">&lt;</span>Order<span style="color:#f92672">&gt;</span> orders <span style="color:#f92672">=</span> orderRepository<span style="color:#f92672">.</span><span style="color:#a6e22e">findAll</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>    List<span style="color:#f92672">&lt;</span>OrderDto<span style="color:#f92672">&gt;</span> result <span style="color:#f92672">=</span> orders<span style="color:#f92672">.</span><span style="color:#a6e22e">stream</span><span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">.</span><span style="color:#a6e22e">map</span><span style="color:#f92672">(</span>o <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">new</span> OrderDto<span style="color:#f92672">(</span>o<span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">.</span><span style="color:#a6e22e">collect</span><span style="color:#f92672">(</span>toList<span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> result<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><hr>
+<p>OrderApiController에는 다음 코드를 추가합니다.</p>
+<hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@Data</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">OrderDto</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> Long orderId<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> String name<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> LocalDateTime orderDate<span style="color:#f92672">;</span> <span style="color:#75715e">//주문시간 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">private</span> OrderStatus orderStatus<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> Address address<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> List<span style="color:#f92672">&lt;</span>OrderItemDto<span style="color:#f92672">&gt;</span> orderItems<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">OrderDto</span><span style="color:#f92672">(</span>Order order<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        orderId <span style="color:#f92672">=</span> order<span style="color:#f92672">.</span><span style="color:#a6e22e">getId</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>        name <span style="color:#f92672">=</span> order<span style="color:#f92672">.</span><span style="color:#a6e22e">getMember</span><span style="color:#f92672">().</span><span style="color:#a6e22e">getName</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>        orderDate <span style="color:#f92672">=</span> order<span style="color:#f92672">.</span><span style="color:#a6e22e">getOrderDate</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>        orderStatus <span style="color:#f92672">=</span> order<span style="color:#f92672">.</span><span style="color:#a6e22e">getStatus</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>        address <span style="color:#f92672">=</span> order<span style="color:#f92672">.</span><span style="color:#a6e22e">getDelivery</span><span style="color:#f92672">().</span><span style="color:#a6e22e">getAddress</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>        orderItems <span style="color:#f92672">=</span> order<span style="color:#f92672">.</span><span style="color:#a6e22e">getOrderItems</span><span style="color:#f92672">().</span><span style="color:#a6e22e">stream</span><span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">.</span><span style="color:#a6e22e">map</span><span style="color:#f92672">(</span>orderItem <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">new</span> OrderItemDto<span style="color:#f92672">(</span>orderItem<span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">.</span><span style="color:#a6e22e">collect</span><span style="color:#f92672">(</span>toList<span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span> 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@Data</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">OrderItemDto</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> String itemName<span style="color:#f92672">;</span><span style="color:#75715e">//상품 명 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">int</span> orderPrice<span style="color:#f92672">;</span> <span style="color:#75715e">//주문 가격 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">int</span> count<span style="color:#f92672">;</span> <span style="color:#75715e">//주문 수량
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">OrderItemDto</span><span style="color:#f92672">(</span>OrderItem orderItem<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        itemName <span style="color:#f92672">=</span> orderItem<span style="color:#f92672">.</span><span style="color:#a6e22e">getItem</span><span style="color:#f92672">().</span><span style="color:#a6e22e">getName</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>        orderPrice <span style="color:#f92672">=</span> orderItem<span style="color:#f92672">.</span><span style="color:#a6e22e">getOrderPrice</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>        count <span style="color:#f92672">=</span> orderItem<span style="color:#f92672">.</span><span style="color:#a6e22e">getCount</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span> 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><hr>
+<p>주문 조회용 V3 API에서 엔티티를 DTO로 변환하겠습니다. 페치 조인 최적화에 중점을 두겠습니다.</p>
+<hr>
+<ul>
+<li>OrderApiController에 다음 코드 추가</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@GetMapping</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/api/v3/orders&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> List<span style="color:#f92672">&lt;</span>OrderDto<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">ordersV3</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    List<span style="color:#f92672">&lt;</span>Order<span style="color:#f92672">&gt;</span> orders <span style="color:#f92672">=</span> orderRepository<span style="color:#f92672">.</span><span style="color:#a6e22e">findAllWithItem</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>    List<span style="color:#f92672">&lt;</span>OrderDto<span style="color:#f92672">&gt;</span> result <span style="color:#f92672">=</span> orders<span style="color:#f92672">.</span><span style="color:#a6e22e">stream</span><span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">.</span><span style="color:#a6e22e">map</span><span style="color:#f92672">(</span>o <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">new</span> OrderDto<span style="color:#f92672">(</span>o<span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">.</span><span style="color:#a6e22e">collect</span><span style="color:#f92672">(</span>toList<span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> result<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><hr>
+<ul>
+<li>OrderRepository에 다음 코드 추가</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> List<span style="color:#f92672">&lt;</span>Order<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">findAllWithItem</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> em<span style="color:#f92672">.</span><span style="color:#a6e22e">createQuery</span><span style="color:#f92672">(</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;select distinct o from Order o&#34;</span> <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34; join fetch o.member m&#34;</span> <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34; join fetch o.delivery d&#34;</span> <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34; join fetch o.orderItems oi&#34;</span> <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34; join fetch oi.item i&#34;</span><span style="color:#f92672">,</span> Order<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">.</span><span style="color:#a6e22e">getResultList</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><hr>
+<p>이제 주문 조회용 V3.1 API를 개발하여 엔티티를 DTO로 변환하겠습니다. 페이징과 한계 돌파를 중점으로 보여드리겠습니다.</p>
+<hr>
+<ul>
+<li>OrderRepository에 다음 코드 추가</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> List<span style="color:#f92672">&lt;</span>Order<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">findAllWithMemberDelivery</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> offset<span style="color:#f92672">,</span> <span style="color:#66d9ef">int</span> limit<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> em<span style="color:#f92672">.</span><span style="color:#a6e22e">createQuery</span><span style="color:#f92672">(</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;select o from Order o&#34;</span> <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34; join fetch o.member m&#34;</span> <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34; join fetch o.delivery d&#34;</span><span style="color:#f92672">,</span> Order<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">.</span><span style="color:#a6e22e">setFirstResult</span><span style="color:#f92672">(</span>offset<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">.</span><span style="color:#a6e22e">setMaxResults</span><span style="color:#f92672">(</span>limit<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">.</span><span style="color:#a6e22e">getResultList</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><hr>
+<ul>
+<li>OrderApiController에 다음 코드 추가</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">* V3.1 엔티티를 조회해서 DTO로 변환 페이징 고려
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*-ToOne 관계만 우선 모두 페치 조인으로 최적화
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">* - 컬렉션 관계는 hibernate.default_batch_fetch_size, @BatchSize로 최적화 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@GetMapping</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/api/v3.1/orders&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> List<span style="color:#f92672">&lt;</span>OrderDto<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">ordersV3_page</span><span style="color:#f92672">(</span><span style="color:#a6e22e">@RequestParam</span><span style="color:#f92672">(</span>value <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;offset&#34;</span><span style="color:#f92672">,</span> defaultValue <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;0&#34;</span><span style="color:#f92672">)</span> <span style="color:#66d9ef">int</span> offset<span style="color:#f92672">,</span>
+</span></span><span style="display:flex;"><span>                                    <span style="color:#a6e22e">@RequestParam</span><span style="color:#f92672">(</span>value <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;limit&#34;</span><span style="color:#f92672">,</span> defaultValue<span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;100&#34;</span><span style="color:#f92672">)</span> <span style="color:#66d9ef">int</span> limit<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    List<span style="color:#f92672">&lt;</span>Order<span style="color:#f92672">&gt;</span> orders <span style="color:#f92672">=</span> orderRepository<span style="color:#f92672">.</span><span style="color:#a6e22e">findAllWithMemberDelivery</span><span style="color:#f92672">(</span>offset<span style="color:#f92672">,</span> limit<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    List<span style="color:#f92672">&lt;</span>OrderDto<span style="color:#f92672">&gt;</span> result <span style="color:#f92672">=</span> orders<span style="color:#f92672">.</span><span style="color:#a6e22e">stream</span><span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">.</span><span style="color:#a6e22e">map</span><span style="color:#f92672">(</span>o <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">new</span> OrderDto<span style="color:#f92672">(</span>o<span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">.</span><span style="color:#a6e22e">collect</span><span style="color:#f92672">(</span>toList<span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> result<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><hr>
+<p>주문 조회용 V4 API에서는 JPA에서 DTO를 직접 조회하겠습니다.</p>
+<hr>
+<ul>
+<li>OrderApiController에 다음 코드 추가</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">final</span> OrderQueryRepository orderQueryRepository<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@GetMapping</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/api/v4/orders&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> List<span style="color:#f92672">&lt;</span>OrderQueryDto<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">ordersV4</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> orderQueryRepository<span style="color:#f92672">.</span><span style="color:#a6e22e">findOrderQueryDtos</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><hr>
+<ul>
+<li>OrderQueryRepository 코드</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#f92672">package</span> jpabook.jpashop.repository.order.query<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> lombok.RequiredArgsConstructor<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> org.springframework.stereotype.Repository<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> javax.persistence.EntityManager<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> java.util.List<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> java.util.Map<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> java.util.stream.Collectors<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@Repository</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@RequiredArgsConstructor</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">OrderQueryRepository</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">final</span> EntityManager em<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">* 컬렉션은 별도로 조회
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">* Query: 루트 1번, 컬렉션 N 번 * 단건 조회에서 많이 사용하는 방식 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> List<span style="color:#f92672">&lt;</span>OrderQueryDto<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">findOrderQueryDtos</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span> <span style="color:#75715e">//루트 조회(toOne 코드를 모두 한번에 조회)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        List<span style="color:#f92672">&lt;</span>OrderQueryDto<span style="color:#f92672">&gt;</span> result <span style="color:#f92672">=</span> findOrders<span style="color:#f92672">();</span> <span style="color:#75715e">//루프를 돌면서 컬렉션 추가(추가 쿼리 실행)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        result<span style="color:#f92672">.</span><span style="color:#a6e22e">forEach</span><span style="color:#f92672">(</span>o <span style="color:#f92672">-&gt;</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            List<span style="color:#f92672">&lt;</span>OrderItemQueryDto<span style="color:#f92672">&gt;</span> orderItems <span style="color:#f92672">=</span> findOrderItems<span style="color:#f92672">(</span>o<span style="color:#f92672">.</span><span style="color:#a6e22e">getOrderId</span><span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>            o<span style="color:#f92672">.</span><span style="color:#a6e22e">setOrderItems</span><span style="color:#f92672">(</span>orderItems<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">});</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> result<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">* 1:N 관계(컬렉션)를 제외한 나머지를 한번에 조회
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> List<span style="color:#f92672">&lt;</span>OrderQueryDto<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">findOrders</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> em<span style="color:#f92672">.</span><span style="color:#a6e22e">createQuery</span><span style="color:#f92672">(</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;select new
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            jpabook.jpashop.repository.order.query.OrderQueryDto(o.id, m.name, o.orderDate,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            o.status, d.address)&#34;</span> <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34; from Order o&#34;</span> <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34; join o.member m&#34;</span> <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34; join o.delivery d&#34;</span><span style="color:#f92672">,</span> OrderQueryDto<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">.</span><span style="color:#a6e22e">getResultList</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">* 1:N 관계인 orderItems 조회
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> List<span style="color:#f92672">&lt;</span>OrderItemQueryDto<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">findOrderItems</span><span style="color:#f92672">(</span>Long orderId<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> em<span style="color:#f92672">.</span><span style="color:#a6e22e">createQuery</span><span style="color:#f92672">(</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;select new
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                jpabook.jpashop.repository.order.query.OrderItemQueryDto(oi.order.id, i.name,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                oi.orderPrice, oi.count)&#34;</span> <span style="color:#f92672">+</span> 
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34; from OrderItem oi&#34;</span> <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34; join oi.item i&#34;</span> <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34; where oi.order.id = : orderId&#34;</span><span style="color:#f92672">,</span>
+</span></span><span style="display:flex;"><span>                OrderItemQueryDto<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">.</span><span style="color:#a6e22e">setParameter</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;orderId&#34;</span><span style="color:#f92672">,</span> orderId<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">.</span><span style="color:#a6e22e">getResultList</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><hr>
+<ul>
+<li>OrderQueryDto</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#f92672">package</span> jpabook.jpashop.repository.order.query<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> jpabook.jpashop.domain.Address<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> jpabook.jpashop.domain.OrderStatus<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> lombok.Data<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> lombok.EqualsAndHashCode<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> java.time.LocalDateTime<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> java.util.List<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@Data</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@EqualsAndHashCode</span><span style="color:#f92672">(</span>of <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;orderId&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">OrderQueryDto</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> Long orderId<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> String name<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> LocalDateTime orderDate<span style="color:#f92672">;</span> <span style="color:#75715e">//주문시간 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">private</span> OrderStatus orderStatus<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> Address address<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> List<span style="color:#f92672">&lt;</span>OrderItemQueryDto<span style="color:#f92672">&gt;</span> orderItems<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">OrderQueryDto</span><span style="color:#f92672">(</span>Long orderId<span style="color:#f92672">,</span> String name<span style="color:#f92672">,</span> LocalDateTime orderDate<span style="color:#f92672">,</span>
+</span></span><span style="display:flex;"><span>    OrderStatus orderStatus<span style="color:#f92672">,</span> Address address<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">orderId</span> <span style="color:#f92672">=</span> orderId<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> name<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">orderDate</span> <span style="color:#f92672">=</span> orderDate<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">orderStatus</span> <span style="color:#f92672">=</span> orderStatus<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">address</span> <span style="color:#f92672">=</span> address<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span> 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><hr>
+<ul>
+<li>OrderItemQueryDto</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#f92672">package</span> jpabook.jpashop.repository.order.query<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> com.fasterxml.jackson.annotation.JsonIgnore<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> lombok.Data<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@Data</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">OrderItemQueryDto</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@JsonIgnore</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> Long orderId<span style="color:#f92672">;</span> <span style="color:#75715e">//주문번호 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">private</span> String itemName<span style="color:#f92672">;</span><span style="color:#75715e">//상품 명 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">int</span> orderPrice<span style="color:#f92672">;</span> <span style="color:#75715e">//주문 가격 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">int</span> count<span style="color:#f92672">;</span> <span style="color:#75715e">//주문 수량
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">OrderItemQueryDto</span><span style="color:#f92672">(</span>Long orderId<span style="color:#f92672">,</span> String itemName<span style="color:#f92672">,</span> <span style="color:#66d9ef">int</span> orderPrice<span style="color:#f92672">,</span> <span style="color:#66d9ef">int</span> count<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">orderId</span> <span style="color:#f92672">=</span> orderId<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">itemName</span> <span style="color:#f92672">=</span> itemName<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">orderPrice</span> <span style="color:#f92672">=</span> orderPrice<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">count</span> <span style="color:#f92672">=</span> count<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span> 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><hr>
+<p>이제 주문 조회용 V5 API에서는 JPA에서 DTO를 직접 조회하겠습니다. 특히, 컬렉션 조회 최적화에 중점을 두어 개발을 하겠습니다.</p>
+<hr>
+<ul>
+<li>OrderApiController에 추가</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@GetMapping</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/api/v5/orders&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> List<span style="color:#f92672">&lt;</span>OrderQueryDto<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">ordersV5</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> orderQueryRepository<span style="color:#f92672">.</span><span style="color:#a6e22e">findAllByDto_optimization</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><hr>
+<ul>
+<li>OrderQueryRepository에 추가</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">* 최적화
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">* Query: 루트 1번, 컬렉션 1번
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">* 데이터를 한꺼번에 처리할 때 많이 사용하는 방식 *
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> List<span style="color:#f92672">&lt;</span>OrderQueryDto<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">findAllByDto_optimization</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//루트 조회(toOne 코드를 모두 한번에 조회)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    List<span style="color:#f92672">&lt;</span>OrderQueryDto<span style="color:#f92672">&gt;</span> result <span style="color:#f92672">=</span> findOrders<span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//orderItem 컬렉션을 MAP 한방에 조회
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    Map<span style="color:#f92672">&lt;</span>Long<span style="color:#f92672">,</span> List<span style="color:#f92672">&lt;</span>OrderItemQueryDto<span style="color:#f92672">&gt;&gt;</span> orderItemMap <span style="color:#f92672">=</span> findOrderItemMap<span style="color:#f92672">(</span>toOrderIds<span style="color:#f92672">(</span>result<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//루프를 돌면서 컬렉션 추가(추가 쿼리 실행X)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    result<span style="color:#f92672">.</span><span style="color:#a6e22e">forEach</span><span style="color:#f92672">(</span>o <span style="color:#f92672">-&gt;</span> o<span style="color:#f92672">.</span><span style="color:#a6e22e">setOrderItems</span><span style="color:#f92672">(</span>orderItemMap<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>o<span style="color:#f92672">.</span><span style="color:#a6e22e">getOrderId</span><span style="color:#f92672">())));</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> result<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span> List<span style="color:#f92672">&lt;</span>Long<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">toOrderIds</span><span style="color:#f92672">(</span>List<span style="color:#f92672">&lt;</span>OrderQueryDto<span style="color:#f92672">&gt;</span> result<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> result<span style="color:#f92672">.</span><span style="color:#a6e22e">stream</span><span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">.</span><span style="color:#a6e22e">map</span><span style="color:#f92672">(</span>o <span style="color:#f92672">-&gt;</span> o<span style="color:#f92672">.</span><span style="color:#a6e22e">getOrderId</span><span style="color:#f92672">())</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">.</span><span style="color:#a6e22e">collect</span><span style="color:#f92672">(</span>Collectors<span style="color:#f92672">.</span><span style="color:#a6e22e">toList</span><span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span> Map<span style="color:#f92672">&lt;</span>Long<span style="color:#f92672">,</span> List<span style="color:#f92672">&lt;</span>OrderItemQueryDto<span style="color:#f92672">&gt;&gt;</span> <span style="color:#a6e22e">findOrderItemMap</span><span style="color:#f92672">(</span>List<span style="color:#f92672">&lt;</span>Long<span style="color:#f92672">&gt;</span> orderIds<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>      List<span style="color:#f92672">&lt;</span>OrderItemQueryDto<span style="color:#f92672">&gt;</span> orderItems <span style="color:#f92672">=</span> em<span style="color:#f92672">.</span><span style="color:#a6e22e">createQuery</span><span style="color:#f92672">(</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#e6db74">&#34;select new
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">              jpabook.jpashop.repository.order.query.OrderItemQueryDto(oi.order.id, i.name,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  oi.orderPrice, oi.count)&#34;</span> <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#e6db74">&#34; from OrderItem oi&#34;</span> <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#e6db74">&#34; join oi.item i&#34;</span> <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#e6db74">&#34; where oi.order.id in :orderIds&#34;</span><span style="color:#f92672">,</span> OrderItemQueryDto<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">.</span><span style="color:#a6e22e">setParameter</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;orderIds&#34;</span><span style="color:#f92672">,</span> orderIds<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">.</span><span style="color:#a6e22e">getResultList</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#66d9ef">return</span> orderItems<span style="color:#f92672">.</span><span style="color:#a6e22e">stream</span><span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">.</span><span style="color:#a6e22e">collect</span><span style="color:#f92672">(</span>Collectors<span style="color:#f92672">.</span><span style="color:#a6e22e">groupingBy</span><span style="color:#f92672">(</span>OrderItemQueryDto<span style="color:#f92672">::</span>getOrderId<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><hr>
+<p>이제 주문 조회용 V6 API를 개발하겠습니다. JPA에서 DTO로 직접 조회하고, 플랫 데이터를 최적화하는 작업을 중점으로 진행하겠습니다.</p>
+<hr>
+<ul>
+<li>OrderApiController에 추가</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@GetMapping</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/api/v6/orders&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> List<span style="color:#f92672">&lt;</span>OrderQueryDto<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">ordersV6</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    List<span style="color:#f92672">&lt;</span>OrderFlatDto<span style="color:#f92672">&gt;</span> flats <span style="color:#f92672">=</span> orderQueryRepository<span style="color:#f92672">.</span><span style="color:#a6e22e">findAllByDto_flat</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> flats<span style="color:#f92672">.</span><span style="color:#a6e22e">stream</span><span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">.</span><span style="color:#a6e22e">collect</span><span style="color:#f92672">(</span>groupingBy<span style="color:#f92672">(</span>o <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">new</span> OrderQueryDto<span style="color:#f92672">(</span>o<span style="color:#f92672">.</span><span style="color:#a6e22e">getOrderId</span><span style="color:#f92672">(),</span>
+</span></span><span style="display:flex;"><span>              o<span style="color:#f92672">.</span><span style="color:#a6e22e">getName</span><span style="color:#f92672">(),</span> o<span style="color:#f92672">.</span><span style="color:#a6e22e">getOrderDate</span><span style="color:#f92672">(),</span> o<span style="color:#f92672">.</span><span style="color:#a6e22e">getOrderStatus</span><span style="color:#f92672">(),</span> o<span style="color:#f92672">.</span><span style="color:#a6e22e">getAddress</span><span style="color:#f92672">()),</span>
+</span></span><span style="display:flex;"><span>              mapping<span style="color:#f92672">(</span>o <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">new</span> OrderItemQueryDto<span style="color:#f92672">(</span>o<span style="color:#f92672">.</span><span style="color:#a6e22e">getOrderId</span><span style="color:#f92672">(),</span>
+</span></span><span style="display:flex;"><span>              o<span style="color:#f92672">.</span><span style="color:#a6e22e">getItemName</span><span style="color:#f92672">(),</span> o<span style="color:#f92672">.</span><span style="color:#a6e22e">getOrderPrice</span><span style="color:#f92672">(),</span> o<span style="color:#f92672">.</span><span style="color:#a6e22e">getCount</span><span style="color:#f92672">()),</span> toList<span style="color:#f92672">())</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">)).</span><span style="color:#a6e22e">entrySet</span><span style="color:#f92672">().</span><span style="color:#a6e22e">stream</span><span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">.</span><span style="color:#a6e22e">map</span><span style="color:#f92672">(</span>e <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">new</span> OrderQueryDto<span style="color:#f92672">(</span>e<span style="color:#f92672">.</span><span style="color:#a6e22e">getKey</span><span style="color:#f92672">().</span><span style="color:#a6e22e">getOrderId</span><span style="color:#f92672">(),</span>
+</span></span><span style="display:flex;"><span>              e<span style="color:#f92672">.</span><span style="color:#a6e22e">getKey</span><span style="color:#f92672">().</span><span style="color:#a6e22e">getName</span><span style="color:#f92672">(),</span> e<span style="color:#f92672">.</span><span style="color:#a6e22e">getKey</span><span style="color:#f92672">().</span><span style="color:#a6e22e">getOrderDate</span><span style="color:#f92672">(),</span> e<span style="color:#f92672">.</span><span style="color:#a6e22e">getKey</span><span style="color:#f92672">().</span><span style="color:#a6e22e">getOrderStatus</span><span style="color:#f92672">(),</span>
+</span></span><span style="display:flex;"><span>              e<span style="color:#f92672">.</span><span style="color:#a6e22e">getKey</span><span style="color:#f92672">().</span><span style="color:#a6e22e">getAddress</span><span style="color:#f92672">(),</span> e<span style="color:#f92672">.</span><span style="color:#a6e22e">getValue</span><span style="color:#f92672">()))</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">.</span><span style="color:#a6e22e">collect</span><span style="color:#f92672">(</span>toList<span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><hr>
+<ul>
+<li>OrderQueryDto에 생성자 추가</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#a6e22e">OrderQueryDto</span><span style="color:#f92672">(</span>Long orderId<span style="color:#f92672">,</span> String name<span style="color:#f92672">,</span> LocalDateTime orderDate<span style="color:#f92672">,</span>
+</span></span><span style="display:flex;"><span>OrderStatus orderStatus<span style="color:#f92672">,</span> Address address<span style="color:#f92672">,</span> List<span style="color:#f92672">&lt;</span>OrderItemQueryDto<span style="color:#f92672">&gt;</span> orderItems<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">orderId</span> <span style="color:#f92672">=</span> orderId<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> name<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">orderDate</span> <span style="color:#f92672">=</span> orderDate<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">orderStatus</span> <span style="color:#f92672">=</span> orderStatus<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">address</span> <span style="color:#f92672">=</span> address<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">orderItems</span> <span style="color:#f92672">=</span> orderItems<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><hr>
+<ul>
+<li>OrderQueryRepository에 추가</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> List<span style="color:#f92672">&lt;</span>OrderFlatDto<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">findAllByDto_flat</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> em<span style="color:#f92672">.</span><span style="color:#a6e22e">createQuery</span><span style="color:#f92672">(</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;select new
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        jpabook.jpashop.repository.order.query.OrderFlatDto(o.id, m.name, o.orderDate,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        o.status, d.address, i.name, oi.orderPrice, oi.count)&#34;</span> <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34; from Order o&#34;</span> <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34; join o.member m&#34;</span> <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34; join o.delivery d&#34;</span> <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34; join o.orderItems oi&#34;</span> <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34; join oi.item i&#34;</span><span style="color:#f92672">,</span> OrderFlatDto<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">.</span><span style="color:#a6e22e">getResultList</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><hr>
+<ul>
+<li>OrderFlatDto</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#f92672">package</span> jpabook.jpashop.repository.order.query<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> jpabook.jpashop.domain.Address<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> jpabook.jpashop.domain.OrderStatus<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> lombok.Data<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> java.time.LocalDateTime<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@Data</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">OrderFlatDto</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> Long orderId<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> String name<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> LocalDateTime orderDate<span style="color:#f92672">;</span> <span style="color:#75715e">//주문시간 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">private</span> Address address<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> OrderStatus orderStatus<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> String itemName<span style="color:#f92672">;</span><span style="color:#75715e">//상품 명 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">int</span> orderPrice<span style="color:#f92672">;</span> <span style="color:#75715e">//주문 가격 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">int</span> count<span style="color:#f92672">;</span> <span style="color:#75715e">//주문 수량
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">OrderFlatDto</span><span style="color:#f92672">(</span>Long orderId<span style="color:#f92672">,</span> String name<span style="color:#f92672">,</span> LocalDateTime orderDate<span style="color:#f92672">,</span>
+</span></span><span style="display:flex;"><span>    OrderStatus orderStatus<span style="color:#f92672">,</span> Address address<span style="color:#f92672">,</span> String itemName<span style="color:#f92672">,</span> <span style="color:#66d9ef">int</span> orderPrice<span style="color:#f92672">,</span> <span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span>    count<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">orderId</span> <span style="color:#f92672">=</span> orderId<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> name<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">orderDate</span> <span style="color:#f92672">=</span> orderDate<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">orderStatus</span> <span style="color:#f92672">=</span> orderStatus<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">address</span> <span style="color:#f92672">=</span> address<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">itemName</span> <span style="color:#f92672">=</span> itemName<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">orderPrice</span> <span style="color:#f92672">=</span> orderPrice<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">count</span> <span style="color:#f92672">=</span> count<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span> 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><hr>
+<p>사실 다음 파트로 &lsquo;OSIV와 성능 최적화&rsquo;와 관련된 내용이 강의에서는 있었습니다. 하지만 주로 이론을 다루는 내용이기에 여기에서는 작성하지 않겠습니다.
+여기까지 스프링 부트와 JPA로 API를 개발하는 과정에 대한 코드를 다루었습니다.</p>
+<hr>
+<p>여기까지 공부하면서 스프링과 스프링 부트, JPA에 대한 기초적인 내용은 모두 공부한 것 같습니다. 아직 공부해야 할 내용이 많지만, 앞으로 CS에 집중하기 위해 다음 포스팅부터는 CS 전공 면접 책을 공부하고 정리한 내용을 게시하려고 합니다. 앞으로 하반기 공채 시즌이 다가오는 만큼, 최대한 매일 해당 내용을 게시하고자 합니다.</p>
+<hr>
+<p>오늘도 긴 글 읽어주시느라 고생하셨습니다. 이상으로 스프링에 대한 내용 포스팅을 모두 마치겠습니다.</p>
+<hr>
+<h4 id="감사합니다">감사합니다.</h4>
+<hr>
+<p>[레퍼런스]</p>
+<ol>
+<li>실전! 스프링 부트와 JPA 활용2 - API 개발과 성능 최적화 : <a href="https://www.inflearn.com/course/%EC%8A%A4%ED%94%84%EB%A7%81%EB%B6%80%ED%8A%B8-JPA-API%EA%B0%9C%EB%B0%9C-%EC%84%B1%EB%8A%A5%EC%B5%9C%EC%A0%81%ED%99%94/dashboard">https://www.inflearn.com/course/%EC%8A%A4%ED%94%84%EB%A7%81%EB%B6%80%ED%8A%B8-JPA-API%EA%B0%9C%EB%B0%9C-%EC%84%B1%EB%8A%A5%EC%B5%9C%EC%A0%81%ED%99%94/dashboard</a></li>
+</ol>
+
+    
+
+    
+  </article>
+  
+  <aside><h3>More from shcDE Tech-Blog</h3>
+<ul class='posts aside'>
+<li class = 'post_item fp'>
+  <a class = 'post_card' href='https://shcde.github.io/post/springboot_jpa1/' title = '스프링 부트와 JPA에 대해 알아볼까요?(1)' style = 'background-image: url(https://shcde.github.io/images/web-design-gc14b2ac25_1920.jpg);'>
+  </a>
+  <div class = 'excerpt'>
+    <div class = 'excerpt_meta'>
+      <a href = 'https://shcde.github.io/tags/development' class = 'post_tag'>development
+      </a><div id=inline class="out">
+  2022-08-15
+</div>
+<div class = 'copy' data-share = 'Copy' data-copied = 'Copied'><svg>
+  <use xlink:href="#copy"></use>
+</svg>
+</div>
+
+<style>
+  .out {
+  border: 2px solid rgb(255, 132, 0);
+  background-color: rgb(255, 132, 0);
+  width: 100px;
+  height: 25px;
+  border-radius: 5px;
+  font:14px 나눔고딕;
+  font-weight:bold;
+}
+
+#inline {
+  text-align: center;
+  line-height: 20px;
+  color : white;
+}
+</style>
+    </div>
+    <h3 class = 'post_link'>
+      <a href='https://shcde.github.io/post/springboot_jpa1/'>스프링 부트와 JPA에 대해 알아볼까요?(1)</a>
+    </h3>
+    <p class = 'pale'>안녕하세요. shcDE입니다. 드디어 이번 포스팅부터는 스프링 부트와 JPA에 대해 다루게 되었습니다. 스프링 부트란 기존 스프링 프레임워크에 톰캣 서버를 내장하 …</p>
+  </div>
+</li>
+
+<li class = 'post_item fp'>
+  <a class = 'post_card' href='https://shcde.github.io/post/spring_basic5/' title = '스프링의 기본에 대해 알아볼까요?(5)' style = 'background-image: url(https://shcde.github.io/images/spring-gfd1d6e339_1920.jpg);'>
+  </a>
+  <div class = 'excerpt'>
+    <div class = 'excerpt_meta'>
+      <a href = 'https://shcde.github.io/tags/development' class = 'post_tag'>development
+      </a><div id=inline class="out">
+  2022-08-13
+</div>
+<div class = 'copy' data-share = 'Copy' data-copied = 'Copied'><svg>
+  <use xlink:href="#copy"></use>
+</svg>
+</div>
+
+<style>
+  .out {
+  border: 2px solid rgb(255, 132, 0);
+  background-color: rgb(255, 132, 0);
+  width: 100px;
+  height: 25px;
+  border-radius: 5px;
+  font:14px 나눔고딕;
+  font-weight:bold;
+}
+
+#inline {
+  text-align: center;
+  line-height: 20px;
+  color : white;
+}
+</style>
+    </div>
+    <h3 class = 'post_link'>
+      <a href='https://shcde.github.io/post/spring_basic5/'>스프링의 기본에 대해 알아볼까요?(5)</a>
+    </h3>
+    <p class = 'pale'>안녕하세요. shcDE입니다. 드디어 이번 포스팅을 마지막으로 스프링 기본 단계 포스팅을 마치게 되었습니다. 이번 포스팅에서는 빈 스코프에 대해 알아보겠으며, 해 …</p>
+  </div>
+</li>
+
+</ul>
+
+  </aside>
+  
+</div>
+<script src = 'https://shcde.github.io/js/autosize.min.js'></script>
+<script src = 'https://shcde.github.io/js/timeago.js'></script>
+    </main><svg width="0" height="0" class="hidden">
+  <symbol viewBox="0 0 699.428 699.428" xmlns="http://www.w3.org/2000/svg" id="copy">
+    <path d="M502.714 0H240.428C194.178 0 153 42.425 153 87.429l-25.267.59c-46.228 0-84.019 41.834-84.019 86.838V612c0 45.004 41.179 87.428 87.429 87.428H459c46.249 0 87.428-42.424 87.428-87.428h21.857c46.25 0 87.429-42.424 87.429-87.428v-349.19zM459 655.715H131.143c-22.95 0-43.714-21.441-43.714-43.715V174.857c0-22.272 18.688-42.993 41.638-42.993l23.933-.721v393.429C153 569.576 194.178 612 240.428 612h262.286c0 22.273-20.765 43.715-43.714 43.715zm153-131.143c0 22.271-20.765 43.713-43.715 43.713H240.428c-22.95 0-43.714-21.441-43.714-43.713V87.429c0-22.272 20.764-43.714 43.714-43.714H459c-.351 50.337 0 87.975 0 87.975 0 45.419 40.872 86.882 87.428 86.882H612zm-65.572-349.715c-23.277 0-43.714-42.293-43.714-64.981V44.348L612 174.857zm-43.714 131.537H306c-12.065 0-21.857 9.77-21.857 21.835s9.792 21.835 21.857 21.835h196.714c12.065 0 21.857-9.771 21.857-21.835 0-12.065-9.792-21.835-21.857-21.835zm0 109.176H306c-12.065 0-21.857 9.77-21.857 21.834 0 12.066 9.792 21.836 21.857 21.836h196.714c12.065 0 21.857-9.77 21.857-21.836 0-12.064-9.792-21.834-21.857-21.834z"
+    ></path>
+  </symbol>
+  <symbol viewBox="0 0 60.015 60.015" xmlns="http://www.w3.org/2000/svg" id="reply">
+    <path d="M42.007 0h-24c-9.925 0-18 8.075-18 18v14c0 9.59 7.538 17.452 17 17.973v8.344a1.694 1.694 0 0 0 1.699 1.698c.44 0 .873-.173 1.198-.498l1.876-1.876C26.708 52.713 33.259 50 40.227 50h1.78c9.925 0 18-8.075 18-18V18c0-9.925-8.075-18-18-18zm16 32c0 8.822-7.178 16-16 16h-1.78c-7.502 0-14.556 2.921-19.86 8.226l-1.359 1.359V44a1 1 0 1 0-2 0v3.949c-8.356-.52-15-7.465-15-15.949V18c0-8.822 7.178-16 16-16h24c8.822 0 16 7.178 16 16v14z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="scan">
+    <path d="M456.66 0H385c-8.284 0-15 6.716-15 15s6.716 15 15 15h71.66C470.632 30 482 41.368 482 55.341V127c0 8.284 6.716 15 15 15s15-6.716 15-15V55.341C512 24.826 487.174 0 456.66 0zM15 142c8.284 0 15-6.716 15-15V55.341C30 41.368 41.368 30 55.34 30H127c8.284 0 15-6.716 15-15s-6.716-15-15-15H55.34C24.826 0 0 24.826 0 55.341V127c0 8.284 6.716 15 15 15zm112 340H55.34C41.368 482 30 470.632 30 456.659V385c0-8.284-6.716-15-15-15s-15 6.716-15 15v71.659C0 487.174 24.826 512 55.34 512H127c8.284 0 15-6.716 15-15s-6.716-15-15-15zm370-112c-8.284 0-15 6.716-15 15v71.659C482 470.632 470.632 482 456.66 482H385c-8.284 0-15 6.716-15 15s6.716 15 15 15h71.66c30.515 0 55.34-24.826 55.34-55.341V385c0-8.284-6.716-15-15-15zM341.643 110h47.575c6.497 0 11.782 5.285 11.782 11.782v47.574c0 8.284 6.716 15 15 15s15-6.716 15-15v-47.574C431 98.743 412.256 80 389.218 80h-47.575c-8.284 0-15 6.716-15 15s6.716 15 15 15zM81 121.782v47.574c0 8.284 6.716 15 15 15s15-6.716 15-15v-47.574c0-6.497 5.286-11.782 11.782-11.782h47.575c8.284 0 15-6.716 15-15s-6.716-15-15-15h-47.575C99.744 80 81 98.743 81 121.782zM170.357 400h-47.575c-6.497 0-11.782-5.285-11.782-11.782v-47.574c0-8.284-6.716-15-15-15s-15 6.716-15 15v47.574C81 411.257 99.744 430 122.782 430h47.575c8.284 0 15-6.716 15-15s-6.716-15-15-15zM431 388.218v-47.574c0-8.284-6.716-15-15-15s-15 6.716-15 15v47.574c0 6.497-5.286 11.782-11.782 11.782h-47.575c-8.284 0-15 6.716-15 15s6.716 15 15 15h47.575C412.256 430 431 411.257 431 388.218zM1 256c0 8.284 6.716 15 15 15h480c8.284 0 15-6.716 15-15s-6.716-15-15-15H16c-8.284 0-15 6.716-15 15z"></path>
+  </symbol>
+</svg>
+<footer class="footer">
+  <div class="footer_inner wrap pale">
+    <p>&copy;&nbsp;<span class="year"></span>&nbsp;shcDE Tech-Blog.
+    Designed by  <a href = 'https://www.linkedin.com/in/dan-weru-profile/' title = 'Linkedin Profile'>Weru</a></p>
+  </div>
+  
+  <script src="https://utteranc.es/client.js"
+        repo="shcDE/blog-comments"
+        issue-term="title"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+  </script>
+</footer><script type="text/javascript" src="https://shcde.github.io/js/bundle.444d59fb57116584f9d07a6aff51bf335fe9975644550a0d68e213d2d51db57326d29ea67a57b44b1b381cf4ca7d866d3e69f5ad5f3d1e49b2fc4edc508cbd03.js" integrity="sha512-RE1Z&#43;1cRZYT50Hpq/1G/M1/pl1ZEVQoNaOIT0tUdtXMm0p6mele0Sxs4HPTKfYZtPmn1rV89Hkmy/E7cUIy9Aw==" crossorigin="anonymous"></script>
+
+  </body>
+</html>

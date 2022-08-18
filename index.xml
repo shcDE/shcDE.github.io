@@ -6,7 +6,17 @@
     <description>Recent content on shcDE Tech-Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Copyright © 2008–2018, Steve Francia and the Hugo Authors; all rights reserved.</copyright>
-    <lastBuildDate>Mon, 15 Aug 2022 23:40:29 +0900</lastBuildDate><atom:link href="https://shcde.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 17 Aug 2022 23:01:00 +0900</lastBuildDate><atom:link href="https://shcde.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>스프링 부트와 JPA에 대해 알아볼까요?(2)</title>
+      <link>https://shcde.github.io/post/springboot_jpa2/</link>
+      <pubDate>Wed, 17 Aug 2022 23:01:00 +0900</pubDate>
+      
+      <guid>https://shcde.github.io/post/springboot_jpa2/</guid>
+      <description>안녕하세요. shcDE입니다. 이번 포스팅에서는 스프링 부트와 JPA를 활용하여 API를 개발하는 방법에 대해 알아보고자 합니다. API란 정의 및 프로토콜 집합을 사용하여 두 소프트웨어 구성 요소가 서로 통신할 수 있게 하는 메커니즘을 의미합니다. 예를 들어, 기상청의 소프트웨어 시스템에는 일일 기상 데이터가 들어 있습니다. 휴대폰의 날씨 애플리케이션은 API를 통해 이 시스템과 대화하여 휴대폰에 매일 최신 날씨 정보를 표시합니다. 이러한 API를 개발하는 방법에 대해 지금부터 알아보겠습니다.
+시작 전에, 해당 포스팅은 김영한님의 &amp;lsquo;실전! 스프링 부트와 JPA 활용2 - API 개발과 성능 최적화&amp;rsquo; 전체 내용을 공부하여 정리한 내용임을 밝히며, 직접 해당 강의를 구매하여 게시물을 작성함을 알립니다.</description>
+    </item>
+    
     <item>
       <title>스프링 부트와 JPA에 대해 알아볼까요?(1)</title>
       <link>https://shcde.github.io/post/springboot_jpa1/</link>
