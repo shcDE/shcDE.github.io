@@ -6,7 +6,17 @@
     <description>Recent content on shcDE Tech-Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Copyright © 2008–2018, Steve Francia and the Hugo Authors; all rights reserved.</copyright>
-    <lastBuildDate>Fri, 19 Aug 2022 19:51:02 +0900</lastBuildDate><atom:link href="https://shcde.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 22 Aug 2022 17:09:40 +0900</lastBuildDate><atom:link href="https://shcde.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>하반기 취업 준비 계획</title>
+      <link>https://shcde.github.io/post/plan/</link>
+      <pubDate>Mon, 22 Aug 2022 17:09:40 +0900</pubDate>
+      
+      <guid>https://shcde.github.io/post/plan/</guid>
+      <description>하반기 취업 시즌 동안 어떻게 준비를 할 것인가? 안녕하세요. shcDE입니다. 원래 이번 포스팅은 CS에 대한 내용을 다룰 예정이었으나, 당분간 개인 프로젝트 제작을 위해 자유 주제로 게시물을 작성할 예정입니다. 따라서, 이번 포스팅은 하반기 취업 시즌이 시작된 만큼 앞으로의 취업 준비 계획에 다룰 예정입니다.
+우선 앞으로 약 2주 동안 개인 프로젝트 작업을 진행할 예정입니다. 그 이유는 첫째로, 현재 진행 중인 사이드 프로젝트가 아직 모두 개발이 완료되지 않았습니다. 이에 따라, 실질적으로 제가 보유한 개발 프로젝트는 현재 존재하지 않는 상황입니다.</description>
+    </item>
+    
     <item>
       <title>마켓컬리 및 구름 해커톤 탈락 후기</title>
       <link>https://shcde.github.io/post/hackerton_fail/</link>
