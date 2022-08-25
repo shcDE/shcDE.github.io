@@ -6,7 +6,17 @@
     <description>Recent content in Posts on shcDE Tech-Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Copyright © 2008–2018, Steve Francia and the Hugo Authors; all rights reserved.</copyright>
-    <lastBuildDate>Tue, 23 Aug 2022 22:16:56 +0900</lastBuildDate><atom:link href="https://shcde.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 25 Aug 2022 18:53:24 +0900</lastBuildDate><atom:link href="https://shcde.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>결제시스템 서버 구현 개인 프로젝트 제작기(1)</title>
+      <link>https://shcde.github.io/post/payment1/</link>
+      <pubDate>Thu, 25 Aug 2022 18:53:24 +0900</pubDate>
+      
+      <guid>https://shcde.github.io/post/payment1/</guid>
+      <description>토이 프로젝트의 제작 방향은 어떻게 진행할 것인가요? 안녕하세요. shcDE입니다. 이번 포스팅부터는 이제 본격적으로 토이 프로젝트를 제작하는 과정에 대해 말씀드리겠습니다. 우선 결론부터 말씀드리자면, 스프링 부트와 아임포트를 활용하여 결제시스템을 구축하려고 합니다. 우선 &amp;lsquo;samchon&amp;rsquo;님의 &amp;lsquo;fake-toss-payments-server&amp;rsquo;를 참고하였을 때 핵심 기능은 다음과 같았습니다.
+간편 결제 카드 결제 가상 계좌 결제 현금 영수증 발행 위의 기능 중에서 저같은 경우 &amp;lsquo;간편 결제&amp;rsquo;와 &amp;lsquo;현금 영수증 발행&amp;rsquo; 기능은 제작하지 않을 예정입니다. 간편 결제의 경우 앱에서 주로 작동되는데, 저는 웹 플랫폼을 만들 예정이기 때문에 생체 인식 과정도 포함되는 해당 기능은 거리가 멀다고 느꼈습니다.</description>
+    </item>
+    
     <item>
       <title>개인 프로젝트 개발 계획</title>
       <link>https://shcde.github.io/post/individual/</link>
