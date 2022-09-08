@@ -2,25 +2,28 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://shcde.github.io/post/long/</loc>
-    <lastmod>2022-09-06T21:54:00+09:00</lastmod>
-  </url><url>
     <loc>https://shcde.github.io/categories/</loc>
-    <lastmod>2022-09-06T21:54:00+09:00</lastmod>
+    <lastmod>2022-09-08T20:43:16+09:00</lastmod>
   </url><url>
     <loc>https://shcde.github.io/tags/freetalk/</loc>
-    <lastmod>2022-09-06T21:54:00+09:00</lastmod>
+    <lastmod>2022-09-08T20:43:16+09:00</lastmod>
   </url><url>
     <loc>https://shcde.github.io/categories/freetalk/</loc>
-    <lastmod>2022-09-06T21:54:00+09:00</lastmod>
+    <lastmod>2022-09-08T20:43:16+09:00</lastmod>
   </url><url>
     <loc>https://shcde.github.io/post/</loc>
-    <lastmod>2022-09-06T21:54:00+09:00</lastmod>
+    <lastmod>2022-09-08T20:43:16+09:00</lastmod>
   </url><url>
     <loc>https://shcde.github.io/</loc>
-    <lastmod>2022-09-06T21:54:00+09:00</lastmod>
+    <lastmod>2022-09-08T20:43:16+09:00</lastmod>
   </url><url>
     <loc>https://shcde.github.io/tags/</loc>
+    <lastmod>2022-09-08T20:43:16+09:00</lastmod>
+  </url><url>
+    <loc>https://shcde.github.io/post/doonamu/</loc>
+    <lastmod>2022-09-08T20:43:16+09:00</lastmod>
+  </url><url>
+    <loc>https://shcde.github.io/post/long/</loc>
     <lastmod>2022-09-06T21:54:00+09:00</lastmod>
   </url><url>
     <loc>https://shcde.github.io/tags/development/</loc>
